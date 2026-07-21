@@ -290,6 +290,25 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .g-b{grid-column:span 2}
 @media(max-width:820px){.g-a{grid-column:span 2}.g-b{grid-column:span 2}}
 
+/* FACTS */
+.facts{background:linear-gradient(160deg,#123b41 0%,#15171C 72%);color:#fff;position:relative;overflow:hidden}
+.facts::before{content:"";position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(14,154,147,0.45),transparent 70%);top:-160px;right:-120px;filter:blur(60px);z-index:0}
+.facts::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(224,135,43,0.25),transparent 70%);bottom:-180px;left:-140px;filter:blur(70px);z-index:0}
+.facts .eyebrow{color:#5fd8ce;position:relative;z-index:2}
+.facts .eyebrow::before{background:#5fd8ce}
+.facts .section-h{color:#fff;position:relative;z-index:2}
+.facts .section-h em{color:#5fd8ce}
+.facts .section-lead{color:rgba(255,255,255,0.78);position:relative;z-index:2}
+.facts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:3rem;position:relative;z-index:2}
+@media(max-width:900px){.facts-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.facts-grid{grid-template-columns:1fr}}
+.factc{background:rgba(255,255,255,0.055);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:22px 22px 24px;transition:transform .25s,background .25s,border-color .25s}
+.factc:hover{transform:translateY(-4px);background:rgba(255,255,255,0.1);border-color:rgba(95,216,206,0.5)}
+.factc-ico{font-size:24px;line-height:1;margin-bottom:13px;display:block}
+.factc-h{font-family:var(--disp);font-size:16px;font-weight:600;color:#fff;margin-bottom:8px;line-height:1.25}
+.factc-d{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6}
+.factc-d b{color:#8fe6dd;font-weight:600}
+
 /* FOOTER */
 footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 .foot-h{font-size:clamp(30px,5vw,54px);text-align:center;color:#fff}
@@ -320,6 +339,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
     <a class="nav-link" href="#now">События</a>
     <a class="nav-link" href="#planner">Маршрут</a>
     <a class="nav-link" href="#history">История</a>
+    <a class="nav-link" href="#facts">Любопытное</a>
     <button class="nav-cta" onclick="document.getElementById('planner').scrollIntoView()">Собрать маршрут</button>
   </div>
 </nav>
@@ -344,9 +364,9 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
       </div>
     </div>
     <div class="hero-visual fade">
-      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/River_Amur-Heihe.jpg" alt="Амур, Благовещенск и Хэйхэ" loading="eager" onerror="this.style.display='none'">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Triumphal_arch_in_Blagoveshchensk_2023-11_1701250430.jpg" alt="Триумфальная арка на набережной Амура, Благовещенск" loading="eager" onerror="this.style.display='none'">
       <div class="flag">RU ↔ CN<span>Амур · граница</span></div>
-      <div class="badge"><span class="dot"></span>Хэйхэ — на том берегу</div>
+      <div class="badge"><span class="dot"></span>Триумфальная арка на Амуре</div>
     </div>
   </div>
   <div class="wrap">
@@ -366,7 +386,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
     <h2 class="section-h fade">Четыре разных Благовещенска<br>в одной <em>поездке</em></h2>
     <p class="section-lead fade">За несколько дней — пройти по набережной лицом к китайскому мегаполису, застать купеческий «Амурский Чикаго», потрогать кости динозавров и увидеть, откуда стартуют ракеты.</p>
     <div class="bento">
-      <div class="cell big photo fade" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk-Csesarevich-Nicholas-Triumphal-Arch.jpg')">
+      <div class="cell big photo fade" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Views_of_Blagoveshchensk_(November_2023)_-_1.jpg')">
         <div class="in"><h3>Амур и граница</h3><p>Набережная, Триумфальная арка, памятник Муравьёву-Амурскому, первый автомост Россия–Китай и первая в мире трансграничная канатка в Хэйхэ.</p></div>
       </div>
       <div class="cell accent fade"><div class="kpi">750<small> м</small></div><div class="lbl">воды до Китая — города стоят «глаза в глаза»</div></div>
@@ -518,25 +538,48 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
   </div>
 </section>
 
+<!-- FACTS -->
+<section class="section facts" id="facts">
+  <div class="wrap">
+    <span class="eyebrow fade">07 — любопытное</span>
+    <h2 class="section-h fade">Неожиданный <em>Благовещенск</em></h2>
+    <p class="section-lead fade">Факты, курьёзы и городские байки, которые превращают поездку в историю — из впечатлений тех, кто уже съездил на границу двух миров.</p>
+    <div class="facts-grid">
+      <div class="factc fade"><span class="factc-ico">🏙️</span><div class="factc-h">750 метров — и ты в другом мире</div><div class="factc-d">С набережной видно, как живёт китайский Хэйхэ. <b>Единственная в мире пара городов двух стран</b>, стоящих так близко: свои язык, кухня, деньги и уклад — через одну реку.</div></div>
+      <div class="factc fade"><span class="factc-ico">🚗</span><div class="factc-h">Почти все машины — «праворульки»</div><div class="factc-d">Около <b>90% автомобилей праворульные</b>, и таксист сидит справа. Дальневосточная привычка, к которой приезжие привыкают буквально за день.</div></div>
+      <div class="factc fade"><span class="factc-ico">🧳</span><div class="factc-h">Памятник Челноку</div><div class="factc-d">В 90-е «кирпичи» — люди-перевозчики — таскали через Амур <b>больше 30 тонн товара в день</b>. Челночный бизнес держал город на плаву, когда экономика стояла. Ему поставили памятник.</div></div>
+      <div class="factc fade"><span class="factc-ico">💱</span><div class="factc-h">Юань всё перевернул</div><div class="factc-d">Когда юань стоил 3–5 ₽, русские ездили в Хэйхэ за всем подряд. Теперь юань 12–13 ₽ — и <b>уже китайцы едут скупать в Благовещенск</b>.</div></div>
+      <div class="factc fade"><span class="factc-ico">🐕</span><div class="factc-h">Пёс Дружок с набережной</div><div class="factc-d">В наводнение 2013-го Амур поднялся на 8 метров и затопил ~120 сёл. Пёс несколько дней ждал хозяев на крыльце затопленного дома — теперь <b>бронзовый Дружок «охраняет весь город»</b>.</div></div>
+      <div class="factc fade"><span class="factc-ico">🏛️</span><div class="factc-h">Арку построили за полгода</div><div class="factc-d">Триумфальную арку возвели к приезду цесаревича Николая. Такие же ставили в Хабаровске и Владивостоке, но <b>благовещенская — самая большая</b>.</div></div>
+      <div class="factc fade"><span class="factc-ico">🚡</span><div class="factc-h">Канатка из страны в страну</div><div class="factc-d">Первая в мире трансграничная канатная дорога через Амур. Кабины — <b>до 110 человек каждая</b>, и над рекой между двумя государствами всего несколько минут.</div></div>
+      <div class="factc fade"><span class="factc-ico">🎻</span><div class="factc-h">Балалайка встречает пипу</div><div class="factc-d">В парке Дружбы за китайской пагодой стоит советская панелька, а рядом — <b>памятник русской балалайке и китайской пипе</b>. Мир, дружба, музыка.</div></div>
+      <div class="factc fade"><span class="factc-ico">💊</span><div class="factc-h">За здоровьем — в Китай</div><div class="factc-d">В Хэйхэ летят со всей России за <b>стоматологией и бьюти-процедурами «под ключ»</b>: дешевле, с гарантией и всем спектром услуг в одном центре.</div></div>
+      <div class="factc fade"><span class="factc-ico">🍜</span><div class="factc-h">Порция — минимум 400 грамм</div><div class="factc-d">В китайских кафе блюда заказывают <b>на всех и ставят в центр стола</b>. Меньше 400 г не бывает — вдвоём осилить три блюда почти нереально.</div></div>
+      <div class="factc fade"><span class="factc-ico">⚔️</span><div class="factc-h">Когда на набережной стояли пушки</div><div class="factc-d">В 1900-м, во время Боксёрского восстания в Китае, граница у города на пару месяцев стала <b>линией вооружённого противостояния</b>. Сегодня на том же берегу — прогулки и фонтаны.</div></div>
+      <div class="factc fade"><span class="factc-ico">🤖</span><div class="factc-h">Нейросеть-цензор в музее</div><div class="factc-d">В музее спросили про тот конфликт у китайского DeepSeek — он <b>вежливо отказался отвечать</b>. ChatGPT рассказал всё. Один вопрос — разные страны, разные ответы.</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- GALLERY -->
 <section class="section" id="gallery" style="background:var(--surf);border-top:1px solid var(--line)">
   <div class="wrap">
-    <span class="eyebrow fade">07 — галерея</span>
+    <span class="eyebrow fade">08 — галерея</span>
     <h2 class="section-h fade">Благовещенск <em>в кадре</em></h2>
     <p class="section-lead fade">Набережная лицом к Китаю, Триумфальная арка, мост через Амур, космос и динозавры.</p>
     <div class="gal-grid fade">
-      <a class="gal g-a" href="https://commons.wikimedia.org/wiki/Category:Triumphal_arch_in_Blagoveshchensk" target="_blank" rel="noopener">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk-Csesarevich-Nicholas-Triumphal-Arch.jpg" alt="Триумфальная арка" loading="lazy" onerror="this.style.display='none'">
+      <a class="gal g-a" href="https://commons.wikimedia.org/wiki/Category:Blagoveshchensk" target="_blank" rel="noopener">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk,_Russia_---_Heihe,_China_(8789415981).jpg" alt="Благовещенск и китайский Хэйхэ через Амур" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M4 21V6a8 8 0 0116 0v15M4 21h16M9 21v-7a3 3 0 016 0v7"/></svg></div>
-        <div class="gal-body"><span class="gal-cap">01 · Триумфальная арка</span><div class="gal-h">Визитная карточка набережной</div></div>
+        <div class="gal-body"><span class="gal-cap">01 · Через Амур</span><div class="gal-h">Благовещенск и Хэйхэ — глаза в глаза</div></div>
       </a>
       <a class="gal g-b" href="https://commons.wikimedia.org/wiki/Category:Blagoveshchensk" target="_blank" rel="noopener">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/River_Amur-Heihe.jpg" alt="Набережная Амура" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M3 18c3 0 4-2 7-2s4 2 7 2M3 14c3 0 4-2 7-2s4 2 7 2M3 22h18"/></svg></div>
         <div class="gal-body"><span class="gal-cap">02 · Набережная Амура</span><div class="gal-h">Хэйхэ на том берегу</div></div>
       </a>
-      <a class="gal" href="https://commons.wikimedia.org/wiki/File:Кафедральный_собор_Благовещения_Пресвятой_Богородицы.jpg" target="_blank" rel="noopener">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Кафедральный_собор_Благовещения_Пресвятой_Богородицы.jpg" alt="Кафедральный собор Благовещения" loading="lazy" onerror="this.style.display='none'">
+      <a class="gal" href="https://commons.wikimedia.org/wiki/Category:Annunciation_Cathedral_(Blagoveshchensk)" target="_blank" rel="noopener">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/201907_Cathedral_of_the_Annunciation_of_the_Blessed_Virgin_Mary,_Blagoveshchensk_01.jpg" alt="Кафедральный собор Благовещения в Благовещенске" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 2l2 4h-4l2-4zM7 10l5-3 5 3v11H7zM10 21v-5h4v5"/></svg></div>
         <div class="gal-body"><span class="gal-cap">03 · Собор Благовещения</span><div class="gal-h">Пять золочёных куполов</div></div>
       </a>
@@ -556,12 +599,12 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
         <div class="gal-body"><span class="gal-cap">06 · Лотосы Комарова</span><div class="gal-h">Цветут в июле у Ивановки</div></div>
       </a>
       <a class="gal g-b" href="https://commons.wikimedia.org/wiki/Category:Vostochny_Cosmodrome" target="_blank" rel="noopener">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Soyuz_MS-14_launches_from_Baikonur_Cosmodrome.jpg" alt="Старт ракеты «Союз»" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Первый_пуск_с_космодрома_Восточный.jpg" alt="Первый пуск с космодрома Восточный" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 2c3 3 4 7 4 10l-4 4-4-4c0-3 1-7 4-10zM8 16l-3 3 3-1M16 16l3 3-3-1M10 21h4"/></svg></div>
-        <div class="gal-body"><span class="gal-cap">07 · Космос рядом</span><div class="gal-h">«Союз» на старте · Восточный в 180 км</div></div>
+        <div class="gal-body"><span class="gal-cap">07 · Космодром Восточный</span><div class="gal-h">Первый пуск «Союза-2» · 180 км от города</div></div>
       </a>
       <a class="gal" href="https://commons.wikimedia.org/wiki/Category:Blagoveshchensk" target="_blank" rel="noopener">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Statue-of-Nikolay-Muravyov-Amursky.JPG" alt="Памятник Муравьёву-Амурскому" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Памятник_Н.Н._Муравьеву-Амурскому.JPG" alt="Памятник Муравьёву-Амурскому в Благовещенске" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 4a2 2 0 100 4 2 2 0 000-4zM9 22v-7l-2-2 3-3h4l3 3-2 2v7"/></svg></div>
         <div class="gal-body"><span class="gal-cap">08 · Муравьёв-Амурский</span><div class="gal-h">Основатель города на набережной</div></div>
       </a>
@@ -589,15 +632,15 @@ function getCss(v){return getComputedStyle(document.documentElement).getProperty
 
 const POINTS = [
   {id:1,name:"Набережная Амура",lat:50.2769,lng:127.5340,cat:"sea",desc:"Главная прогулочная артерия города вдоль Амура. С неё виден китайский Хэйхэ на другом берегу — ротонда, бювет, фонтаны, скульптуры. Центр городской жизни."},
-  {id:2,name:"Триумфальная арка",lat:50.2764,lng:127.5388,cat:"his",desc:"20-метровая арка с двуглавыми орлами на набережной. Восстановлена в 2005 году по фото оригинала 1891 года — к визиту цесаревича Николая. Визитная карточка Благовещенска.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk-Csesarevich-Nicholas-Triumphal-Arch.jpg"},
-  {id:3,name:"Кафедральный собор Благовещения",lat:50.2757,lng:127.5299,cat:"his",desc:"Главный храм города, пять золочёных куполов, достроен в 2002 году. Хранит чтимую Албазинскую икону Божией Матери «Слово плоть бысть».",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Кафедральный_собор_Благовещения_Пресвятой_Богородицы.jpg"},
+  {id:2,name:"Триумфальная арка",lat:50.2764,lng:127.5388,cat:"his",desc:"20-метровая арка с двуглавыми орлами на набережной. Восстановлена в 2005 году по фото оригинала 1891 года — к визиту цесаревича Николая. Визитная карточка Благовещенска.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Triumphal_arch_in_Blagoveshchensk_2023-11_1701250430.jpg"},
+  {id:3,name:"Кафедральный собор Благовещения",lat:50.2757,lng:127.5299,cat:"his",desc:"Главный храм города, пять золочёных куполов, достроен в 2002 году. Хранит чтимую Албазинскую икону Божией Матери «Слово плоть бысть».",img:"https://commons.wikimedia.org/wiki/Special:FilePath/201907_Cathedral_of_the_Annunciation_of_the_Blessed_Virgin_Mary,_Blagoveshchensk_01.jpg"},
   {id:4,name:"Краеведческий музей им. Новикова-Даурского",lat:50.2596,lng:127.5352,cat:"city",desc:"Один из старейших на Дальнем Востоке (осн. 1891). ~155 тыс. единиц хранения в 26 залах: от палеонтологии Приамурья до казачества и приграничья."},
   {id:5,name:"Канатная дорога Благовещенск–Хэйхэ",lat:50.2740,lng:127.5360,cat:"city",desc:"Первая в мире трансграничная канатка через госграницу. Натяжка каната через Амур завершена в июле 2026, запуск намечен на конец года. 2 кабины по 110 чел., 6–8 минут в пути."},
   {id:6,name:"Трансграничный мост через Амур",lat:50.1900,lng:127.6600,cat:"his",desc:"Первый автомост Россия–Китай (Кани-Курган, ~13 км от центра), открыт для грузов в 2022 году. С 2026-го пущены пассажирские автобусы Благовещенск–Хэйхэ.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Bridge_Blagoveshchensk_-_Heihe_in_winter.jpg"},
   {id:7,name:"Площадь Ленина",lat:50.2593,lng:127.5348,cat:"city",desc:"Центральная площадь города с администрацией области. Место главных праздников, ярмарок и новогоднего городка.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk_Lenin_square_2024-08_75.jpg"},
   {id:8,name:"Общественно-культурный центр (ОКЦ)",lat:50.2588,lng:127.5310,cat:"city",desc:"Крупнейшая концертно-выставочная площадка города. «Дом» многих событий кинофестиваля «Амурская осень»."},
   {id:9,name:"Первомайский парк",lat:50.2760,lng:127.5280,cat:"city",desc:"Старейший парк города (120+ лет) у набережной. Тенистые аллеи, аттракционы, ручные белки. Хорошо с детьми."},
-  {id:10,name:"Памятник Муравьёву-Амурскому",lat:50.2789,lng:127.5290,cat:"his",desc:"Бронзовая фигура основателя города и «собирателя» Приамурья на набережной. Смотрит на Амур и Китай.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Statue-of-Nikolay-Muravyov-Amursky.JPG"},
+  {id:10,name:"Памятник Муравьёву-Амурскому",lat:50.2789,lng:127.5290,cat:"his",desc:"Бронзовая фигура основателя города и «собирателя» Приамурья на набережной. Смотрит на Амур и Китай.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Памятник_Н.Н._Муравьеву-Амурскому.JPG"},
   {id:11,name:"Амурский областной театр драмы",lat:50.2585,lng:127.5270,cat:"city",desc:"Один из старейших театров Дальнего Востока (осн. 1883). Главная сцена театральной программы «Амурской осени»."},
   {id:12,name:"Пожарная каланча",lat:50.2600,lng:127.5430,cat:"his",desc:"Кирпичная башня 1909–1914 годов в духе замковой архитектуры. Доминанта исторической Амурской улицы, символ купеческого Благовещенска."},
   {id:13,name:"Парк Дружбы",lat:50.2840,lng:127.5200,cat:"city",desc:"Зелёная зона в китайском стиле с искусственным водопадом и скейт-парком — знак приграничного соседства."},
