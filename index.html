@@ -5,6 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Благовещенск · Город на Амуре, лицом к Китаю</title>
 <meta name="description" content="Современный гид по Благовещенску: интерактивная карта на 22 точки, конструктор маршрута с расчётом бюджета, лента событий, история и кухня Приамурья.">
+<meta name="author" content="ИИщенко LAB">
+<meta name="theme-color" content="#0E9A93">
+<link rel="canonical" href="https://evgeniy79638134017.github.io/blagoveshchensk-atlas/">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="apple-touch-icon" href="assets/logo-mark.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ИИщенко LAB">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://evgeniy79638134017.github.io/blagoveshchensk-atlas/">
+<meta property="og:title" content="Благовещенск · Город на Амуре, лицом к Китаю">
+<meta property="og:description" content="750 метров воды до китайского Хэйхэ. Карта на 22 точки, конструктор маршрута с расчётом бюджета, сезоны и события Приамурья.">
+<meta property="og:image" content="https://evgeniy79638134017.github.io/blagoveshchensk-atlas/assets/og-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Триумфальная арка на набережной Амура в Благовещенске">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Благовещенск · Город на Амуре, лицом к Китаю">
+<meta name="twitter:description" content="750 метров воды до китайского Хэйхэ. Карта на 22 точки, конструктор маршрута с расчётом бюджета, сезоны и события Приамурья.">
+<meta name="twitter:image" content="https://evgeniy79638134017.github.io/blagoveshchensk-atlas/assets/og-preview.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -62,7 +85,9 @@ img{max-width:100%;display:block}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:rgba(250,248,243,0.72);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
 .nav.sc{border-color:var(--line);box-shadow:var(--sh-sm)}
 .brand{display:flex;align-items:center;gap:11px;font-family:var(--disp);font-weight:600;font-size:15px}
-.logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--c-nat) 0%,var(--teal) 45%,var(--c-city) 100%);box-shadow:0 4px 14px rgba(14,154,147,0.35)}
+.logo{width:32px;height:32px;object-fit:contain;flex-shrink:0;display:block}
+.brand{transition:opacity .2s}
+.brand:hover{opacity:.72}
 .nav-links{display:flex;align-items:center;gap:28px}
 .nav-link{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s}
 .nav-link:hover{color:var(--teal)}
@@ -413,7 +438,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 <div class="prog" id="prog"></div>
 
 <nav class="nav" id="nav">
-  <a href="#" class="brand"><span class="logo"></span>ИИщенко LAB · Амур Атлас</a>
+  <a href="https://t.me/Evgen_wormhole" target="_blank" rel="noopener" class="brand" title="Telegram-канал ИИщенко LAB"><img class="logo" src="assets/logo-mark.png" alt="ИИщенко LAB" width="32" height="32">ИИщенко LAB · Амур Атлас</a>
   <div class="nav-links">
     <a class="nav-link" href="#why">Зачем ехать</a>
     <a class="nav-link" href="#map-s">Карта</a>
@@ -791,7 +816,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
     <h2 class="foot-h">Готовы <em>увидеть</em> Благовещенск?</h2>
     <div class="foot-cta"><button class="btn btn-primary" onclick="document.getElementById('planner').scrollIntoView()">К конструктору маршрута →</button></div>
     <div class="foot-bot">
-      <div class="brand"><span class="logo"></span>ИИщенко LAB</div>
+      <a class="brand" href="https://t.me/Evgen_wormhole" target="_blank" rel="noopener" title="Telegram-канал ИИщенко LAB"><img class="logo" src="assets/logo-mark.png" alt="ИИщенко LAB" width="32" height="32">ИИщенко LAB</a>
       <div class="foot-meta">v2.0 · Амур Атлас · Благовещенск</div>
     </div>
   </div>
