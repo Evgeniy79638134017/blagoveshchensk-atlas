@@ -159,6 +159,24 @@ img{max-width:100%;display:block}
 .leaflet-popup-content-wrapper{border-radius:16px;box-shadow:var(--sh-lg)}
 .leaflet-popup-content{margin:14px 16px}
 
+/* ROUTE ON MAP */
+.route-bar{background:var(--surf);border:1px solid var(--teal);border-radius:var(--r);box-shadow:var(--sh-sm);padding:16px 18px;margin-bottom:14px}
+.route-bar[hidden]{display:none}
+.rb-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.rb-t{font-family:var(--disp);font-weight:600;font-size:15px}
+.rb-clear{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px 6px;border-radius:8px;transition:color .2s,background .2s}
+.rb-clear:hover{color:var(--ink);background:var(--surf-2)}
+.rb-days{display:flex;flex-wrap:wrap;gap:8px}
+.rb-chip{font-size:13px;font-weight:600;color:var(--ink-2);background:var(--surf);border:1px solid var(--line-2);border-radius:99px;padding:7px 14px;cursor:pointer;transition:all .2s}
+.rb-chip:hover{border-color:var(--teal);color:var(--teal)}
+.rb-chip.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.rb-chip:disabled{opacity:.4;cursor:default}
+.rb-chip:disabled:hover{border-color:var(--line-2);color:var(--ink-2)}
+.rb-note{font-size:12px;color:var(--muted);margin-top:11px;line-height:1.5}
+.rt-num{width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--disp);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;border:2.5px solid #fff;box-shadow:0 3px 8px rgba(21,23,28,0.3)}
+.btn-map{font-family:var(--sans);font-size:14px;font-weight:600;padding:12px 20px;border-radius:14px;background:var(--teal-soft);color:var(--teal-deep);border:1px solid var(--teal);cursor:pointer;margin-bottom:16px;width:100%;transition:background .2s,transform .2s}
+.btn-map:hover{background:var(--teal);color:#fff;transform:translateY(-1px)}
+
 /* EVENTS */
 .ev-top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
 .live{font-size:12px;font-weight:600;color:var(--teal);display:inline-flex;align-items:center;gap:8px;background:var(--teal-soft);padding:7px 13px;border-radius:99px}
@@ -245,6 +263,42 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .tag.cost{background:var(--surf-2);color:var(--ink-2)}
 .season-note{background:var(--amber-soft);border:1px solid rgba(224,135,43,0.28);color:#9a5a12;border-radius:16px;padding:14px 18px;font-size:13.5px;margin-bottom:16px}
 
+/* GO — как добраться / когда / сколько */
+.go-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:16px;margin-top:3rem}
+@media(max-width:900px){.go-grid{grid-template-columns:1fr}}
+.go-card{background:var(--surf);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-sm);padding:26px}
+.go-card h3{font-size:20px}
+.go-card .go-sub{font-size:12.5px;color:var(--muted);margin:4px 0 18px}
+.route{display:flex;gap:14px;padding:15px 0;border-top:1px solid var(--line)}
+.route:first-of-type{border-top:none;padding-top:2px}
+.route-ico{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--teal-soft)}
+.route-ico svg{width:19px;height:19px;stroke:var(--teal);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.route-b{flex:1;min-width:0}
+.route-t{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font-weight:600;font-size:14.5px}
+.route-t em{font-style:normal;font-family:var(--disp);font-size:12.5px;font-weight:600;color:var(--teal);white-space:nowrap}
+.route-d{font-size:13px;color:var(--ink-2);margin-top:5px;line-height:1.55}
+.cost-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.cost-row:last-of-type{border-bottom:none}
+.cost-n{font-size:13.5px;color:var(--ink-2)}
+.cost-v{font-family:var(--disp);font-weight:600;font-size:14px;white-space:nowrap}
+.cost-note{font-size:11.5px;color:var(--muted);line-height:1.55;border-top:1px solid var(--line);margin-top:14px;padding-top:14px}
+.seasons{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+@media(max-width:900px){.seasons{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.seasons{grid-template-columns:1fr}}
+.sea-c{background:var(--surf);border:1px solid var(--line);border-radius:var(--r);padding:22px 20px 20px;box-shadow:var(--sh-sm);position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.sea-c:hover{transform:translateY(-3px);box-shadow:var(--sh)}
+.sea-c::before{content:"";position:absolute;left:0;right:0;top:0;height:4px}
+.sea-c.w::before{background:var(--c-sea)}
+.sea-c.sp::before{background:var(--c-nat)}
+.sea-c.su::before{background:var(--c-gas)}
+.sea-c.au::before{background:var(--c-spa)}
+.sea-m{font-family:var(--disp);font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.sea-h{font-size:18px;margin:7px 0 3px}
+.sea-t{font-family:var(--disp);font-size:13px;font-weight:600;color:var(--ink-2)}
+.sea-d{font-size:12.5px;color:var(--ink-2);margin-top:10px;line-height:1.55}
+.sea-tag{display:inline-block;margin-top:13px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:4px 11px;border-radius:99px;background:var(--surf-2);color:var(--ink-2)}
+.sea-c.best .sea-tag{background:var(--teal);color:#fff}
+
 /* HISTORY */
 .history{background:linear-gradient(180deg,var(--surf),var(--bg));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .eras{margin-top:3rem;display:flex;flex-direction:column;gap:18px}
@@ -289,6 +343,33 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .g-a{grid-column:span 2;grid-row:span 2}
 .g-b{grid-column:span 2}
 @media(max-width:820px){.g-a{grid-column:span 2}.g-b{grid-column:span 2}}
+
+/* LIGHTBOX */
+.gal{cursor:zoom-in}
+body.lb-open{overflow:hidden}
+/* visibility переключаем мгновенно (0s), анимируем только opacity:
+   иначе элемент остаётся hidden в момент открытия и его нельзя сфокусировать.
+   При закрытии — задержка на время фейда, чтобы оверлей не исчезал рывком. */
+.lb{position:fixed;inset:0;z-index:200;background:rgba(12,16,22,0.94);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .28s,visibility 0s .28s}
+.lb.on{opacity:1;visibility:visible;transition:opacity .28s,visibility 0s}
+.lb-stage{position:relative;max-width:1080px;width:100%;display:flex;flex-direction:column;align-items:center;gap:16px}
+.lb-figure{display:flex;align-items:center;justify-content:center;max-width:100%}
+.lb-img{max-width:100%;max-height:72vh;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,0.5)}
+.lb-fail{color:rgba(255,255,255,0.6);font-size:14px;text-align:center;padding:70px 30px;border:1px dashed rgba(255,255,255,0.25);border-radius:18px}
+.lb-cap{max-width:720px;text-align:center;color:#fff}
+.lb-num{font-family:var(--disp);font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.55)}
+.lb-h{font-family:var(--disp);font-size:19px;font-weight:600;margin:6px 0 8px}
+.lb-src{font-size:12.5px;color:rgba(255,255,255,0.6)}
+.lb-src a{color:#5fd8ce;text-decoration:underline;text-underline-offset:3px}
+.lb-btn{position:absolute;top:calc(36vh - 24px);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lb-btn:hover{background:rgba(255,255,255,0.24)}
+.lb-btn svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lb-prev{left:-66px}
+.lb-next{right:-66px}
+@media(max-width:1240px){.lb-prev{left:6px}.lb-next{right:6px}}
+.lb-close{position:fixed;top:20px;right:22px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lb-close:hover{background:rgba(255,255,255,0.24)}
+.lb-close svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
 
 /* FACTS */
 .facts{background:linear-gradient(160deg,#123b41 0%,#15171C 72%);color:#fff;position:relative;overflow:hidden}
@@ -337,6 +418,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
     <a class="nav-link" href="#why">Зачем ехать</a>
     <a class="nav-link" href="#map-s">Карта</a>
     <a class="nav-link" href="#now">События</a>
+    <a class="nav-link" href="#go">Как доехать</a>
     <a class="nav-link" href="#planner">Маршрут</a>
     <a class="nav-link" href="#history">История</a>
     <a class="nav-link" href="#facts">Любопытное</a>
@@ -374,7 +456,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
       <div class="stat fade"><svg class="stat-ring" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--surf-2)" stroke-width="3"/><circle class="ring-p" cx="18" cy="18" r="15" fill="none" stroke="var(--c-sea)" stroke-width="3" stroke-linecap="round" stroke-dasharray="94" stroke-dashoffset="28" transform="rotate(-90 18 18)"/></svg><div class="stat-num" data-to="750"><span class="v">0</span><span class="u">м</span></div><div class="stat-cap">воды до китайского Хэйхэ</div></div>
       <div class="stat fade"><svg class="stat-ring" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--surf-2)" stroke-width="3"/><circle class="ring-p" cx="18" cy="18" r="15" fill="none" stroke="var(--c-his)" stroke-width="3" stroke-linecap="round" stroke-dasharray="94" stroke-dashoffset="10" transform="rotate(-90 18 18)"/></svg><div class="stat-num" data-to="1856"><span class="v">0</span></div><div class="stat-cap">год основания города</div></div>
       <div class="stat fade"><svg class="stat-ring" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--surf-2)" stroke-width="3"/><circle class="ring-p" cx="18" cy="18" r="15" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round" stroke-dasharray="94" stroke-dashoffset="40" transform="rotate(-90 18 18)"/></svg><div class="stat-num" data-to="180"><span class="v">0</span><span class="u">км</span></div><div class="stat-cap">до космодрома Восточный</div></div>
-      <div class="stat fade"><svg class="stat-ring" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--surf-2)" stroke-width="3"/><circle class="ring-p" cx="18" cy="18" r="15" fill="none" stroke="var(--c-nat)" stroke-width="3" stroke-linecap="round" stroke-dasharray="94" stroke-dashoffset="6" transform="rotate(-90 18 18)"/></svg><div class="stat-num" data-to="65"><span class="v">0</span><span class="u">млн</span></div><div class="stat-cap">лет динозаврам под городом</div></div>
+      <div class="stat fade"><svg class="stat-ring" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--surf-2)" stroke-width="3"/><circle class="ring-p" cx="18" cy="18" r="15" fill="none" stroke="var(--c-nat)" stroke-width="3" stroke-linecap="round" stroke-dasharray="94" stroke-dashoffset="6" transform="rotate(-90 18 18)"/></svg><div class="stat-num" data-to="66"><span class="v">0</span><span class="u">млн</span></div><div class="stat-cap">лет динозаврам под городом</div></div>
     </div>
   </div>
 </header>
@@ -417,6 +499,14 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
       <button class="chip" data-cat="spa"><span class="dot" style="background:var(--c-spa)"></span>Отдых</button>
       <button class="chip" data-cat="city"><span class="dot" style="background:var(--c-city)"></span>Город</button>
     </div>
+    <div class="route-bar" id="route-bar" hidden>
+      <div class="rb-head">
+        <span class="rb-t">Ваш маршрут на карте</span>
+        <button class="rb-clear" id="rb-clear">Убрать с карты ✕</button>
+      </div>
+      <div class="rb-days" id="rb-days"></div>
+      <div class="rb-note" id="rb-note"></div>
+    </div>
     <div class="map-grid">
       <div id="map" class="fade"></div>
       <aside class="map-side fade">
@@ -452,10 +542,94 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
   </div>
 </section>
 
+<!-- GO -->
+<section class="section" id="go">
+  <div class="wrap">
+    <span class="eyebrow fade">04 — практика поездки</span>
+    <h2 class="section-h fade">Как добраться, когда ехать<br>и <em>сколько это стоит</em></h2>
+    <p class="section-lead fade">Благовещенск — 5 595 км от Москвы и шесть часовых поясов на восток. Разбираемся, чем сюда добираются, какой сезон под какие впечатления и на какие суммы ориентироваться.</p>
+
+    <div class="go-grid">
+      <div class="go-card fade">
+        <h3>Как добраться</h3>
+        <div class="go-sub">Три дороги в город на Амуре</div>
+
+        <div class="route">
+          <div class="route-ico"><svg viewBox="0 0 24 24"><path d="M2 13l9-2 5-8 2 1-3 8 6-1v3l-6 1 1 8-2 1-3-7-9 2z"/></svg></div>
+          <div class="route-b">
+            <div class="route-t"><span>Самолётом</span><em>7,5–8 ч</em></div>
+            <div class="route-d">Прямые рейсы из Москвы — 5 595 км, от 7 ч 25 мин. Аэропорт Игнатьево (BQS) в 15 км от центра: городской автобус №8, пригородные 503 и 510 до автовокзала, такси — 20–30 минут. Разница с Москвой +6 часов, к перелёту добавьте день на акклиматизацию.</div>
+          </div>
+        </div>
+
+        <div class="route">
+          <div class="route-ico"><svg viewBox="0 0 24 24"><path d="M5 3h14v13a3 3 0 01-3 3H8a3 3 0 01-3-3zM5 9h14M8 19l-2 2M16 19l2 2M9 14h.01M15 14h.01"/></svg></div>
+          <div class="route-b">
+            <div class="route-t"><span>Поездом</span><em>~6 суток</em></div>
+            <div class="route-d">Транссиб проходит мимо города: ближайший узел — Белогорск, около 110 км. Оттуда до Благовещенска автобус или пригородный поезд, 2–2,5 часа. Вариант для тех, кто едет за дорогой, а не за скоростью.</div>
+          </div>
+        </div>
+
+        <div class="route">
+          <div class="route-ico"><svg viewBox="0 0 24 24"><path d="M2 16h20M4 16v-4M20 16v-4M8 16c0-3.5 8-3.5 8 0M12 3v6M9 6h6"/></svg></div>
+          <div class="route-b">
+            <div class="route-t"><span>Из Китая, через Амур</span><em>минуты</em></div>
+            <div class="route-d">Автомост Россия–Китай у Кани-Кургана с пассажирскими автобусами, летом — паром, зимой — понтонная переправа. Первая в мире трансграничная канатка Благовещенск–Хэйхэ: запуск намечен на конец 2026 года, 6–8 минут над границей.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="go-card fade">
+        <h3>Сколько стоит</h3>
+        <div class="go-sub">Ориентиры на одного человека</div>
+        <div class="cost-row"><span class="cost-n">Перелёт Москва ⇄ Благовещенск</span><span class="cost-v">от 21 000 ₽</span></div>
+        <div class="cost-row"><span class="cost-n">Субсидированный тариф, в одну сторону</span><span class="cost-v">9 700 ₽</span></div>
+        <div class="cost-row"><span class="cost-n">Обед в китайском кафе</span><span class="cost-v">400–800 ₽</span></div>
+        <div class="cost-row"><span class="cost-n">Ужин с амурской рыбой</span><span class="cost-v">500–900 ₽</span></div>
+        <div class="cost-row"><span class="cost-n">Музей, вход</span><span class="cost-v">300–400 ₽</span></div>
+        <div class="cost-row"><span class="cost-n">День в Хэйхэ (нужен загран)</span><span class="cost-v">~5 000 ₽</span></div>
+        <div class="cost-row"><span class="cost-n">Экскурсия на космодром Восточный</span><span class="cost-v">~6 000 ₽</span></div>
+        <div class="cost-note">Субсидированный тариф — для молодёжи, пенсионеров, многодетных семей и жителей Дальнего Востока; продажа на год открывается в декабре и билеты быстро разбирают. Цена перелёта сильно зависит от даты и глубины покупки. Проживание и суточные посчитает конструктор маршрута ниже — под ваш бюджет, сезон и число ночей.</div>
+      </div>
+    </div>
+
+    <div class="seasons">
+      <div class="sea-c w fade">
+        <div class="sea-m">Декабрь — февраль</div>
+        <h3 class="sea-h">Зима</h3>
+        <div class="sea-t">−15 … −27 °C</div>
+        <div class="sea-d">Амур встаёт, и по льду открывают понтонную переправу в Китай. Каток на набережной, огни Хэйхэ напротив, пустые музеи. Морозы сухие, но серьёзные — экипировка нужна честная.</div>
+        <span class="sea-tag">для смелых</span>
+      </div>
+      <div class="sea-c sp fade">
+        <div class="sea-m">Март — май</div>
+        <h3 class="sea-h">Весна</h3>
+        <div class="sea-t">Ледоход на Амуре</div>
+        <div class="sea-d">Главное зрелище сезона — ледоход, обычно в конце апреля (в 2026-м лёд между Благовещенском и Хэйхэ тронулся 19 апреля, раньше срока). Город оживает, туристов ещё мало, цены спокойные.</div>
+        <span class="sea-tag">ледоход</span>
+      </div>
+      <div class="sea-c su best fade">
+        <div class="sea-m">Июнь — август</div>
+        <h3 class="sea-h">Лето</h3>
+        <div class="sea-t">+22 … +28 °C</div>
+        <div class="sea-d">Набережная, теплоходы, фонтаны. Краснокнижные лотосы Комарова у Ивановки цветут с середины июля, пик — начало августа. Самый людный сезон и самый дождливый: июль — месяц осадков.</div>
+        <span class="sea-tag">лучшее время</span>
+      </div>
+      <div class="sea-c au fade">
+        <div class="sea-m">Сентябрь — ноябрь</div>
+        <h3 class="sea-h">Осень</h3>
+        <div class="sea-t">«Амурская осень»</div>
+        <div class="sea-d">В сентябре в городе кинофестиваль: премьеры, театр, звёзды на набережной. Золотая тайга вокруг, комфортное тепло в начале сезона и заметно меньше людей, чем летом.</div>
+        <span class="sea-tag">фестивали</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PLANNER -->
 <section class="section" id="planner">
   <div class="wrap">
-    <span class="eyebrow fade">04 — конструктор маршрута</span>
+    <span class="eyebrow fade">05 — конструктор маршрута</span>
     <h2 class="section-h fade">Соберём <em>персональный</em> маршрут</h2>
     <p class="section-lead fade">Алгоритм учитывает состав группы, сезон, интересы и бюджет — раскладывает активности по дням и прозрачно считает стоимость.</p>
     <div class="pl-grid">
@@ -521,7 +695,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 <!-- HISTORY -->
 <section class="section history" id="history">
   <div class="wrap">
-    <span class="eyebrow fade">05 — история</span>
+    <span class="eyebrow fade">06 — история</span>
     <h2 class="section-h fade">Четыре эпохи <em>на берегу Амура</em></h2>
     <p class="section-lead fade">Албазинский острог XVII века, рождение города при Муравьёве-Амурском, купеческий «Амурский Чикаго» и приграничный город XX–XXI веков — от погранзоны до моста и канатки в Китай.</p>
     <div class="eras" id="eras"></div>
@@ -531,7 +705,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 <!-- CUISINE -->
 <section class="section" id="cuisine">
   <div class="wrap">
-    <span class="eyebrow fade">06 — гастрономия</span>
+    <span class="eyebrow fade">07 — гастрономия</span>
     <h2 class="section-h fade">Кухня <em>двух стран</em> на одном столе</h2>
     <p class="section-lead fade">Дунбэйская кухня соседнего Хэйхэ давно стала городской повседневностью, а рядом — амурская речная рыба, соя «соевой столицы» России, таёжные дикоросы и наследие казачества.</p>
     <div class="dishes" id="dishes"></div>
@@ -541,7 +715,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 <!-- FACTS -->
 <section class="section facts" id="facts">
   <div class="wrap">
-    <span class="eyebrow fade">07 — любопытное</span>
+    <span class="eyebrow fade">08 — любопытное</span>
     <h2 class="section-h fade">Неожиданный <em>Благовещенск</em></h2>
     <p class="section-lead fade">Факты, курьёзы и городские байки, которые превращают поездку в историю — из впечатлений тех, кто уже съездил на границу двух миров.</p>
     <div class="facts-grid">
@@ -549,7 +723,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
       <div class="factc fade"><span class="factc-ico">🚗</span><div class="factc-h">Почти все машины — «праворульки»</div><div class="factc-d">Около <b>90% автомобилей праворульные</b>, и таксист сидит справа. Дальневосточная привычка, к которой приезжие привыкают буквально за день.</div></div>
       <div class="factc fade"><span class="factc-ico">🧳</span><div class="factc-h">Памятник Челноку</div><div class="factc-d">В 90-е «кирпичи» — люди-перевозчики — таскали через Амур <b>больше 30 тонн товара в день</b>. Челночный бизнес держал город на плаву, когда экономика стояла. Ему поставили памятник.</div></div>
       <div class="factc fade"><span class="factc-ico">💱</span><div class="factc-h">Юань всё перевернул</div><div class="factc-d">Когда юань стоил 3–5 ₽, русские ездили в Хэйхэ за всем подряд. Теперь юань 12–13 ₽ — и <b>уже китайцы едут скупать в Благовещенск</b>.</div></div>
-      <div class="factc fade"><span class="factc-ico">🐕</span><div class="factc-h">Пёс Дружок с набережной</div><div class="factc-d">В наводнение 2013-го Амур поднялся на 8 метров и затопил ~120 сёл. Пёс несколько дней ждал хозяев на крыльце затопленного дома — теперь <b>бронзовый Дружок «охраняет весь город»</b>.</div></div>
+      <div class="factc fade"><span class="factc-ico">🐕</span><div class="factc-h">Пёс Дружок с набережной</div><div class="factc-d">В наводнение 2013-го Амур поднялся до рекордных 822 см (больше 8 метров) и затопил 126 населённых пунктов области. Пёс несколько дней ждал хозяев на крыльце затопленного дома — теперь <b>бронзовый Дружок «охраняет весь город»</b>.</div></div>
       <div class="factc fade"><span class="factc-ico">🏛️</span><div class="factc-h">Арку построили за полгода</div><div class="factc-d">Триумфальную арку возвели к приезду цесаревича Николая. Такие же ставили в Хабаровске и Владивостоке, но <b>благовещенская — самая большая</b>.</div></div>
       <div class="factc fade"><span class="factc-ico">🚡</span><div class="factc-h">Канатка из страны в страну</div><div class="factc-d">Первая в мире трансграничная канатная дорога через Амур. Кабины — <b>до 110 человек каждая</b>, и над рекой между двумя государствами всего несколько минут.</div></div>
       <div class="factc fade"><span class="factc-ico">🎻</span><div class="factc-h">Балалайка встречает пипу</div><div class="factc-d">В парке Дружбы за китайской пагодой стоит советская панелька, а рядом — <b>памятник русской балалайке и китайской пипе</b>. Мир, дружба, музыка.</div></div>
@@ -564,7 +738,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 <!-- GALLERY -->
 <section class="section" id="gallery" style="background:var(--surf);border-top:1px solid var(--line)">
   <div class="wrap">
-    <span class="eyebrow fade">08 — галерея</span>
+    <span class="eyebrow fade">09 — галерея</span>
     <h2 class="section-h fade">Благовещенск <em>в кадре</em></h2>
     <p class="section-lead fade">Набережная лицом к Китаю, Триумфальная арка, мост через Амур, космос и динозавры.</p>
     <div class="gal-grid fade">
@@ -581,7 +755,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
       <a class="gal" href="https://commons.wikimedia.org/wiki/Category:Annunciation_Cathedral_(Blagoveshchensk)" target="_blank" rel="noopener">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/201907_Cathedral_of_the_Annunciation_of_the_Blessed_Virgin_Mary,_Blagoveshchensk_01.jpg" alt="Кафедральный собор Благовещения в Благовещенске" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 2l2 4h-4l2-4zM7 10l5-3 5 3v11H7zM10 21v-5h4v5"/></svg></div>
-        <div class="gal-body"><span class="gal-cap">03 · Собор Благовещения</span><div class="gal-h">Пять золочёных куполов</div></div>
+        <div class="gal-body"><span class="gal-cap">03 · Собор Благовещения</span><div class="gal-h">Семь золочёных куполов</div></div>
       </a>
       <a class="gal" href="https://commons.wikimedia.org/wiki/Category:Blagoveshensk-Heihe_bridge" target="_blank" rel="noopener">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bridge_Blagoveshchensk_-_Heihe_in_winter.jpg" alt="Мост через Амур" loading="lazy" onerror="this.style.display='none'">
@@ -623,6 +797,24 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
   </div>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
+  <button class="lb-close" id="lb-close" aria-label="Закрыть (Esc)"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="lb-stage">
+    <button class="lb-btn lb-prev" id="lb-prev" aria-label="Предыдущее фото"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="lb-figure">
+      <img class="lb-img" id="lb-img" alt="">
+      <div class="lb-fail" id="lb-fail" hidden>Фото не загрузилось. Откройте оригинал на Wikimedia Commons по ссылке ниже.</div>
+    </div>
+    <div class="lb-cap">
+      <div class="lb-num" id="lb-num"></div>
+      <div class="lb-h" id="lb-h"></div>
+      <div class="lb-src" id="lb-src"></div>
+    </div>
+    <button class="lb-btn lb-next" id="lb-next" aria-label="Следующее фото"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
 /* ---------- DATA ---------- */
@@ -631,34 +823,34 @@ const CATL={nat:'Природа',sea:'Река',his:'История',gas:'Гас
 function getCss(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
 
 const POINTS = [
-  {id:1,name:"Набережная Амура",lat:50.2769,lng:127.5340,cat:"sea",desc:"Главная прогулочная артерия города вдоль Амура. С неё виден китайский Хэйхэ на другом берегу — ротонда, бювет, фонтаны, скульптуры. Центр городской жизни."},
-  {id:2,name:"Триумфальная арка",lat:50.2764,lng:127.5388,cat:"his",desc:"20-метровая арка с двуглавыми орлами на набережной. Восстановлена в 2005 году по фото оригинала 1891 года — к визиту цесаревича Николая. Визитная карточка Благовещенска.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Triumphal_arch_in_Blagoveshchensk_2023-11_1701250430.jpg"},
-  {id:3,name:"Кафедральный собор Благовещения",lat:50.2757,lng:127.5299,cat:"his",desc:"Главный храм города, пять золочёных куполов, достроен в 2002 году. Хранит чтимую Албазинскую икону Божией Матери «Слово плоть бысть».",img:"https://commons.wikimedia.org/wiki/Special:FilePath/201907_Cathedral_of_the_Annunciation_of_the_Blessed_Virgin_Mary,_Blagoveshchensk_01.jpg"},
-  {id:4,name:"Краеведческий музей им. Новикова-Даурского",lat:50.2596,lng:127.5352,cat:"city",desc:"Один из старейших на Дальнем Востоке (осн. 1891). ~155 тыс. единиц хранения в 26 залах: от палеонтологии Приамурья до казачества и приграничья."},
-  {id:5,name:"Канатная дорога Благовещенск–Хэйхэ",lat:50.2740,lng:127.5360,cat:"city",desc:"Первая в мире трансграничная канатка через госграницу. Натяжка каната через Амур завершена в июле 2026, запуск намечен на конец года. 2 кабины по 110 чел., 6–8 минут в пути."},
-  {id:6,name:"Трансграничный мост через Амур",lat:50.1900,lng:127.6600,cat:"his",desc:"Первый автомост Россия–Китай (Кани-Курган, ~13 км от центра), открыт для грузов в 2022 году. С 2026-го пущены пассажирские автобусы Благовещенск–Хэйхэ.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Bridge_Blagoveshchensk_-_Heihe_in_winter.jpg"},
-  {id:7,name:"Площадь Ленина",lat:50.2593,lng:127.5348,cat:"city",desc:"Центральная площадь города с администрацией области. Место главных праздников, ярмарок и новогоднего городка.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk_Lenin_square_2024-08_75.jpg"},
-  {id:8,name:"Общественно-культурный центр (ОКЦ)",lat:50.2588,lng:127.5310,cat:"city",desc:"Крупнейшая концертно-выставочная площадка города. «Дом» многих событий кинофестиваля «Амурская осень»."},
-  {id:9,name:"Первомайский парк",lat:50.2760,lng:127.5280,cat:"city",desc:"Старейший парк города (120+ лет) у набережной. Тенистые аллеи, аттракционы, ручные белки. Хорошо с детьми."},
-  {id:10,name:"Памятник Муравьёву-Амурскому",lat:50.2789,lng:127.5290,cat:"his",desc:"Бронзовая фигура основателя города и «собирателя» Приамурья на набережной. Смотрит на Амур и Китай.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Памятник_Н.Н._Муравьеву-Амурскому.JPG"},
-  {id:11,name:"Амурский областной театр драмы",lat:50.2585,lng:127.5270,cat:"city",desc:"Один из старейших театров Дальнего Востока (осн. 1883). Главная сцена театральной программы «Амурской осени»."},
-  {id:12,name:"Пожарная каланча",lat:50.2600,lng:127.5430,cat:"his",desc:"Кирпичная башня 1909–1914 годов в духе замковой архитектуры. Доминанта исторической Амурской улицы, символ купеческого Благовещенска."},
-  {id:13,name:"Парк Дружбы",lat:50.2840,lng:127.5200,cat:"city",desc:"Зелёная зона в китайском стиле с искусственным водопадом и скейт-парком — знак приграничного соседства."},
-  {id:14,name:"Благовещенское «кладбище динозавров»",lat:50.2450,lng:127.5050,cat:"nat",desc:"Уникальное городское захоронение позднемеловых ящеров (амурозавры, олоротитаны) прямо в черте города, район ул. Нагорной. Одно из богатейших в России; раскопки ведёт Амурский научный центр."},
-  {id:15,name:"Музей палеонтологии АмурНЦ ДВО РАН",lat:50.2660,lng:127.5290,cat:"city",desc:"Диорамы и подлинные кости динозавров и мамонтов Приамурья. Научная база городского «кладбища динозавров»."},
-  {id:16,name:"Турбаза и санатории Мухинка",lat:50.5500,lng:127.7500,cat:"spa",desc:"Популярная зона отдыха на берегу Зеи, ~35 км севернее города. Сосновый бор, санатории, базы. Летний отдых горожан."},
-  {id:17,name:"Космодром Восточный / Циолковский",lat:51.7620,lng:128.1240,cat:"city",desc:"Новая космическая эпоха Приамурья, ~180 км от Благовещенска (3–4 ч). Экскурсии по предварительной заявке, смотровые площадки при пусках."},
-  {id:18,name:"Албазинский острог",lat:53.3833,lng:124.0833,cat:"his",desc:"Первое русское поселение на Амуре (1651) и место героической обороны 1685–1686 годов. Ныне музейно-культурный центр и реконструкция острога (Сковородинский р-н)."},
-  {id:19,name:"Озеро лотосов у Ивановки",lat:50.4200,lng:127.6600,cat:"nat",desc:"Заросли краснокнижного лотоса Комарова, цветут в июле–августе. ~40 км от города, популярная летняя фотолокация.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Nelumbo_nucifera_004.JPG"},
-  {id:20,name:"Асташинские озёра",lat:50.4000,lng:127.7000,cat:"nat",desc:"Живописная система озёр в окрестностях города. Места рыбалки и тихого отдыха на природе."},
-  {id:21,name:"Музей истории Амурского казачества",lat:50.2610,lng:127.5350,cat:"his",desc:"Экспозиция о роли казачества в освоении Приамурья и охране границы. Быт, оружие, форма переселенцев."},
-  {id:22,name:"Кундурское местонахождение динозавров",lat:49.0500,lng:130.7800,cat:"nat",desc:"Второе знаменитое «кладбище динозавров» области (Архаринский р-н, ~350 км). Здесь найден олоротитан — «дальневосточный утконосый ящер»."}
+  {id:1,name:"Набережная Амура",lat:50.25606,lng:127.52458,cat:"sea",desc:"Главная прогулочная артерия города вдоль Амура. С неё виден китайский Хэйхэ на другом берегу — ротонда, бювет, фонтаны, скульптуры. Центр городской жизни."},
+  {id:2,name:"Триумфальная арка",lat:50.25686,lng:127.52165,cat:"his",desc:"20-метровая арка с двуглавыми орлами на набережной. Восстановлена в 2005 году по фото оригинала 1891 года — к визиту цесаревича Николая. Визитная карточка Благовещенска.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Triumphal_arch_in_Blagoveshchensk_2023-11_1701250430.jpg"},
+  {id:3,name:"Кафедральный собор Благовещения",lat:50.26162,lng:127.51392,cat:"his",desc:"Главный храм города, семь золочёных куполов, освящён в 2003 году. Хранит чтимую Албазинскую икону Божией Матери «Слово плоть бысть».",img:"https://commons.wikimedia.org/wiki/Special:FilePath/201907_Cathedral_of_the_Annunciation_of_the_Blessed_Virgin_Mary,_Blagoveshchensk_01.jpg"},
+  {id:4,name:"Краеведческий музей им. Новикова-Даурского",lat:50.25913,lng:127.52467,cat:"city",desc:"Один из старейших на Дальнем Востоке (осн. 1891). ~166 тыс. единиц хранения: от палеонтологии Приамурья до казачества и приграничья."},
+  {id:5,name:"Канатная дорога Благовещенск–Хэйхэ",lat:50.26,lng:127.525,cat:"city",desc:"Первая в мире трансграничная канатка через госграницу. Натяжка каната через Амур завершена в июле 2026, запуск намечен на конец года. 2 кабины по 110 чел., 6–8 минут в пути."},
+  {id:6,name:"Трансграничный мост через Амур",lat:50.2011,lng:127.60046,cat:"his",desc:"Первый автомост Россия–Китай (Кани-Курган, ~13 км от центра), открыт для грузов в 2022 году. С 2026-го пущены пассажирские автобусы Благовещенск–Хэйхэ.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Bridge_Blagoveshchensk_-_Heihe_in_winter.jpg"},
+  {id:7,name:"Площадь Ленина",lat:50.25732,lng:127.53458,cat:"city",desc:"Центральная площадь города с администрацией области. Место главных праздников, ярмарок и новогоднего городка.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk_Lenin_square_2024-08_75.jpg"},
+  {id:8,name:"Общественно-культурный центр (ОКЦ)",lat:50.25558,lng:127.54495,cat:"city",desc:"Крупнейшая концертно-выставочная площадка города. «Дом» многих событий кинофестиваля «Амурская осень»."},
+  {id:9,name:"Первомайский парк",lat:50.24766,lng:127.56965,cat:"city",desc:"Старейший парк города: тенистые аллеи, аттракционы, детские площадки. Приятно погулять."},
+  {id:10,name:"Памятник Муравьёву-Амурскому",lat:50.25603,lng:127.52677,cat:"his",desc:"Бронзовая фигура основателя города и «собирателя» Приамурья на набережной. Смотрит на Амур и Китай.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Памятник_Н.Н._Муравьеву-Амурскому.JPG"},
+  {id:11,name:"Амурский областной театр драмы",lat:50.25939,lng:127.51409,cat:"city",desc:"Один из старейших театров Дальнего Востока (осн. 1883). Главная сцена театральной программы «Амурской осени»."},
+  {id:12,name:"Пожарная каланча",lat:50.26089,lng:127.55525,cat:"his",desc:"Кирпичная башня 1909–1914 годов в духе замковой архитектуры. Доминанта исторической Амурской улицы, символ купеческого Благовещенска."},
+  {id:13,name:"Парк Дружбы",lat:50.29438,lng:127.52753,cat:"city",desc:"Зелёная зона в китайском стиле с искусственным водопадом и скейт-парком — знак приграничного соседства."},
+  {id:14,name:"Благовещенское «кладбище динозавров»",lat:50.28,lng:127.485,cat:"nat",desc:"Уникальное городское захоронение позднемеловых ящеров (амурозавры и другие гадрозавры) прямо в черте города, район ул. Нагорной. Одно из богатейших в России; раскопки ведёт Амурский научный центр."},
+  {id:15,name:"Музей палеонтологии АмурНЦ ДВО РАН",lat:50.26068,lng:127.51782,cat:"city",desc:"Диорамы и подлинные кости динозавров и мамонтов Приамурья. Научная база городского «кладбища динозавров»."},
+  {id:16,name:"Турбаза и санатории Мухинка",lat:50.54197,lng:127.6534,cat:"spa",desc:"Популярная зона отдыха на берегу Зеи, ~35 км севернее города. Сосновый бор, санатории, базы. Летний отдых горожан."},
+  {id:17,name:"Космодром Восточный / Циолковский",lat:51.88455,lng:128.33478,cat:"city",desc:"Новая космическая эпоха Приамурья, ~180 км от Благовещенска (3–4 ч). Экскурсии по предварительной заявке, смотровые площадки при пусках."},
+  {id:18,name:"Албазинский острог",lat:53.3804,lng:124.07863,cat:"his",desc:"Первое русское поселение на Амуре (1651) и место героической обороны 1685–1686 годов. Ныне музейно-культурный центр и реконструкция острога (Сковородинский р-н)."},
+  {id:19,name:"Озеро лотосов у Ивановки",lat:50.36284,lng:128.00269,cat:"nat",desc:"Заросли краснокнижного лотоса Комарова, цветут в июле–августе. ~40 км от города, популярная летняя фотолокация.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Nelumbo_nucifera_004.JPG"},
+  {id:20,name:"Памятник псу Дружку",lat:50.25580,lng:127.52520,cat:"his",desc:"Бронзовый пёс на набережной — трогательный символ наводнения 2013 года: во время большой воды он несколько дней ждал хозяев на крыльце затопленного дома. Теперь, по словам горожан, «охраняет весь город»."},
+  {id:21,name:"Музей истории Амурского казачества",lat:52.78602,lng:125.99425,cat:"his",desc:"Экспозиция о роли казачества в освоении Приамурья и охране границы — в селе Черняево (Магдагачинский р-н, ~250 км от города). Быт, оружие, форма переселенцев."},
+  {id:22,name:"Кундурское местонахождение динозавров",lat:49.07,lng:130.77,cat:"nat",desc:"Второе знаменитое «кладбище динозавров» области (Архаринский р-н, ~350 км). Здесь найден олоротитан — «дальневосточный утконосый ящер»."}
 ];
 
 const ACT = [
   {id:"naberezhnaya",name:"Прогулка по набережной Амура",desc:"Главная набережная лицом к китайскому Хэйхэ: ротонда, бювет, фонтаны. Городская акклиматизация в первый день.",cost:0,tags:["city","sea","fam"],int:["city","sea","culture"],season:"all",level:"easy",first:1,kidsFriendly:1},
   {id:"arch",name:"Триумфальная арка и памятник Муравьёву",desc:"Визитная карточка города на набережной и бронзовый основатель Приамурья.",cost:0,tags:["his","city"],int:["history","city"],season:"all",level:"easy",first:1},
-  {id:"sobor",name:"Кафедральный собор Благовещения",desc:"Пять золочёных куполов, Албазинская икона. Главный храм города.",cost:0,tags:["his","city"],int:["history","culture","city"],season:"all",level:"easy"},
+  {id:"sobor",name:"Кафедральный собор Благовещения",desc:"Семь золочёных куполов, Албазинская икона. Главный храм города.",cost:0,tags:["his","city"],int:["history","culture","city"],season:"all",level:"easy"},
   {id:"museum",name:"Краеведческий музей им. Новикова-Даурского",desc:"Один из старейших на Дальнем Востоке: палеонтология, казачество, приграничье.",cost:300,tags:["his","city"],int:["history","city","culture"],season:"all",level:"easy",first:1,kidsFriendly:1},
   {id:"kanatka",name:"Канатная дорога в Хэйхэ",desc:"Первая в мире трансграничная канатка через Амур в Китай (запуск конца 2026). Кабина — 6–8 минут над границей.",cost:1500,tags:["city","off"],int:["city","culture","off"],season:"all",level:"easy",first:1},
   {id:"heihe",name:"Поездка в китайский Хэйхэ",desc:"Сосед за рекой: рынки, кухня, массаж. Нужен загранпаспорт; автобус по мосту или паром.",cost:5000,tags:["off","gas","city"],int:["culture","gastro","city","off"],season:"all",level:"medium"},
@@ -666,7 +858,7 @@ const ACT = [
   {id:"kupech",name:"Купеческий центр пешком",desc:"Пожарная каланча, каменные особняки, Амурская улица — прогулка по «Амурскому Чикаго».",cost:0,tags:["his","city"],int:["history","city","culture"],season:"all",level:"easy"},
   {id:"muhinka",name:"Отдых на Зее (Мухинка)",desc:"Сосновый бор и берег Зеи в ~35 км: базы, санатории, купание летом.",cost:2000,tags:["spa","nat","fam"],int:["spa","nature","city"],season:"summer,autumn",level:"easy",kidsFriendly:1},
   {id:"lotos",name:"Озеро лотосов у Ивановки",desc:"Краснокнижный лотос Комарова, цветёт в июле–августе. ~40 км, лучшая летняя фотолокация.",cost:2500,tags:["nat","off"],int:["nature","off"],season:"summer",level:"medium"},
-  {id:"astashino",name:"Рыбалка на Асташинских озёрах",desc:"Тихие озёра в окрестностях города — рыбалка и отдых на природе.",cost:3000,tags:["nat","act"],int:["fishing","nature","off"],season:"spring,summer,autumn",level:"medium"},
+  {id:"astashino",name:"Рыбалка на озёрах Приамурья",desc:"Тихие озёра и старицы в окрестностях города — рыбалка и отдых на природе.",cost:3000,tags:["nat","act"],int:["fishing","nature","off"],season:"spring,summer,autumn",level:"medium"},
   {id:"amurfish",name:"Гастроужин: амурская рыба и уха",desc:"Сазан, верхогляд, наваристая уха. Речная классика Приамурья.",cost:1500,tags:["gas"],int:["gastro","city"],season:"all",level:"easy",first:1},
   {id:"chinafood",name:"Дунбэйская кухня Хэйхэ в городе",desc:"Го-бао-жоу, баклажаны по-сычуаньски, лапша. Сотни китайских кафе, недорого.",cost:800,tags:["gas","city"],int:["gastro","culture","city"],season:"all",level:"easy",kidsFriendly:1},
   {id:"market",name:"Рынок: соя, мёд, дикоросы",desc:"Тофу и соевое молоко, таёжный мёд, лимонник и папоротник. Сувениры в дорогу.",cost:1000,tags:["gas","fam"],int:["gastro"],season:"all",level:"easy",kidsFriendly:1},
@@ -680,13 +872,23 @@ const ACT = [
   {id:"ice",name:"Зимний Амур: лёд и виды на Хэйхэ",desc:"Замёрзшая река, каток, огни китайского берега. Зимняя открытка Благовещенска.",cost:500,tags:["act","fam","city"],int:["active","city"],season:"winter",level:"easy",kidsFriendly:1}
 ];
 
+/* Связь активностей конструктора с точками карты: ACT.id -> [POINTS.id].
+   Часть активностей (гастроужин, рынок, рыбалка) не привязана к одной точке —
+   у них координат нет, на карте они не рисуются. */
+const ACT_POINTS = {
+  naberezhnaya:[1,20], arch:[2,10], sobor:[3], museum:[4], kanatka:[5],
+  heihe:[6], paleo:[15,14], kupech:[12,7], muhinka:[16], lotos:[19],
+  vostochny:[17], albazino:[18], bridge:[6], kazak:[21], park:[9],
+  teatr:[11], amurosen:[8], ice:[1]
+};
+
 const FALLBACK_EVENTS = [
   {date_iso:"2026-07-18", category:"fest", title:"«Амурфест. Лето» на набережной", description:"Летний городской фестиваль музыки, спорта и уличной культуры на берегу Амура. Открытые сцены, маркеты, вечерние концерты.", location:"Набережная Амура", link:"#"},
   {date_iso:"2026-07-25", category:"nature", title:"Цветение лотосов Комарова", description:"Краснокнижный лотос зацветает на озёрах у села Ивановка. Массовые фотопоездки — лучшее время июль–август.", location:"Окрестности с. Ивановка · ~40 км", link:"https://visitamur.ru/"},
   {date_iso:"2026-08-08", category:"market", title:"Ярмарка «Дальневосточный урожай»", description:"Соя и тофу, таёжный мёд, дикоросы, амурская рыба. Фермеры Приамурья и гостинцы в дорогу.", location:"Площадь Ленина", link:"#"},
   {date_iso:"2026-08-15", category:"fest", title:"Российско-Китайская ярмарка культуры и искусства", description:"Ежегодный трансграничный фестиваль Благовещенск–Хэйхэ: концерты, ремёсла и кухня двух стран на набережной.", location:"Набережная Амура", link:"#"},
   {date_iso:"2026-08-29", category:"gastro", title:"Гастрофестиваль амурской и китайской кухни", description:"Речная рыба, уха, дунбэйские блюда, соевые специалитеты. Дегустации и фудкорт под открытым небом.", location:"Набережная Амура", link:"#"},
-  {date_iso:"2026-09-13", category:"fest", title:"XXIV кинофестиваль «Амурская осень»", description:"Главное культурное событие города: российские кинопремьеры и театр, звёзды на набережной. Ежегодно 80+ тыс. гостей.", location:"ОКЦ / Театр драмы", link:"https://amurosen.ru/"},
+  {date_iso:"2026-09-13", category:"fest", title:"XXIV кинофестиваль «Амурская осень»", description:"Главное культурное событие города: российские кинопремьеры и театр, звёзды на набережной. Ежегодно — десятки тысяч гостей.", location:"ОКЦ / Театр драмы", link:"https://amurosen.ru/"},
   {date_iso:"2026-09-19", category:"show", title:"Премьера в Амурском театре драмы", description:"Новый сезон одного из старейших театров Дальнего Востока (осн. 1883). Вечерний показ.", location:"Театр драмы · ул. Ленина 146", link:"#"},
   {date_iso:"2026-10-03", category:"exhib", title:"Выставка «Приамурье: от динозавров до космоса»", description:"Палеонтология и космодром Восточный в одном зале краеведческого музея. Кости ящеров и модели ракет.", location:"Краеведческий музей · ул. Ленина 165", link:"#"}
 ];
@@ -880,6 +1082,7 @@ function renderPlan(){
   </div>`;
 
   html+=`<div class="season-note">☀ ${seasonNote}</div>`;
+  html+=`<button class="btn-map" id="to-map">Показать маршрут на карте →</button>`;
 
   html+=`<div class="tl">`;
   plan.forEach((d,i)=>{
@@ -896,8 +1099,147 @@ function renderPlan(){
   html+=`</div>`;
   const r=document.getElementById('result'); r.innerHTML=html;
   r.querySelectorAll('.tl-day,.act').forEach((el,i)=>{el.style.opacity=0;el.style.transform='translateY(10px)';el.style.transition='opacity .4s,transform .4s';setTimeout(()=>{el.style.opacity=1;el.style.transform='none';},60*i);});
+  setRouteFromPlan(plan);
+  const tm=document.getElementById('to-map');
+  if(tm)tm.addEventListener('click',()=>document.getElementById('map-s').scrollIntoView({behavior:'smooth'}));
 }
 document.getElementById('build').addEventListener('click',renderPlan);
+
+/* ---------- ROUTE ON MAP ---------- */
+let routeLayer=null, routeDays=[], activeDay=-1;
+
+/* активность -> точки карты (те, у кого есть координаты) */
+function actPoints(a){
+  return (ACT_POINTS[a.id]||[]).map(id=>POINTS.find(p=>p.id===id)).filter(Boolean);
+}
+/* из плана конструктора собираем дни с координатами */
+function collectRouteDays(plan){
+  return plan.map((d,i)=>{
+    const stops=[];
+    d.acts.forEach(a=>actPoints(a).forEach(p=>{
+      if(!stops.some(s=>s.p.id===p.id)) stops.push({p,act:a.name});
+    }));
+    return {n:i+1, stops, total:d.acts.length};
+  });
+}
+function clearRoute(){
+  if(routeLayer&&map){map.removeLayer(routeLayer);}
+  routeLayer=null; activeDay=-1;
+  document.querySelectorAll('.rb-chip').forEach(c=>c.classList.remove('on'));
+  const note=document.getElementById('rb-note');
+  if(note)note.textContent='Выберите день — точки этого дня появятся на карте линией маршрута.';
+}
+function drawRouteDay(i){
+  if(!map||!window.L)return;
+  const day=routeDays[i]; if(!day||!day.stops.length)return;
+  if(routeLayer)map.removeLayer(routeLayer);
+  activeDay=i;
+  const teal=getCss('--teal');
+  const latlngs=day.stops.map(s=>[s.p.lat,s.p.lng]);
+  const layers=[];
+  if(latlngs.length>1){
+    layers.push(L.polyline(latlngs,{color:teal,weight:3,opacity:.85,dashArray:'8 8',lineCap:'round'}));
+  }
+  day.stops.forEach((s,idx)=>{
+    const m=L.marker([s.p.lat,s.p.lng],{icon:L.divIcon({className:'',html:`<div class="rt-num">${idx+1}</div>`,iconSize:[26,26],iconAnchor:[13,13],popupAnchor:[0,-14]}),zIndexOffset:1000});
+    m.bindPopup(`<div class="pin-pop"><span class="pc" style="background:${teal}22;color:${teal}">День ${day.n} · точка ${idx+1}</span><h5>${s.p.name}</h5><p>${s.act}</p></div>`,{maxWidth:280});
+    layers.push(m);
+  });
+  routeLayer=L.layerGroup(layers).addTo(map);
+  if(latlngs.length>1){map.fitBounds(L.latLngBounds(latlngs),{padding:[50,50],maxZoom:14});}
+  else{map.setView(latlngs[0],13);}
+  document.querySelectorAll('.rb-chip').forEach(c=>c.classList.toggle('on',+c.dataset.day===i));
+  const skipped=day.total-day.stops.length;
+  document.getElementById('rb-note').textContent =
+    `День ${day.n}: ${day.stops.length} ${plural(day.stops.length,'точка','точки','точек')} на карте`+
+    (skipped>0?` · ещё ${skipped} ${plural(skipped,'активность','активности','активностей')} без привязки к точке (еда, рынок, рыбалка)`:'');
+}
+function plural(n,one,few,many){
+  const n10=n%10,n100=n%100;
+  if(n10===1&&n100!==11)return one;
+  if(n10>=2&&n10<=4&&(n100<12||n100>14))return few;
+  return many;
+}
+function setRouteFromPlan(plan){
+  routeDays=collectRouteDays(plan);
+  const bar=document.getElementById('route-bar'), days=document.getElementById('rb-days');
+  if(!bar||!days)return;
+  days.innerHTML=routeDays.map((d,i)=>
+    `<button class="rb-chip" data-day="${i}"${d.stops.length?'':' disabled title="В этот день только активности без привязки к точке на карте — кафе, рынок, рыбалка"'}>День ${d.n}${d.stops.length?'':' · нет точек'}</button>`
+  ).join('');
+  bar.hidden=false;
+  clearRoute();
+  const first=routeDays.findIndex(d=>d.stops.length);
+  if(first>=0)drawRouteDay(first);
+}
+document.getElementById('rb-days').addEventListener('click',e=>{
+  const b=e.target.closest('.rb-chip'); if(!b||b.disabled)return;
+  drawRouteDay(+b.dataset.day);
+});
+document.getElementById('rb-clear').addEventListener('click',()=>{
+  clearRoute(); document.getElementById('route-bar').hidden=true;
+});
+
+/* ---------- LIGHTBOX ---------- */
+(function(){
+  const gals=[...document.querySelectorAll('.gal')], lb=document.getElementById('lb');
+  if(!gals.length||!lb)return;
+  const items=gals.map(g=>{
+    const img=g.querySelector('img'), cap=g.querySelector('.gal-cap'), h=g.querySelector('.gal-h');
+    return {src:img?img.getAttribute('src'):'', alt:img?img.getAttribute('alt'):'',
+            cap:cap?cap.textContent.trim():'', title:h?h.textContent.trim():'',
+            href:g.getAttribute('href')||''};
+  });
+  const im=document.getElementById('lb-img'), fail=document.getElementById('lb-fail'),
+        num=document.getElementById('lb-num'), hh=document.getElementById('lb-h'),
+        src=document.getElementById('lb-src'), closeBtn=document.getElementById('lb-close');
+  let i=0, lastFocus=null;
+  im.addEventListener('error',()=>{im.style.display='none';fail.hidden=false;});
+  function show(n){
+    i=(n+items.length)%items.length;
+    const it=items[i];
+    fail.hidden=true; im.style.display='';
+    im.src=it.src; im.alt=it.alt||it.title;
+    num.textContent=(it.cap?it.cap+' · ':'')+(i+1)+' / '+items.length;
+    hh.textContent=it.title;
+    src.innerHTML=it.href?`Источник: <a href="${it.href}" target="_blank" rel="noopener">Wikimedia Commons</a>`:'';
+  }
+  function open(n){
+    lastFocus=document.activeElement;
+    show(n); lb.classList.add('on'); document.body.classList.add('lb-open');
+    /* принудительный пересчёт стилей: пока оверлей visibility:hidden, он не фокусируется */
+    void lb.offsetHeight;
+    closeBtn.focus();
+  }
+  function close(){
+    lb.classList.remove('on'); document.body.classList.remove('lb-open');
+    if(lastFocus&&lastFocus.focus)lastFocus.focus();
+  }
+  gals.forEach((g,n)=>g.addEventListener('click',e=>{e.preventDefault();open(n);}));
+  closeBtn.addEventListener('click',close);
+  document.getElementById('lb-prev').addEventListener('click',()=>show(i-1));
+  document.getElementById('lb-next').addEventListener('click',()=>show(i+1));
+  lb.addEventListener('click',e=>{if(e.target===lb)close();});
+  addEventListener('keydown',e=>{
+    if(!lb.classList.contains('on'))return;
+    if(e.key==='Escape'){close();}
+    else if(e.key==='ArrowLeft'){show(i-1);}
+    else if(e.key==='ArrowRight'){show(i+1);}
+    else if(e.key==='Tab'){
+      const f=[...lb.querySelectorAll('button,a[href]')].filter(el=>el.offsetParent!==null);
+      if(!f.length)return;
+      const first=f[0], last=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+    }
+  });
+  let tx=0;
+  lb.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;},{passive:true});
+  lb.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>50)show(dx<0?i+1:i-1);
+  },{passive:true});
+})();
 
 /* ---------- COUNTERS ---------- */
 function animateCount(el){
