@@ -573,6 +573,23 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 .foot-brand-box{display:flex;flex-direction:column;gap:7px}
 .foot-init{font-size:11.5px;color:rgba(255,255,255,0.45);line-height:1.5;max-width:340px}
 
+/* СЛАЙДЕР ДО/ПОСЛЕ */
+.ba-wrap{margin-top:3.2rem;max-width:640px}
+.ba-h{font-family:var(--disp);font-size:22px;font-weight:600}
+.ba-sub{font-size:14px;color:var(--ink-2);margin:8px 0 18px;line-height:1.6}
+.ba{position:relative;aspect-ratio:1/1;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh);user-select:none;background:var(--surf-2)}
+.ba>img,.ba-top img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.ba-top{position:absolute;inset:0;overflow:hidden}
+.ba-line{position:absolute;top:0;bottom:0;left:50%;width:3px;background:#fff;box-shadow:0 0 10px rgba(0,0,0,0.45);transform:translateX(-50%);pointer-events:none;z-index:3}
+.ba-knob{position:absolute;top:50%;left:50%;width:46px;height:46px;border-radius:50%;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);pointer-events:none;z-index:4}
+.ba-knob svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ba-lab{position:absolute;top:14px;padding:6px 13px;border-radius:99px;font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.8px;background:rgba(21,23,28,0.68);color:#fff;z-index:3}
+.ba-lab.l{left:14px}
+.ba-lab.r{right:14px}
+.ba input[type=range]{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:5}
+.ba input[type=range]:focus-visible{opacity:1;background:transparent;outline:3px solid var(--teal);outline-offset:-3px;border-radius:var(--r-lg)}
+.ba-cred{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.55}
+
 /* FAQ */
 .faq-list{max-width:820px;margin-top:2.6rem}
 .faq{background:var(--surf);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);margin-bottom:12px;overflow:hidden;transition:box-shadow .25s}
@@ -1079,6 +1096,21 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
     <h2 class="section-h fade">Четыре эпохи <em>на берегу Амура</em></h2>
     <p class="section-lead fade">Албазинский острог XVII века, рождение города при Муравьёве-Амурском, купеческий «Амурский Чикаго» и приграничный город XX–XXI веков — от погранзоны до моста и канатки в Китай.</p>
     <div class="eras" id="eras"></div>
+
+    <div class="ba-wrap fade">
+      <h3 class="ba-h">Та же арка — сто двадцать лет спустя</h3>
+      <p class="ba-sub">Потяните ползунок. Слева — Триумфальная арка на снимке 1904 года, справа — она же в наши дни. Оригинал 1891 года не пережил XX век: нынешнюю арку восстановили в 2005-м по старым фотографиям.</p>
+      <div class="ba" id="ba">
+        <img src="assets/arch-today.jpg" alt="Триумфальная арка в Благовещенске в наши дни" loading="lazy" width="800" height="800">
+        <div class="ba-top"><img src="assets/arch-1904.jpg" alt="Триумфальная арка на фотографии 1904 года" loading="lazy" width="800" height="800"></div>
+        <div class="ba-line"></div>
+        <div class="ba-knob"><svg viewBox="0 0 24 24"><path d="M9 6l-5 6 5 6M15 6l5 6-5 6"/></svg></div>
+        <span class="ba-lab l">1904</span>
+        <span class="ba-lab r">наши дни</span>
+        <input type="range" min="0" max="100" value="50" step="0.5" aria-label="Сравнение: арка на снимке 1904 года и в наши дни">
+      </div>
+      <div class="ba-cred">Слева: фото 1904 года из книги Элима Демидова, общественное достояние. Справа: фото 2013 года, Sharon Hahn Darlin, CC BY 2.0 — обе с Wikimedia Commons. С 2013-го арка не менялась.</div>
+    </div>
   </div>
 </section>
 
@@ -1743,6 +1775,19 @@ document.getElementById('rb-clear').addEventListener('click',()=>{
   ['hh-size','hh-nights','hh-spend'].forEach(id=>el(id).addEventListener('input',calc));
   root.querySelectorAll('.tiles').forEach(g=>g.addEventListener('click',()=>setTimeout(calc,0)));
   calc();
+})();
+
+/* ---------- СЛАЙДЕР ДО/ПОСЛЕ ---------- */
+(function(){
+  const ba=document.getElementById('ba'); if(!ba)return;
+  const top=ba.querySelector('.ba-top'), line=ba.querySelector('.ba-line'),
+        knob=ba.querySelector('.ba-knob'), r=ba.querySelector('input[type=range]');
+  function set(p){
+    top.style.clipPath='inset(0 '+(100-p)+'% 0 0)';
+    line.style.left=p+'%'; knob.style.left=p+'%';
+  }
+  r.addEventListener('input',()=>set(+r.value));
+  set(50);
 })();
 
 /* ---------- LIGHTBOX ---------- */
