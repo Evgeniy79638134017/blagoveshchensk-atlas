@@ -523,6 +523,34 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 .foot-brand-box{display:flex;flex-direction:column;gap:7px}
 .foot-init{font-size:11.5px;color:rgba(255,255,255,0.45);line-height:1.5;max-width:340px}
 
+/* ЭКСПОРТ МАРШРУТА */
+.exp-bar{background:var(--surf);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);padding:18px 20px;margin-top:16px}
+.exp-t{font-family:var(--disp);font-size:14px;font-weight:600;margin-bottom:12px}
+.exp-btns{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.exp-b{font-family:var(--sans);font-size:13px;font-weight:600;padding:10px 16px;border-radius:12px;background:var(--surf);color:var(--ink);border:1px solid var(--line-2);cursor:pointer;transition:border-color .2s,color .2s,transform .2s}
+.exp-b:hover{border-color:var(--teal);color:var(--teal-deep);transform:translateY(-1px)}
+.exp-date{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-2);margin-left:auto}
+.exp-date input{font-family:var(--sans);font-size:13px;padding:8px 10px;border:1px solid var(--line-2);border-radius:10px;background:var(--surf);color:var(--ink)}
+@media(max-width:560px){.exp-date{margin-left:0}}
+.exp-note{font-size:12px;color:var(--muted);margin-top:10px;min-height:16px}
+.exp-note.ok{color:var(--teal-deep)}
+.print-head{display:none}
+
+/* ПЕЧАТЬ: на бумагу уходит только маршрут */
+@media print{
+  body{background:#fff}
+  .nav,.prog,.loader,.hero,footer,.section:not(#planner),.pl-form,.exp-bar,.btn-map,.season-note,.lb{display:none !important}
+  #planner{padding:0}
+  #planner .eyebrow,#planner .section-h,#planner .section-lead{display:none}
+  .pl-grid{display:block;margin-top:0}
+  .pl-result{min-height:0}
+  .print-head{display:block;font-family:var(--disp);font-size:20px;font-weight:700;margin-bottom:6px}
+  .print-sub{display:block;font-size:12px;color:#555;margin-bottom:18px}
+  .bud,.act,.ev-card{box-shadow:none;border-color:#ddd}
+  .tl-day,.act,.bud{break-inside:avoid}
+  .fade{opacity:1 !important;transform:none !important}
+}
+
 /* ДОСТУПНОСТЬ */
 /* видимый фокус для клавиатурной навигации — только при табе, не при клике */
 :focus-visible{outline:2.5px solid var(--teal);outline-offset:2px;border-radius:6px}
@@ -1380,7 +1408,9 @@ function renderPlan(){
     autumn:"Осень — золотой сезон: кинофестиваль «Амурская осень», тёплое бабье лето, ярмарки урожая."
   }[state.season];
 
-  let html=`<div class="bud">
+  const SEASONL={winter:'зима',spring:'весна',summer:'лето',autumn:'осень'};
+  let html=`<div class="print-head">Амур Атлас — маршрут по Благовещенску</div><div class="print-sub">${state.days} дн · ${state.size} чел · сезон: ${SEASONL[state.season]} · бюджет ${money(total)} · blagoveshchensk-atlas</div>`;
+  html+=`<div class="bud">
     <div class="donut-wrap">${donut(parts)}<div class="donut-center"><div class="t">итого</div><div class="v">${money(total)}</div><div class="s">${state.size} чел · ${state.days} дн</div></div></div>
     <div class="bud-legend">${parts.map(p=>`<div class="bl-row"><span class="bl-dot" style="background:${p.color}"></span><span class="bl-name">${p.label}</span><span class="bl-val">${money(p.val)}</span><span class="bl-pct">${Math.round(p.val/total*100)}%</span></div>`).join('')}</div>
     <div class="bud-foot"><div>На человека<b>${money(perPerson)}</b></div><div>В день (на всех)<b>${money(perDay)}</b></div><div>Активностей<b>${actN}</b></div><div>Ночей<b>${nights}</b></div></div>
@@ -1390,9 +1420,11 @@ function renderPlan(){
   html+=`<button class="btn-map" id="to-map">Показать маршрут на карте →</button>`;
 
   html+=`<div class="tl">`;
+  const dayTitles=[];
   plan.forEach((d,i)=>{
     const times=i===0?["07:30","12:00","17:00"]:(i===plan.length-1?["10:00","15:00"]:["09:00","14:00","19:00"]);
     const title=i===0?'Приезд и знакомство с городом':(i===plan.length-1?'Отдых и отъезд':DAYTHEME[d.theme]||'День в Приамурье');
+    dayTitles.push(title);
     html+=`<div class="tl-day"><div class="tl-node"></div><div class="tl-dh">День ${i+1}</div><div class="tl-dsub">${title}</div>`;
     d.acts.forEach((a,ai)=>{
       const tag=a.tags[0]||'city', c=CATC[({nat:'nat',sea:'sea',his:'his',gas:'gas',spa:'spa',city:'city'})[tag]||'city']||'#888';
@@ -1402,13 +1434,81 @@ function renderPlan(){
     html+=`</div>`;
   });
   html+=`</div>`;
+  html+=`<div class="exp-bar">
+    <div class="exp-t">Забрать маршрут с собой</div>
+    <div class="exp-btns">
+      <button class="exp-b" id="exp-print">Скачать PDF</button>
+      <button class="exp-b" id="exp-share">Поделиться ссылкой</button>
+      <span class="exp-date"><label for="exp-date">Дата приезда:</label><input type="date" id="exp-date"></span>
+      <button class="exp-b" id="exp-ics">В календарь (.ics)</button>
+    </div>
+    <div class="exp-note" id="exp-note"></div>
+  </div>`;
+  lastPlan={plan,titles:dayTitles};
   const r=document.getElementById('result'); r.innerHTML=html;
   if(!REDUCED)r.querySelectorAll('.tl-day,.act').forEach((el,i)=>{el.style.opacity=0;el.style.transform='translateY(10px)';el.style.transition='opacity .4s,transform .4s';setTimeout(()=>{el.style.opacity=1;el.style.transform='none';},60*i);});
   setRouteFromPlan(plan);
   const tm=document.getElementById('to-map');
   if(tm)tm.addEventListener('click',()=>document.getElementById('map-s').scrollIntoView({behavior:REDUCED?'auto':'smooth'}));
+  initExport();
 }
 document.getElementById('build').addEventListener('click',renderPlan);
+
+/* ---------- ЭКСПОРТ МАРШРУТА ---------- */
+let lastPlan=null;
+
+function shareUrl(){
+  const q=new URLSearchParams();
+  q.set('plan','1'); q.set('size',state.size); q.set('group',state.group);
+  q.set('season',state.season); q.set('days',state.days);
+  q.set('int',state.int.join(',')); q.set('budget',state.budget);
+  return location.origin+location.pathname+'?'+q.toString()+'#planner';
+}
+function buildIcs(dateStr){
+  const esc=s=>String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');
+  const pad=n=>String(n).padStart(2,'0');
+  const fmt=d=>''+d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate());
+  const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  let out='BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Amur Atlas//Blagoveshchensk//RU\r\nCALSCALE:GREGORIAN\r\n';
+  lastPlan.plan.forEach((d,i)=>{
+    const s=new Date(dateStr+'T12:00:00'); s.setDate(s.getDate()+i);
+    const e=new Date(s); e.setDate(e.getDate()+1);
+    const desc=d.acts.map(a=>'— '+a.name+(a.cost?' ('+a.cost.toLocaleString('ru')+' ₽)':' (бесплатно)')).join('\n');
+    out+='BEGIN:VEVENT\r\nUID:amur-atlas-'+fmt(s)+'-'+i+'@blagoveshchensk-atlas\r\nDTSTAMP:'+stamp+'\r\nDTSTART;VALUE=DATE:'+fmt(s)+'\r\nDTEND;VALUE=DATE:'+fmt(e)+'\r\nSUMMARY:'+esc('Благовещенск, день '+(i+1)+' — '+lastPlan.titles[i])+'\r\nDESCRIPTION:'+esc(desc)+'\r\nEND:VEVENT\r\n';
+  });
+  return out+'END:VCALENDAR\r\n';
+}
+function initExport(){
+  const note=document.getElementById('exp-note');
+  const say=(t,ok)=>{note.textContent=t; note.classList.toggle('ok',!!ok);};
+  document.getElementById('exp-print').addEventListener('click',()=>{window.print();});
+  document.getElementById('exp-share').addEventListener('click',()=>{
+    const url=shareUrl();
+    const done=()=>say('Ссылка скопирована — у получателя этот план соберётся сам.',1);
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(done,()=>prompt('Скопируйте ссылку:',url));
+    }else{prompt('Скопируйте ссылку:',url);}
+  });
+  document.getElementById('exp-ics').addEventListener('click',()=>{
+    const d=document.getElementById('exp-date').value;
+    if(!d){say('Сначала выберите дату приезда — календарю нужны конкретные дни.'); document.getElementById('exp-date').focus(); return;}
+    const blob=new Blob([buildIcs(d)],{type:'text/calendar;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download='amur-atlas-marshrut.ics';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+    say('Файл календаря скачан: '+lastPlan.plan.length+' событий, по одному на день.',1);
+  });
+}
+function syncPlannerUI(){
+  sz.value=state.size; document.getElementById('o-size').textContent=state.size+' чел.';
+  dy.value=state.days; document.getElementById('o-days').textContent=state.days+' дн.';
+  bd.value=state.budget; document.getElementById('o-budget').textContent=(state.budget*1000).toLocaleString('ru')+' ₽';
+  document.querySelectorAll('[data-group="group"] .tile').forEach(t=>t.classList.toggle('on',t.dataset.v===state.group));
+  document.querySelectorAll('[data-group="season"] .tile').forEach(t=>t.classList.toggle('on',t.dataset.v===state.season));
+  document.querySelectorAll('[data-group="int"] .pill').forEach(p=>p.classList.toggle('on',state.int.indexOf(p.dataset.v)>=0));
+  document.getElementById('o-int').textContent=state.int.length+' выбрано';
+}
 
 /* ---------- ROUTE ON MAP ---------- */
 let routeLayer=null, routeDays=[], activeDay=-1;
@@ -1637,6 +1737,24 @@ addEventListener('scroll',()=>{
 
 /* init map (guard if Leaflet CDN blocked) */
 try{ if(window.L) initMap(); else console.warn('Leaflet not loaded'); }catch(e){console.warn(e);}
+
+/* восстановление плана из ссылки «Поделиться» */
+(function(){
+  try{
+    const q=new URLSearchParams(location.search);
+    if(q.get('plan')!=='1')return;
+    const num=(v,min,max,d)=>{v=parseInt(v,10);return isNaN(v)?d:Math.min(max,Math.max(min,v));};
+    state.size=num(q.get('size'),1,8,2);
+    state.days=num(q.get('days'),2,10,5);
+    state.budget=num(q.get('budget'),2,15,6);
+    if(['solo','couple','friends','family'].indexOf(q.get('group'))>=0)state.group=q.get('group');
+    if(['winter','spring','summer','autumn'].indexOf(q.get('season'))>=0)state.season=q.get('season');
+    const ints=(q.get('int')||'').split(',').filter(v=>['nature','sea','gastro','history','active','spa','culture','fishing','off','city'].indexOf(v)>=0);
+    if(ints.length)state.int=ints;
+    syncPlannerUI();
+    renderPlan();
+  }catch(e){console.warn('Не удалось восстановить план из ссылки:',e);}
+})();
 
 /* loader */
 function hideLoader(){const l=document.getElementById('loader');if(l)l.classList.add('gone');}
