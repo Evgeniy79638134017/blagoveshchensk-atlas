@@ -368,6 +368,11 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .sea-c.sp::before{background:var(--c-nat)}
 .sea-c.su::before{background:var(--c-gas)}
 .sea-c.au::before{background:var(--c-spa)}
+.sea-glyph{position:absolute;right:16px;top:17px;width:30px;height:30px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.9}
+.sea-c.w .sea-glyph{stroke:var(--c-sea)}
+.sea-c.sp .sea-glyph{stroke:var(--c-nat)}
+.sea-c.su .sea-glyph{stroke:var(--c-gas)}
+.sea-c.au .sea-glyph{stroke:var(--c-spa)}
 .sea-m{font-family:var(--disp);font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
 .sea-h{font-size:18px;margin:7px 0 3px}
 .sea-t{font-family:var(--disp);font-size:13px;font-weight:600;color:var(--ink-2)}
@@ -398,6 +403,9 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 @media(max-width:520px){.dishes{grid-template-columns:1fr}}
 .dish{background:var(--surf);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--sh-sm);transition:transform .25s,box-shadow .25s}
 .dish:hover{transform:translateY(-3px);box-shadow:var(--sh)}
+.dish-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+.dish-ico{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dish-ico svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .dish-n{font-family:var(--disp);font-size:12px;font-weight:600;color:var(--teal-deep)}
 .dish-h{font-size:17px;margin:12px 0 7px}
 .dish-d{font-size:13px;color:var(--ink-2)}
@@ -692,7 +700,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
       </div>
     </div>
     <div class="hero-visual fade">
-      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Triumphal_Arch,_Blagoveshchensk,_Russia_(8760409508).jpg" alt="Триумфальная арка на набережной Амура, Благовещенск" loading="eager" onerror="this.style.display='none'">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Triumphal_Arch,_Blagoveshchensk,_Russia_(8760409508).jpg" title="Фото: Sharon Hahn Darlin · CC BY 2.0 · Wikimedia Commons" alt="Триумфальная арка на набережной Амура, Благовещенск" loading="eager" onerror="this.style.display='none'">
       <div class="flag">RU ↔ CN<span>Амур · граница</span></div>
       <div class="badge"><span class="dot"></span>Триумфальная арка на Амуре</div>
     </div>
@@ -840,6 +848,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 
     <div class="seasons">
       <div class="sea-c w fade">
+        <svg class="sea-glyph" viewBox="0 0 24 24"><path d="M12 2v20M4 7l16 10M20 7L4 17"/><path d="M12 5l-2.5-1.5M12 5l2.5-1.5M12 19l-2.5 1.5M12 19l2.5 1.5"/></svg>
         <div class="sea-m">Декабрь — февраль</div>
         <h3 class="sea-h">Зима</h3>
         <div class="sea-t">−15 … −27 °C</div>
@@ -847,6 +856,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
         <span class="sea-tag">для смелых</span>
       </div>
       <div class="sea-c sp fade">
+        <svg class="sea-glyph" viewBox="0 0 24 24"><path d="M3 16c2 0 2 1.5 4 1.5S9 16 11 16s2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M8 12l3-3.5 4.5 1 1 3.5-4.5 1z"/></svg>
         <div class="sea-m">Март — май</div>
         <h3 class="sea-h">Весна</h3>
         <div class="sea-t">Ледоход на Амуре</div>
@@ -854,6 +864,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
         <span class="sea-tag">ледоход</span>
       </div>
       <div class="sea-c su best fade">
+        <svg class="sea-glyph" viewBox="0 0 24 24"><path d="M12 18c-3.2 0-5.8-2-6.3-5 2 0 3.6.7 4.6 2 0-3 .6-5.7 1.7-7.3 1.1 1.6 1.7 4.3 1.7 7.3 1-1.3 2.6-2 4.6-2-.5 3-3.1 5-6.3 5z"/><path d="M4 21h16"/></svg>
         <div class="sea-m">Июнь — август</div>
         <h3 class="sea-h">Лето</h3>
         <div class="sea-t">+22 … +28 °C</div>
@@ -861,6 +872,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
         <span class="sea-tag">лучшее время</span>
       </div>
       <div class="sea-c au fade">
+        <svg class="sea-glyph" viewBox="0 0 24 24"><path d="M12 3c4 3.2 6 7 6 10.5a6 6 0 01-12 0C6 10 8 6.2 12 3z"/><path d="M12 20.5V9M12 13l3-2M12 13l-3-2"/></svg>
         <div class="sea-m">Сентябрь — ноябрь</div>
         <h3 class="sea-h">Осень</h3>
         <div class="sea-t">«Амурская осень»</div>
@@ -960,14 +972,14 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
     </div>
 
     <div class="hh-photos">
-      <a class="hh-photo fade" href="https://commons.wikimedia.org/wiki/File:Heihe,_China_(8809096250).jpg" target="_blank" rel="noopener">
+      <div class="hh-photo fade" title="Фото: Sharon Hahn Darlin · CC BY 2.0 · Wikimedia Commons">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Heihe,_China_(8809096250).jpg?width=1000" alt="Вид на город Хэйхэ с российского берега Амура" loading="lazy" onerror="this.style.display='none'">
         <div>Хэйхэ с нашего берега</div><small>Тот самый вид с набережной Благовещенска</small>
-      </a>
-      <a class="hh-photo fade" href="https://commons.wikimedia.org/wiki/File:201907_Crossing_the_Heilong_(Amur)_from_Heihe_to_Blagoveshchensk_04.jpg" target="_blank" rel="noopener">
+      </div>
+      <div class="hh-photo fade" title="Фото: Jonashtand · CC BY-SA 4.0 · Wikimedia Commons">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/201907_Crossing_the_Heilong_%28Amur%29_from_Heihe_to_Blagoveshchensk_04.jpg?width=800" alt="Переправа через Амур из Хэйхэ в Благовещенск" loading="lazy" onerror="this.style.display='none'">
         <div>Пятнадцать минут по воде</div><small>Переправа Хэйхэ — Благовещенск</small>
-      </a>
+      </div>
     </div>
 
     <div class="hh-tips">
@@ -1189,46 +1201,46 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
     <h2 class="section-h fade">Благовещенск <em>в кадре</em></h2>
     <p class="section-lead fade">Набережная лицом к Китаю, Триумфальная арка, мост через Амур, космос и динозавры.</p>
     <div class="gal-grid fade">
-      <a class="gal g-a" href="https://commons.wikimedia.org/wiki/File:Blagoveshchensk,_Russia_---_Heihe,_China_(8789415981).jpg" target="_blank" rel="noopener">
+      <div class="gal g-a" role="button" tabindex="0" title="Фото: Sharon Hahn Darlin · CC BY 2.0 · Wikimedia Commons" data-credit="Фото: Sharon Hahn Darlin · CC BY 2.0 · Wikimedia Commons">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk,_Russia_---_Heihe,_China_(8789415981).jpg?width=1200" alt="Теплоход у набережной Амура в Благовещенске" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M4 21V6a8 8 0 0116 0v15M4 21h16M9 21v-7a3 3 0 016 0v7"/></svg></div>
         <div class="gal-body"><span class="gal-cap">01 · Речной вокзал</span><div class="gal-h">Теплоходы уходят в Китай отсюда</div></div>
-      </a>
-      <a class="gal g-b" href="https://commons.wikimedia.org/wiki/File:River_Amur-Heihe.jpg" target="_blank" rel="noopener">
+      </div>
+      <div class="gal g-b" role="button" tabindex="0" title="Фото: Oleg fok · CC BY-SA 4.0 · Wikimedia Commons" data-credit="Фото: Oleg fok · CC BY-SA 4.0 · Wikimedia Commons">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/River_Amur-Heihe.jpg?width=900" alt="Набережная Амура" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M3 18c3 0 4-2 7-2s4 2 7 2M3 14c3 0 4-2 7-2s4 2 7 2M3 22h18"/></svg></div>
         <div class="gal-body"><span class="gal-cap">02 · Набережная Амура</span><div class="gal-h">Хэйхэ на том берегу</div></div>
-      </a>
-      <a class="gal" href="https://commons.wikimedia.org/wiki/File:201907_Cathedral_of_the_Annunciation_of_the_Blessed_Virgin_Mary,_Blagoveshchensk_01.jpg" target="_blank" rel="noopener">
+      </div>
+      <div class="gal" role="button" tabindex="0" title="Фото: Jonashtand · CC BY-SA 4.0 · Wikimedia Commons" data-credit="Фото: Jonashtand · CC BY-SA 4.0 · Wikimedia Commons">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/201907_Cathedral_of_the_Annunciation_of_the_Blessed_Virgin_Mary,_Blagoveshchensk_01.jpg?width=900" alt="Кафедральный собор Благовещения в Благовещенске" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 2l2 4h-4l2-4zM7 10l5-3 5 3v11H7zM10 21v-5h4v5"/></svg></div>
         <div class="gal-body"><span class="gal-cap">03 · Собор Благовещения</span><div class="gal-h">Семь золочёных куполов</div></div>
-      </a>
-      <a class="gal" href="https://commons.wikimedia.org/wiki/File:Мост_в_Китай.jpg" target="_blank" rel="noopener">
+      </div>
+      <div class="gal" role="button" tabindex="0" title="Фото: Blagjora · CC BY-SA 4.0 · Wikimedia Commons" data-credit="Фото: Blagjora · CC BY-SA 4.0 · Wikimedia Commons">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Мост_в_Китай.jpg?width=900" alt="Мост через Амур" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M2 16h20M4 16v-3M20 16v-3M8 16c0-3 8-3 8 0"/></svg></div>
         <div class="gal-body"><span class="gal-cap">04 · Мост через Амур</span><div class="gal-h">Первый автомост в Китай, стройка 2019-го</div></div>
-      </a>
-      <a class="gal" href="https://commons.wikimedia.org/wiki/File:Blagoveshchensk_Lenin_square_2024-08_75.jpg" target="_blank" rel="noopener">
+      </div>
+      <div class="gal" role="button" tabindex="0" title="Фото: Artyom Svetlov · CC BY 4.0 · Wikimedia Commons" data-credit="Фото: Artyom Svetlov · CC BY 4.0 · Wikimedia Commons">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk_Lenin_square_2024-08_75.jpg?width=900" alt="Центр города" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7"/></svg></div>
         <div class="gal-body"><span class="gal-cap">05 · Центр города</span><div class="gal-h">Купеческий Благовещенск</div></div>
-      </a>
-      <a class="gal" href="https://commons.wikimedia.org/wiki/File:Nelumbo_nucifera_004.JPG" target="_blank" rel="noopener">
+      </div>
+      <div class="gal" role="button" tabindex="0" title="Фото: H. Zell · CC BY-SA 3.0 · Wikimedia Commons" data-credit="Фото: H. Zell · CC BY-SA 3.0 · Wikimedia Commons">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nelumbo_nucifera_004.JPG?width=800" alt="Лотосы Комарова" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 20c-4-1-7-4-7-8 3 0 5 1 7 4 2-3 4-4 7-4 0 4-3 7-7 8zM12 20v-4"/></svg></div>
         <div class="gal-body"><span class="gal-cap">06 · Лотосы Комарова</span><div class="gal-h">Цветут в июле у Ивановки</div></div>
-      </a>
-      <a class="gal g-b" href="https://commons.wikimedia.org/wiki/File:Первый_пуск_с_космодрома_Восточный.jpg" target="_blank" rel="noopener">
+      </div>
+      <div class="gal g-b" role="button" tabindex="0" title="Фото: Владислав Ларкин · CC BY-SA 4.0 · Wikimedia Commons" data-credit="Фото: Владислав Ларкин · CC BY-SA 4.0 · Wikimedia Commons">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Первый_пуск_с_космодрома_Восточный.jpg?width=1000" alt="Первый пуск с космодрома Восточный" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 2c3 3 4 7 4 10l-4 4-4-4c0-3 1-7 4-10zM8 16l-3 3 3-1M16 16l3 3-3-1M10 21h4"/></svg></div>
         <div class="gal-body"><span class="gal-cap">07 · Космодром Восточный</span><div class="gal-h">Первый пуск «Союза-2» · 180 км от города</div></div>
-      </a>
-      <a class="gal" href="https://commons.wikimedia.org/wiki/File:Памятник_Н.Н._Муравьеву-Амурскому.JPG" target="_blank" rel="noopener">
+      </div>
+      <div class="gal" role="button" tabindex="0" title="Фото: Студент АмГУ · CC BY-SA 3.0 · Wikimedia Commons" data-credit="Фото: Студент АмГУ · CC BY-SA 3.0 · Wikimedia Commons">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Памятник_Н.Н._Муравьеву-Амурскому.JPG?width=800" alt="Памятник Муравьёву-Амурскому в Благовещенске" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 4a2 2 0 100 4 2 2 0 000-4zM9 22v-7l-2-2 3-3h4l3 3-2 2v7"/></svg></div>
         <div class="gal-body"><span class="gal-cap">08 · Муравьёв-Амурский</span><div class="gal-h">Основатель города на набережной</div></div>
-      </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1366,8 +1378,20 @@ const DISHES = [
 document.getElementById('eras').innerHTML = ERAS.map(e=>`
   <div class="era fade"><div class="era-side"><div class="era-num">${e.num}</div><div class="era-per">${e.per}</div></div>
   <div class="era-body"><h3>${e.title}</h3><p>${e.text}</p><div class="era-fact">«${e.fact}»</div></div></div>`).join('');
+/* иконки блюд — в порядке DISHES */
+const DISH_ICONS=[
+ '<path d="M4 12c2.5-3.5 6-5.5 9.5-5.5 3 0 5.5 2.5 6.5 5.5-1 3-3.5 5.5-6.5 5.5-3.5 0-7-2-9.5-5.5z"/><path d="M4 12L2 8.5M4 12L2 15.5"/><circle cx="16.5" cy="10.5" r="0.5"/>',
+ '<path d="M5 14c2-3 5-4.5 8-4.5 2.5 0 4.5 2 5.5 4.5-1 2.5-3 4.5-5.5 4.5-3 0-6-1.5-8-4.5z"/><path d="M5 14l-2-3M5 14l-2 3"/><circle cx="8" cy="5.5" r="1"/><circle cx="12" cy="4.5" r="1"/><circle cx="16" cy="5.5" r="1"/>',
+ '<path d="M3 12h18M5 12c0 4 3 7 7 7s7-3 7-7"/><path d="M9.5 8c0-1.5 1-2.5 1-4M14.5 8c0-1.5 1-2.5 1-4"/>',
+ '<path d="M12 21C7 16 7 8 12 3c5 5 5 13 0 18z"/><path d="M12 20V7M12 11l3-2M12 11l-3-2M12 15.5l4-2.5M12 15.5l-4-2.5"/>',
+ '<rect x="4" y="8" width="10" height="10" rx="1.5"/><path d="M4 11.5h10M9 8v10"/><circle cx="18.5" cy="7.5" r="2.2"/><path d="M18.5 9.7c0 2-.8 3.3-2.5 4.3"/>',
+ '<path d="M8 4.5l3 1.8v3.6L8 11.7l-3-1.8V6.3zM16 4.5l3 1.8v3.6l-3 1.8-3-1.8V6.3zM12 12.3l3 1.8v3.6l-3 1.8-3-1.8v-3.6z"/>',
+ '<circle cx="9" cy="15.5" r="3"/><circle cx="15.5" cy="17" r="2.4"/><path d="M9 12.5c0-3 1.5-6 5-8.5 0 2.5-.5 5-2.5 7M14 5.5l3 1"/>',
+ '<path d="M4 13h16v3a3 3 0 01-3 3H7a3 3 0 01-3-3v-3z"/><path d="M4 13c0-3 3.5-5 8-5s8 2 8 5"/><path d="M8.5 6c.5-1 .5-1.6 0-2.6M12 6c.5-1 .5-1.6 0-2.6M15.5 6c.5-1 .5-1.6 0-2.6"/>'
+];
+const DISH_COL=[CATC.sea,CATC.city,getCss('--c-spa'),CATC.nat,CATC.gas,getCss('--amber'),CATC.his,getCss('--c-spa')];
 document.getElementById('dishes').innerHTML = DISHES.map((d,i)=>`
-  <div class="dish fade"><div class="dish-n">/ 0${i+1}</div><div class="dish-h">${d[0]}</div><div class="dish-d">${d[1]}</div></div>`).join('');
+  <div class="dish fade"><div class="dish-top"><span class="dish-ico" style="background:${DISH_COL[i]}1a;color:${DISH_COL[i]}"><svg viewBox="0 0 24 24">${DISH_ICONS[i]}</svg></span><div class="dish-n">/ 0${i+1}</div></div><div class="dish-h">${d[0]}</div><div class="dish-d">${d[1]}</div></div>`).join('');
 
 /* category bars */
 (function(){
@@ -1426,7 +1450,7 @@ function renderEvents(cat){
   list.innerHTML=up.map(e=>{
     const d=new Date(e.date_iso),c=EVCATC[e.category]||'#888';
     const link=e.link&&e.link!=='#'?`<a class="ev-link" href="${e.link}" target="_blank" rel="noopener">подробнее →</a>`:'';
-    return `<article class="ev-card"><div class="ev-head"><div class="ev-date"><span class="ev-day">${d.getDate()}</span><span class="ev-mon">${MON[d.getMonth()]}</span></div><span class="ev-cat" style="background:${c}1e;color:${c}">${EVCATL[e.category]||e.category}</span></div><h3 class="ev-h">${e.title}</h3><p class="ev-d">${e.description}</p><div class="ev-meta"><span>${e.location}</span>${link}</div></article>`;
+    return `<article class="ev-card" style="border-top:3px solid ${c}"><div class="ev-head"><div class="ev-date"><span class="ev-day">${d.getDate()}</span><span class="ev-mon">${MON[d.getMonth()]}</span></div><span class="ev-cat" style="background:${c}1e;color:${c}">${EVCATL[e.category]||e.category}</span></div><h3 class="ev-h">${e.title}</h3><p class="ev-d">${e.description}</p><div class="ev-meta"><span>${e.location}</span>${link}</div></article>`;
   }).join('');
 }
 document.getElementById('ev-tabs').addEventListener('click',e=>{
@@ -1798,7 +1822,7 @@ document.getElementById('rb-clear').addEventListener('click',()=>{
     const img=g.querySelector('img'), cap=g.querySelector('.gal-cap'), h=g.querySelector('.gal-h');
     return {src:img?img.getAttribute('src'):'', alt:img?img.getAttribute('alt'):'',
             cap:cap?cap.textContent.trim():'', title:h?h.textContent.trim():'',
-            href:g.getAttribute('href')||''};
+            credit:g.getAttribute('data-credit')||''};
   });
   const im=document.getElementById('lb-img'), fail=document.getElementById('lb-fail'),
         num=document.getElementById('lb-num'), hh=document.getElementById('lb-h'),
@@ -1812,7 +1836,7 @@ document.getElementById('rb-clear').addEventListener('click',()=>{
     im.src=it.src; im.alt=it.alt||it.title;
     num.textContent=(it.cap?it.cap+' · ':'')+(i+1)+' / '+items.length;
     hh.textContent=it.title;
-    src.innerHTML=it.href?`Источник: <a href="${it.href}" target="_blank" rel="noopener">Wikimedia Commons</a>`:'';
+    src.textContent=it.credit;
   }
   function open(n){
     lastFocus=document.activeElement;
@@ -1825,7 +1849,10 @@ document.getElementById('rb-clear').addEventListener('click',()=>{
     lb.classList.remove('on'); document.body.classList.remove('lb-open');
     if(lastFocus&&lastFocus.focus)lastFocus.focus();
   }
-  gals.forEach((g,n)=>g.addEventListener('click',e=>{e.preventDefault();open(n);}));
+  gals.forEach((g,n)=>{
+    g.addEventListener('click',e=>{e.preventDefault();open(n);});
+    g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(n);}});
+  });
   closeBtn.addEventListener('click',close);
   document.getElementById('lb-prev').addEventListener('click',()=>show(i-1));
   document.getElementById('lb-next').addEventListener('click',()=>show(i+1));
@@ -1836,7 +1863,7 @@ document.getElementById('rb-clear').addEventListener('click',()=>{
     else if(e.key==='ArrowLeft'){show(i-1);}
     else if(e.key==='ArrowRight'){show(i+1);}
     else if(e.key==='Tab'){
-      const f=[...lb.querySelectorAll('button,a[href]')].filter(el=>el.offsetParent!==null);
+      const f=[...lb.querySelectorAll('button')].filter(el=>el.offsetParent!==null);
       if(!f.length)return;
       const first=f[0], last=f[f.length-1];
       if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
