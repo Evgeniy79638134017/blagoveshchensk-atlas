@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://evgeniy79638134017.github.io/blagoveshchensk-atlas/sitemap.xml
