@@ -82,6 +82,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+<script>
+/* тема до первой отрисовки, чтобы не мигало белым */
+(function(){try{var t=localStorage.getItem('atlas-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -105,6 +109,9 @@
   --c-gas:#E69F00;
   --c-spa:#D55E00;
   --c-city:#0072B2;
+  --nav-bg:rgba(250,248,243,0.72);
+  --on-ink:#FFFFFF;          /* текст на кнопках цвета --ink */
+  --foot-bg:#15171C;         /* подвал тёмный в обеих темах */
   --sh-sm:0 1px 3px rgba(21,23,28,0.05),0 1px 2px rgba(21,23,28,0.04);
   --sh:0 6px 24px rgba(21,23,28,0.07),0 2px 6px rgba(21,23,28,0.04);
   --sh-lg:0 24px 60px rgba(21,23,28,0.13),0 8px 20px rgba(21,23,28,0.06);
@@ -113,6 +120,25 @@
   --sans:'Inter',system-ui,sans-serif;
   --disp:'Space Grotesk','Inter',sans-serif;
 }
+/* ТЁМНАЯ ТЕМА — переключатель в шапке, светлая остаётся по умолчанию */
+html[data-theme="dark"]{
+  --bg:#111318;
+  --surf:#1A1D23;
+  --surf-2:#232730;
+  --ink:#ECEDEF;
+  --ink-2:#B9BDC6;
+  --muted:#8A8F99;
+  --line:rgba(236,237,239,0.08);
+  --line-2:rgba(236,237,239,0.17);
+  --teal-deep:#3FC1B9;                 /* светлее: это цвет текста, на тёмном нужен контраст */
+  --teal-soft:rgba(14,154,147,0.17);
+  --amber-soft:rgba(224,135,43,0.16);
+  --nav-bg:rgba(17,19,24,0.78);
+  --on-ink:#15171C;                    /* кнопки цвета --ink становятся светлыми */
+  --foot-bg:#0D0F13;
+}
+html[data-theme="dark"] .season-note{color:#E8B36A;border-color:rgba(224,135,43,0.35)}
+html[data-theme="dark"] .hero-visual{background:linear-gradient(135deg,#1c2733,#16262c)}
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
@@ -132,7 +158,7 @@ img{max-width:100%;display:block}
 .fade.in{opacity:1;transform:none}
 
 /* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:rgba(250,248,243,0.72);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--nav-bg);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
 .nav.sc{border-color:var(--line);box-shadow:var(--sh-sm)}
 .brand{display:flex;align-items:center;gap:11px;font-family:var(--disp);font-weight:600;font-size:15px}
 .logo{width:32px;height:32px;object-fit:contain;flex-shrink:0;display:block}
@@ -141,7 +167,10 @@ img{max-width:100%;display:block}
 .nav-links{display:flex;align-items:center;gap:24px}
 .nav-link{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;white-space:nowrap}
 .nav-link:hover{color:var(--teal)}
-.nav-cta{font-family:var(--sans);font-size:13px;font-weight:600;padding:10px 18px;border-radius:99px;background:var(--ink);color:#fff;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.theme-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);background:var(--surf);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,transform .2s;flex-shrink:0}
+.theme-btn:hover{border-color:var(--teal);transform:translateY(-1px)}
+.theme-btn svg{width:18px;height:18px;stroke:var(--ink-2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav-cta{font-family:var(--sans);font-size:13px;font-weight:600;padding:10px 18px;border-radius:99px;background:var(--ink);color:var(--on-ink);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
 .nav-cta:hover{transform:translateY(-1px);box-shadow:var(--sh)}
 /* когда места мало — ссылки не переносятся на вторую строку, а убираются по приоритету */
 @media(max-width:1340px){.nav-links{gap:18px}.nav-link:nth-of-type(8),.nav-link:nth-of-type(9){display:none}}
@@ -161,7 +190,7 @@ img{max-width:100%;display:block}
 .hero-sub{font-size:18px;color:var(--ink-2);margin-top:1.5rem;max-width:520px}
 .hero-cta{display:flex;gap:12px;margin-top:2.2rem;flex-wrap:wrap}
 .btn{font-family:var(--sans);font-size:15px;font-weight:600;padding:14px 26px;border-radius:99px;cursor:pointer;border:1px solid transparent;transition:transform .2s,box-shadow .2s,background .2s;display:inline-flex;align-items:center;gap:9px}
-.btn-primary{background:var(--ink);color:#fff}
+.btn-primary{background:var(--ink);color:var(--on-ink)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--sh-lg)}
 .btn-ghost{background:var(--surf);color:var(--ink);border-color:var(--line-2)}
 .btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
@@ -215,7 +244,7 @@ img{max-width:100%;display:block}
 .filters{display:flex;flex-wrap:wrap;gap:9px;margin:1.6rem 0}
 .chip{font-size:13px;font-weight:600;color:var(--ink-2);background:var(--surf);border:1px solid var(--line-2);border-radius:99px;padding:8px 15px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
 .chip:hover{border-color:var(--ink-2)}
-.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 .chip .dot{width:9px;height:9px;border-radius:50%}
 .map-grid{display:grid;grid-template-columns:1fr 300px;gap:16px}
 @media(max-width:900px){.map-grid{grid-template-columns:1fr}}
@@ -234,7 +263,8 @@ img{max-width:100%;display:block}
 .pin-pop .pc{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:3px 9px;border-radius:99px;display:inline-block;margin-bottom:6px}
 .pin-pop p{font-size:12.5px;color:var(--ink-2);line-height:1.55}
 .pin-pop img{border-radius:12px;margin-bottom:8px;height:120px;width:100%;object-fit:cover}
-.leaflet-popup-content-wrapper{border-radius:16px;box-shadow:var(--sh-lg)}
+.leaflet-popup-content-wrapper{border-radius:16px;box-shadow:var(--sh-lg);background:var(--surf);color:var(--ink)}
+.leaflet-popup-tip{background:var(--surf)}
 .leaflet-popup-content{margin:14px 16px}
 
 /* ROUTE ON MAP */
@@ -294,7 +324,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .pill{border:1px solid var(--line-2);border-radius:99px;padding:8px 14px;font-size:13px;font-weight:500;cursor:pointer;background:var(--surf);transition:all .18s}
 .pill:hover{border-color:var(--ink-2)}
 .pill.on{background:var(--teal);color:#fff;border-color:var(--teal)}
-.btn-build{width:100%;font-family:var(--sans);font-size:15px;font-weight:600;padding:15px;border-radius:14px;background:var(--ink);color:#fff;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn-build{width:100%;font-family:var(--sans);font-size:15px;font-weight:600;padding:15px;border-radius:14px;background:var(--ink);color:var(--on-ink);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
 .btn-build:hover{transform:translateY(-2px);box-shadow:var(--sh-lg)}
 .pl-result{min-height:400px}
 .pl-empty{background:var(--surf);border:1.5px dashed var(--line-2);border-radius:var(--r-lg);height:100%;min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;color:var(--muted)}
@@ -569,11 +599,11 @@ body.lb-open{overflow:hidden}
 .factc-d b{color:#8fe6dd;font-weight:600}
 
 /* FOOTER */
-footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
+footer{background:var(--foot-bg);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 .foot-h{font-size:clamp(30px,5vw,54px);text-align:center;color:#fff}
 .foot-h em{font-style:normal;background:linear-gradient(120deg,var(--teal),var(--amber));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .foot-cta{display:flex;justify-content:center;margin-top:2rem}
-.foot-cta .btn-primary{background:#fff;color:var(--ink)}
+.foot-cta .btn-primary{background:#fff;color:#15171C}
 .foot-bot{display:flex;justify-content:space-between;align-items:center;margin-top:4rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.14);flex-wrap:wrap;gap:16px}
 .foot-bot .brand{color:#fff}
 .foot-meta{font-size:12px;color:rgba(255,255,255,0.5)}
@@ -675,6 +705,7 @@ footer{background:var(--ink);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
     <a class="nav-link" href="#planner">Маршрут</a>
     <a class="nav-link" href="#history">История</a>
     <a class="nav-link" href="#facts">Любопытное</a>
+    <button class="theme-btn" id="theme-btn" aria-label="Переключить светлую и тёмную тему"><svg id="theme-ico" viewBox="0 0 24 24"><path d="M20 12.5A8 8 0 1111.5 4a6.5 6.5 0 008.5 8.5z"/></svg></button>
     <button class="nav-cta" onclick="document.getElementById('planner').scrollIntoView()">Собрать маршрут</button>
   </div>
 </nav>
@@ -1405,14 +1436,14 @@ document.getElementById('dishes').innerHTML = DISHES.map((d,i)=>`
 })();
 
 /* ---------- MAP ---------- */
-let map, markers=[];
+let map, markers=[], baseTiles=null;
 function pinIcon(cat){
   const c=CATC[cat];
   return L.divIcon({className:'leaflet-pin',html:`<svg width="26" height="34" viewBox="0 0 26 34"><path d="M13 0C5.8 0 0 5.8 0 13c0 9 13 21 13 21s13-12 13-21C26 5.8 20.2 0 13 0z" fill="${c}"/><circle cx="13" cy="13" r="5" fill="#fff"/></svg>`,iconSize:[26,34],iconAnchor:[13,34],popupAnchor:[0,-30]});
 }
 function initMap(){
   map=L.map('map',{scrollWheelZoom:false,zoomControl:true,attributionControl:false}).setView([50.60,127.95],8);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd'}).addTo(map);
+  baseTiles=L.tileLayer('https://{s}.basemaps.cartocdn.com/'+(document.documentElement.getAttribute('data-theme')==='dark'?'dark_all':'light_all')+'/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd'}).addTo(map);
   L.control.attribution({position:'bottomright',prefix:''}).addAttribution('© OSM, CARTO').addTo(map);
   map.on('click',()=>map.scrollWheelZoom.enable());
   POINTS.forEach(p=>{
@@ -1904,6 +1935,25 @@ addEventListener('scroll',()=>{
 
 /* init map (guard if Leaflet CDN blocked) */
 try{ if(window.L) initMap(); else console.warn('Leaflet not loaded'); }catch(e){console.warn(e);}
+
+/* ---------- ТЕМА ---------- */
+(function(){
+  const btn=document.getElementById('theme-btn'); if(!btn)return;
+  const ico=document.getElementById('theme-ico');
+  const MOON='<path d="M20 12.5A8 8 0 1111.5 4a6.5 6.5 0 008.5 8.5z"/>';
+  const SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/>';
+  function apply(dark,save){
+    if(dark)document.documentElement.setAttribute('data-theme','dark');
+    else document.documentElement.removeAttribute('data-theme');
+    ico.innerHTML=dark?SUN:MOON;
+    const m=document.querySelector('meta[name="theme-color"]');
+    if(m)m.setAttribute('content',dark?'#111318':'#0E9A93');
+    if(baseTiles)baseTiles.setUrl('https://{s}.basemaps.cartocdn.com/'+(dark?'dark_all':'light_all')+'/{z}/{x}/{y}{r}.png');
+    if(save){try{localStorage.setItem('atlas-theme',dark?'dark':'light');}catch(e){}}
+  }
+  btn.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')!=='dark',true));
+  apply(document.documentElement.getAttribute('data-theme')==='dark',false);
+})();
 
 /* восстановление плана из ссылки «Поделиться» */
 (function(){
