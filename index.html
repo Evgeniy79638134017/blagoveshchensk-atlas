@@ -426,6 +426,21 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .era-fact{font-size:13.5px;color:var(--teal-deep);background:var(--teal-soft);border-left:3px solid var(--teal);padding:11px 15px;border-radius:0 12px 12px 0;font-style:italic}
 @media(max-width:680px){.era{grid-template-columns:1fr}.era-side{flex-direction:row;align-items:center;gap:16px;min-height:0}.era-body{padding:0 24px 24px}}
 
+/* ЖИВЫЕ ВИДЖЕТЫ */
+.now-bar{display:flex;align-items:center;gap:14px;background:var(--surf);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);padding:16px 20px;margin:2.2rem 0 4px}
+.now-bar[hidden]{display:none}
+.now-ico{width:40px;height:40px;border-radius:12px;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.now-ico svg{width:21px;height:21px;stroke:var(--teal-deep);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.now-t{font-size:14px;color:var(--ink-2);line-height:1.55}
+.now-t b{color:var(--ink);font-weight:600}
+.now-t .wx{white-space:nowrap}
+.sea-now{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;background:var(--teal);color:#fff;border-radius:99px;padding:3px 10px;margin-left:8px;vertical-align:2px}
+.cc-count{display:flex;align-items:baseline;gap:16px;background:rgba(255,255,255,0.055);border:1px solid rgba(231,159,201,0.4);border-radius:18px;padding:18px 22px;margin-top:14px;max-width:560px}
+.cc-count[hidden]{display:none}
+.cc-count b{font-family:var(--disp);font-weight:700;font-size:44px;letter-spacing:-0.02em;line-height:1;color:#f0c4dd}
+.cc-count span{font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.5}
+.cc-count em{font-style:normal;color:rgba(255,255,255,0.5);font-size:11px}
+
 /* CUISINE */
 .dishes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:3rem}
 @media(max-width:900px){.dishes{grid-template-columns:repeat(2,1fr)}}
@@ -876,6 +891,11 @@ footer{background:var(--foot-bg);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
       </div>
     </div>
 
+    <div class="now-bar fade" id="now-bar" hidden>
+      <div class="now-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+      <div class="now-t" id="now-text"></div>
+    </div>
+
     <div class="seasons">
       <div class="sea-c w fade">
         <div class="sea-photo"><img src="assets/season-zima.jpg" alt="Триумфальная арка зимой, в снегу" loading="lazy" width="760" height="567"></div>
@@ -1030,6 +1050,11 @@ footer{background:var(--foot-bg);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
     <h2 class="section-h fade">Первая в мире канатка<br><em>между двумя странами</em></h2>
     <p class="section-lead fade">Через Амур тянут канатную дорогу из России в Китай — такого нет больше нигде. Вместо парома и автобуса с формальностями — кабина и несколько минут над пограничной рекой. Стройку начали в 2019 году, сейчас она на финишной прямой.</p>
     <div class="cc-badge fade">Готовность около 90% · трос через Амур протянут 2 июля 2026</div>
+
+    <div class="cc-count fade" id="cc-count" hidden>
+      <b id="cc-days">—</b>
+      <span>дней до декабря 2026 — месяца, когда объект обещают довести до готовности к эксплуатации<br><em>ориентир по Хэйлунцзянскому ТВ (июль 2026); сроки уже переносили — перед поездкой перепроверьте</em></span>
+    </div>
 
     <div class="cc-grid">
       <div class="cc-photo fade">
@@ -1935,6 +1960,63 @@ addEventListener('scroll',()=>{
 
 /* init map (guard if Leaflet CDN blocked) */
 try{ if(window.L) initMap(); else console.warn('Leaflet not loaded'); }catch(e){console.warn(e);}
+
+/* ---------- ЖИВЫЕ ВИДЖЕТЫ ---------- */
+(function(){
+  /* отсчёт до декабря 2026 — месяца готовности канатки (по амурскому времени) */
+  const cc=document.getElementById('cc-count');
+  if(cc){
+    const target=new Date('2026-12-01T00:00:00+09:00');
+    const days=Math.ceil((target-Date.now())/86400000);
+    if(days>0){
+      document.getElementById('cc-days').textContent=days;
+      cc.hidden=false;
+    }else{
+      document.getElementById('cc-days').textContent='●';
+      cc.querySelector('span').innerHTML='декабрь 2026 наступил — следите за новостями об открытии канатной дороги';
+      cc.hidden=false;
+    }
+  }
+
+  /* «сейчас в городе»: сезон по дате + подсветка карточки + погода */
+  const bar=document.getElementById('now-bar'), txt=document.getElementById('now-text');
+  if(!bar||!txt)return;
+  const m=new Date().getMonth()+1;
+  const SEASONS={
+    w:{name:'зима', hint:'Амур замёрз: каток на набережной, понтонная переправа в Хэйхэ и огни китайского берега.'},
+    sp:{name:'весна', hint:'Сезон ледохода: в конце апреля Амур вскрывается — главное зрелище весны.'},
+    su:{name:'лето', hint:'Разгар сезона: набережная, теплоходы в Хэйхэ' + (m===7||m===8?', лотосы у Ивановки в цвету':'') + '.'},
+    au:{name:'осень', hint:'В сентябре — кинофестиваль «Амурская осень», золотая тайга и бархатное тепло.'}
+  };
+  const key=(m===12||m<=2)?'w':(m<=5?'sp':(m<=8?'su':'au'));
+  const s=SEASONS[key];
+  txt.innerHTML='Сейчас в Благовещенске <b>'+s.name+'</b>'+
+    '<span id="wx-slot"></span> · '+s.hint;
+  bar.hidden=false;
+  /* бейдж «сейчас» на карточке текущего сезона */
+  const card=document.querySelector('.sea-c.'+key+' .sea-h');
+  if(card&&!card.querySelector('.sea-now'))card.insertAdjacentHTML('beforeend','<span class="sea-now">сейчас</span>');
+
+  /* погода: Open-Meteo, без ключа; не пришла — плашка живёт без неё */
+  const WMO={0:'ясно',1:'почти ясно',2:'переменная облачность',3:'пасмурно',45:'туман',48:'изморозь',
+    51:'морось',53:'морось',55:'морось',61:'небольшой дождь',63:'дождь',65:'сильный дождь',
+    66:'ледяной дождь',67:'ледяной дождь',71:'небольшой снег',73:'снег',75:'сильный снег',77:'снежная крупа',
+    80:'ливень местами',81:'ливень',82:'сильный ливень',85:'снегопад',86:'сильный снегопад',
+    95:'гроза',96:'гроза с градом',99:'гроза с градом'};
+  const ctrl=new AbortController();
+  const t=setTimeout(()=>ctrl.abort(),6000);
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=50.2573&longitude=127.5346&current=temperature_2m,weather_code&timezone=Asia%2FYakutsk',{signal:ctrl.signal})
+    .then(r=>r.ok?r.json():null)
+    .then(d=>{
+      clearTimeout(t);
+      if(!d||!d.current)return;
+      const temp=Math.round(d.current.temperature_2m);
+      const desc=WMO[d.current.weather_code]||'';
+      const slot=document.getElementById('wx-slot');
+      if(slot)slot.innerHTML=', <b class="wx">'+(temp>0?'+':'')+temp+'&thinsp;°C'+(desc?', '+desc:'')+'</b>';
+    })
+    .catch(()=>{});
+})();
 
 /* ---------- ТЕМА ---------- */
 (function(){
