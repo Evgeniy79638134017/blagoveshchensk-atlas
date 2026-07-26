@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://evgeniy79638134017.github.io/blagoveshchensk-atlas/</loc>
-    <lastmod>2026-07-23</lastmod>
+    <loc>https://visitblg.ru/</loc>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://evgeniy79638134017.github.io/blagoveshchensk-atlas/assets/og-preview.jpg</image:loc>
+      <image:loc>https://visitblg.ru/assets/og-preview.jpg</image:loc>
       <image:title>Благовещенск — город на Амуре, лицом к Китаю</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://evgeniy79638134017.github.io/blagoveshchensk-atlas/assets/ropeway.jpg</image:loc>
+      <image:loc>https://visitblg.ru/assets/ropeway.jpg</image:loc>
       <image:title>Канатная дорога Благовещенск — Хэйхэ, проектная визуализация терминала</image:title>
     </image:image>
   </url>
