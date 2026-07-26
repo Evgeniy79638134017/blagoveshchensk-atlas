@@ -567,6 +567,29 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .cc-render div{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;background:linear-gradient(180deg,rgba(10,16,22,0),rgba(10,16,22,0.85));font-size:11.5px;color:rgba(255,255,255,0.8)}
 .cc-note{font-size:12px;color:rgba(255,255,255,0.58);line-height:1.65;border-left:2px solid rgba(231,159,201,0.5);padding-left:16px}
 
+/* СТОРИТЕЛЛИНГ ПО НАБЕРЕЖНОЙ */
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:2.6rem;align-items:start}
+@media(max-width:860px){.story-grid{grid-template-columns:1fr;gap:0}}
+.story-map-wrap{position:sticky;top:88px;height:calc(100vh - 130px);max-height:620px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh)}
+@media(max-width:860px){.story-map-wrap{top:64px;height:56vh;max-height:none;margin-bottom:20px}}
+#story-map{width:100%;height:100%;background:var(--surf-2)}
+.story-steps{display:flex;flex-direction:column;gap:0}
+.story-step{min-height:66vh;display:flex;flex-direction:column;justify-content:center;padding:20px 0}
+@media(max-width:860px){.story-step{min-height:auto;padding:26px 0}}
+.story-step:first-child{padding-top:0}
+.story-num{font-family:var(--disp);font-size:13px;font-weight:700;color:var(--teal-deep);letter-spacing:1px}
+.story-card{background:var(--surf);border:1px solid var(--line);border-left:3px solid var(--line-2);border-radius:var(--r);box-shadow:var(--sh-sm);padding:24px 26px;margin-top:12px;transition:border-left-color .35s,box-shadow .35s,transform .35s}
+.story-step.on .story-card{border-left-color:var(--teal);box-shadow:var(--sh);transform:translateX(4px)}
+.story-card h3{font-family:var(--disp);font-size:21px;font-weight:600;margin-bottom:9px}
+.story-card p{font-size:14.5px;color:var(--ink-2);line-height:1.65}
+.story-card .story-tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:4px 11px;border-radius:99px;margin-top:13px}
+.story-pin{filter:drop-shadow(0 4px 6px rgba(21,23,28,0.3))}
+.story-pin.active svg circle{fill:var(--teal)}
+.story-hint{font-size:12.5px;color:var(--muted);margin-top:14px;display:flex;align-items:center;gap:8px}
+.story-hint svg{width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:1.8;animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@media(prefers-reduced-motion:reduce){.story-hint svg{animation:none}.story-card{transition:none}}
+
 /* LIGHTBOX */
 .gal{cursor:zoom-in}
 body.lb-open{overflow:hidden}
@@ -1252,10 +1275,65 @@ footer{background:var(--foot-bg);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
   </div>
 </section>
 
+<!-- СТОРИТЕЛЛИНГ -->
+<section class="section" id="walk" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <span class="eyebrow fade">12 — прогулка</span>
+    <h2 class="section-h fade">Пройдёмся по <em>набережной</em></h2>
+    <p class="section-lead fade">Пять шагов вдоль Амура — от Триумфальной арки до поющего фонтана. Листайте: карта идёт следом за вами.</p>
+    <div class="story-grid">
+      <div class="story-map-wrap fade"><div id="story-map"></div></div>
+      <div class="story-steps" id="story-steps">
+        <div class="story-step" data-lat="50.25686" data-lng="127.52165" data-zoom="16">
+          <div class="story-num">01 · старт</div>
+          <div class="story-card">
+            <h3>Триумфальная арка</h3>
+            <p>Отсюда начинается парадный выход к Амуру. Двадцатиметровую арку с двуглавыми орлами поставили в 1891-м к визиту цесаревича Николая, воссоздали в 2005-м. За ней открывается река и китайский берег.</p>
+            <span class="story-tag" style="background:var(--c-his)1e;color:var(--c-his)">История</span>
+            <div class="story-hint"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>листайте вниз — идём дальше</div>
+          </div>
+        </div>
+        <div class="story-step" data-lat="50.25603" data-lng="127.52677" data-zoom="16">
+          <div class="story-num">02</div>
+          <div class="story-card">
+            <h3>Памятник Муравьёву-Амурскому</h3>
+            <p>Основатель города и «собиратель» Приамурья стоит на набережной и смотрит на Амур с Китаем за ним. Именно он подписал Айгунский договор 1858 года, вернувший эти земли России.</p>
+            <span class="story-tag" style="background:var(--c-his)1e;color:var(--c-his)">История</span>
+          </div>
+        </div>
+        <div class="story-step" data-lat="50.25606" data-lng="127.52458" data-zoom="16">
+          <div class="story-num">03</div>
+          <div class="story-card">
+            <h3>Лицом к Хэйхэ — 750 метров</h3>
+            <p>Здесь Амур сужается до 750 метров, и с парапета виден китайский Хэйхэ: высотки, набережная, вечерние огни. Единственная в мире пара городов двух стран, стоящих так близко, — глаза в глаза через реку.</p>
+            <span class="story-tag" style="background:var(--c-sea)1e;color:var(--c-sea)">Река</span>
+          </div>
+        </div>
+        <div class="story-step" data-lat="50.25580" data-lng="127.52520" data-zoom="17">
+          <div class="story-num">04</div>
+          <div class="story-card">
+            <h3>Пёс Дружок</h3>
+            <p>Бронзовый пёс на парапете — память о наводнении 2013 года, когда Амур поднялся выше 8 метров. Он несколько дней ждал хозяев на крыльце затопленного дома; теперь, по словам горожан, «охраняет весь город».</p>
+            <span class="story-tag" style="background:var(--c-his)1e;color:var(--c-his)">История</span>
+          </div>
+        </div>
+        <div class="story-step" data-lat="50.25732" data-lng="127.53458" data-zoom="16">
+          <div class="story-num">05 · финал</div>
+          <div class="story-card">
+            <h3>Площадь Ленина и поющий фонтан</h3>
+            <p>Прогулка выводит к сердцу города: крупнейший в Евразии пешеходный светомузыкальный фонтан бьёт прямо из мостовой — почти 3 000 м² струй. Днём в нём носятся дети, вечером — водно-световое шоу под музыку.</p>
+            <span class="story-tag" style="background:var(--c-city)1e;color:var(--c-city)">Город</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- GALLERY -->
 <section class="section" id="gallery" style="background:var(--surf);border-top:1px solid var(--line)">
   <div class="wrap">
-    <span class="eyebrow fade">12 — галерея</span>
+    <span class="eyebrow fade">13 — галерея</span>
     <h2 class="section-h fade">Благовещенск <em>в кадре</em></h2>
     <p class="section-lead fade">Набережная лицом к Китаю, Триумфальная арка, мост через Амур, космос и динозавры.</p>
     <div class="gal-grid fade">
@@ -1497,6 +1575,47 @@ function initMap(){
 }
 function filterMap(cat){
   markers.forEach(m=>{ if(cat==='all'||m.cat===cat){m.addTo(map);} else {m.remove();} });
+}
+
+/* ---------- ПРОГУЛКА ПО НАБЕРЕЖНОЙ (сторителлинг) ---------- */
+function initStoryWalk(){
+  const steps=[...document.querySelectorAll('.story-step')];
+  const host=document.getElementById('story-map');
+  if(!host||!steps.length||!window.L)return;
+  const smap=L.map('story-map',{scrollWheelZoom:false,dragging:false,zoomControl:false,
+    doubleClickZoom:false,attributionControl:false,keyboard:false,tap:false});
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/'+(document.documentElement.getAttribute('data-theme')==='dark'?'dark_all':'light_all')+'/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd'}).addTo(smap);
+  L.control.attribution({position:'bottomright',prefix:''}).addAttribution('© OSM, CARTO').addTo(smap);
+  const teal=getCss('--teal');
+  const stops=steps.map((el,i)=>{
+    const lat=+el.dataset.lat, lng=+el.dataset.lng, zoom=+el.dataset.zoom||16;
+    const m=L.marker([lat,lng],{icon:L.divIcon({className:'story-pin',
+      html:`<svg width="30" height="38" viewBox="0 0 30 38"><path d="M15 0C6.7 0 0 6.7 0 15c0 10 15 23 15 23s15-13 15-23C30 6.7 23.3 0 15 0z" fill="#9aa0aa"/><circle cx="15" cy="15" r="6" fill="#fff"/><text x="15" y="19.5" font-family="'+"'Space Grotesk',sans-serif"+'" font-size="11" font-weight="700" text-anchor="middle" fill="#15171C">'+(i+1)+'</text></svg>`,
+      iconSize:[30,38],iconAnchor:[15,38]})}).addTo(smap);
+    return {el,lat,lng,zoom,m};
+  });
+  smap.setView([stops[0].lat,stops[0].lng],stops[0].zoom);
+  let active=-1;
+  function go(i){
+    if(i===active)return; active=i;
+    const s=stops[i];
+    if(REDUCED)smap.setView([s.lat,s.lng],s.zoom);
+    else smap.flyTo([s.lat,s.lng],s.zoom,{duration:1.1});
+    stops.forEach((st,k)=>{
+      st.el.classList.toggle('on',k===i);
+      const svg=st.m.getElement()&&st.m.getElement().querySelector('path');
+      if(svg)svg.setAttribute('fill',k===i?teal:'#9aa0aa');
+    });
+  }
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ go(stops.findIndex(s=>s.el===e.target)); } });
+  },{rootMargin:'-45% 0px -45% 0px',threshold:0});
+  stops.forEach(s=>io.observe(s.el));
+  go(0);
+  /* карта скрыта до появления в вид — Leaflet требует invalidateSize */
+  const io2=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){smap.invalidateSize();io2.disconnect();}});},{threshold:0.01});
+  io2.observe(host);
+  window.__storyMap=smap;
 }
 document.getElementById('filters').addEventListener('click',e=>{
   const b=e.target.closest('.chip'); if(!b)return;
@@ -2030,6 +2149,7 @@ addEventListener('scroll',()=>{
 
 /* init map (guard if Leaflet CDN blocked) */
 try{ if(window.L) initMap(); else console.warn('Leaflet not loaded'); }catch(e){console.warn(e);}
+try{ if(window.L) initStoryWalk(); }catch(e){console.warn(e);}
 
 /* ---------- ЖИВЫЕ ВИДЖЕТЫ ---------- */
 (function(){
@@ -2101,6 +2221,7 @@ try{ if(window.L) initMap(); else console.warn('Leaflet not loaded'); }catch(e){
     const m=document.querySelector('meta[name="theme-color"]');
     if(m)m.setAttribute('content',dark?'#111318':'#0E9A93');
     if(baseTiles)baseTiles.setUrl('https://{s}.basemaps.cartocdn.com/'+(dark?'dark_all':'light_all')+'/{z}/{x}/{y}{r}.png');
+    if(window.__storyMap){window.__storyMap.eachLayer(l=>{if(l.setUrl)l.setUrl('https://{s}.basemaps.cartocdn.com/'+(dark?'dark_all':'light_all')+'/{z}/{x}/{y}{r}.png');});}
     if(save){try{localStorage.setItem('atlas-theme',dark?'dark':'light');}catch(e){}}
   }
   btn.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')!=='dark',true));
