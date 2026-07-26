@@ -85,6 +85,7 @@
 <script>
 /* тема до первой отрисовки, чтобы не мигало белым */
 (function(){try{var t=localStorage.getItem('atlas-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
+(function(){try{var l=localStorage.getItem('atlas-lang');document.documentElement.setAttribute('lang', l==='en'?'en':'ru');}catch(e){}})();
 </script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -167,6 +168,9 @@ img{max-width:100%;display:block}
 .nav-links{display:flex;align-items:center;gap:24px}
 .nav-link{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;white-space:nowrap}
 .nav-link:hover{color:var(--teal)}
+.lang-btn{font-family:var(--disp);font-size:13px;font-weight:700;letter-spacing:.5px;height:38px;padding:0 13px;border-radius:99px;border:1px solid var(--line-2);background:var(--surf);color:var(--ink-2);cursor:pointer;transition:border-color .2s,color .2s,transform .2s;flex-shrink:0}
+.lang-btn:hover{border-color:var(--teal);color:var(--teal-deep);transform:translateY(-1px)}
+.lang-btn b{color:var(--teal-deep)}
 .theme-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);background:var(--surf);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,transform .2s;flex-shrink:0}
 .theme-btn:hover{border-color:var(--teal);transform:translateY(-1px)}
 .theme-btn svg{width:18px;height:18px;stroke:var(--ink-2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -726,6 +730,7 @@ footer{background:var(--foot-bg);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 .spinner{width:34px;height:34px;border:3px solid var(--line-2);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
+<script src="lang-en.js"></script>
 </head>
 <body data-palette="#009E73,#2E9AD1,#C56AA0,#E69F00,#D55E00,#0072B2">
 
@@ -744,6 +749,7 @@ footer{background:var(--foot-bg);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
     <a class="nav-link" href="#planner">Маршрут</a>
     <a class="nav-link" href="#history">История</a>
     <a class="nav-link" href="#facts">Любопытное</a>
+    <button class="lang-btn" id="lang-btn" aria-label="Switch language / Сменить язык"><b>RU</b> · EN</button>
     <button class="theme-btn" id="theme-btn" aria-label="Переключить светлую и тёмную тему"><svg id="theme-ico" viewBox="0 0 24 24"><path d="M20 12.5A8 8 0 1111.5 4a6.5 6.5 0 008.5 8.5z"/></svg></button>
     <button class="nav-cta" onclick="document.getElementById('planner').scrollIntoView()">Собрать маршрут</button>
   </div>
@@ -2150,6 +2156,7 @@ addEventListener('scroll',()=>{
 /* init map (guard if Leaflet CDN blocked) */
 try{ if(window.L) initMap(); else console.warn('Leaflet not loaded'); }catch(e){console.warn(e);}
 try{ if(window.L) initStoryWalk(); }catch(e){console.warn(e);}
+try{ initLang(); }catch(e){console.warn(e);}
 
 /* ---------- ЖИВЫЕ ВИДЖЕТЫ ---------- */
 (function(){
@@ -2207,6 +2214,53 @@ try{ if(window.L) initStoryWalk(); }catch(e){console.warn(e);}
     })
     .catch(()=>{});
 })();
+
+/* ---------- ЯЗЫК RU/EN ----------
+   Словарь EN лежит в отдельном файле lang-en.js (window.EN) — чтобы не раздувать
+   этот файл и чтобы перевод можно было править отдельно. Движок обходит текстовые
+   элементы по списку селекторов, запоминает русский оригинал в data-ru и подменяет
+   его на английский по совпадению текста. Не совпало — остаётся русский (безопасно). */
+const EN=(window.EN||{});
+const I18N_SEL=['.nav-link','.nav-cta','.brand','.hero .eyebrow','.hero-h','.hero-sub',
+  '.hero-cta .btn','.hero-pill','.hero-visual .badge','.hero-visual .flag','.stat-cap','.stat-num .u',
+  '.section-h','.section-lead','.section .eyebrow','.cell h3','.cell p','.cell .lbl',
+  '.chip','.map-side h4','.map-side .sub','.live','.ev-note',
+  '.go-card h3','.go-sub','.route-t span','.route-d','.cost-n','.cost-note',
+  '.sea-m','.sea-h','.sea-t','.sea-d','.sea-tag',
+  '.hh-visa b','.hh-visa p','.hh-way-h h4','.hh-way .when','.hh-way p','.hh-calc h3','.hh-calc .sub',
+  '.hh-day-t','.hh-photo div','.hh-photo small','.hh-tip b','.hh-tip p','.hh-note','.hh-total .per',
+  '.cc-badge','.cc-count span','.cc-photo .cap b','.cc-photo .cap span','.cc-num span',
+  '.cc-term b','.cc-term p','.cc-tl-d','.cc-tl-t','.cc-note','.cc-foot .cc-note a',
+  '.flabel span','.tile-t','.tile-s','.pill','.btn-build','.pl-empty h3','.pl-empty p',
+  '.exp-t','.exp-b','.exp-date label','.btn-map',
+  '.era-per','.era-body h3','.era-body p','.era-fact','.ba-h','.ba-sub','.ba-cred','.ba-lab',
+  '.dish-h','.dish-d','.factc-h','.factc-d','.faq summary','.faq-a',
+  '.story-num','.story-card h3','.story-card p','.story-tag','.story-hint',
+  '.gal-cap','.gal-h','.now-t','#now-text',
+  '.foot-h','.foot-cta .btn','.foot-init','.foot-meta','#loader .lw'];
+const i18nNorm=s=>s.replace(/\s+/g,' ').trim();
+let LANG=(function(){try{return localStorage.getItem('atlas-lang')==='en'?'en':'ru';}catch(e){return 'ru';}})();
+const ruTitle=document.title, ruDesc=(document.querySelector('meta[name="description"]')||{}).content||'';
+function applyLang(lang){
+  LANG=lang;
+  document.documentElement.setAttribute('lang',lang);
+  document.querySelectorAll(I18N_SEL.join(',')).forEach(el=>{
+    if(el.dataset.ru===undefined)el.dataset.ru=el.innerHTML;
+    const en=EN[i18nNorm(el.dataset.ru)];
+    el.innerHTML=(lang==='en'&&en!==undefined)?en:el.dataset.ru;
+  });
+  const lb=document.getElementById('lang-btn');
+  if(lb)lb.innerHTML=lang==='en'?'RU · <b>EN</b>':'<b>RU</b> · EN';
+  const d=document.querySelector('meta[name="description"]');
+  if(d)d.content=(lang==='en'&&EN['@desc'])?EN['@desc']:ruDesc;
+  document.title=(lang==='en'&&EN['@title'])?EN['@title']:ruTitle;
+  if(window.renderDynamicI18n)try{window.renderDynamicI18n(lang);}catch(e){}
+}
+function initLang(){
+  const btn=document.getElementById('lang-btn');
+  if(btn)btn.addEventListener('click',()=>{const nx=LANG==='en'?'ru':'en';try{localStorage.setItem('atlas-lang',nx);}catch(e){}applyLang(nx);});
+  applyLang(LANG);
+}
 
 /* ---------- ТЕМА ---------- */
 (function(){
