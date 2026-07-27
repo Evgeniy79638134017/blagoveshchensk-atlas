@@ -1443,6 +1443,16 @@ const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const CATC={nat:getCss('--c-nat'),sea:getCss('--c-sea'),his:getCss('--c-his'),gas:getCss('--c-gas'),spa:getCss('--c-spa'),city:getCss('--c-city')};
 const CATL={nat:'Природа',sea:'Река',his:'История',gas:'Гастро',spa:'Отдых',city:'Город'};
 function getCss(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+/* перевод динамических строк по словарю window.EN (ключ = русский текст).
+   Язык читаем из window.__lang, чтобы не зависеть от порядка объявлений (без TDZ).
+   Нет перевода — возвращаем оригинал (безопасно). */
+function T(s){
+  try{
+    if((window.__lang||'ru')!=='en'||!window.EN)return s;
+    var v=window.EN[String(s).replace(/\s+/g,' ').trim()];
+    return v!==undefined?v:s;
+  }catch(e){return s;}
+}
 
 const POINTS = [
   {id:1,name:"Набережная Амура",lat:50.25606,lng:127.52458,cat:"sea",desc:"Километры прогулочного берега лицом к китайскому Хэйхэ. Новый участок «Серебряная миля» (~2,5 км) с 500-метровым пляжем, велодорожки, воркаут-зоны, ролледром и стритбол, маршрут скандинавской ходьбы, детские площадки, прокаты. Ориентиры — башня старого маяка у горпарка, ротонда и памятники, включая пса Дружка."},
@@ -1562,16 +1572,17 @@ document.getElementById('dishes').innerHTML = DISHES.map((d,i)=>`
   <div class="dish fade"><div class="dish-top"><span class="dish-ico" style="background:${DISH_COL[i]}1a;color:${DISH_COL[i]}"><svg viewBox="0 0 24 24">${DISH_ICONS[i]}</svg></span><div class="dish-n">/ 0${i+1}</div></div><div class="dish-h">${d[0]}</div><div class="dish-d">${d[1]}</div></div>`).join('');
 
 /* category bars */
-(function(){
+function renderCatbars(){
   const counts={}; POINTS.forEach(p=>counts[p.cat]=(counts[p.cat]||0)+1);
   const max=Math.max(...Object.values(counts));
   const order=['sea','his','city','nat','spa','gas'];
   document.getElementById('catbars').innerHTML = order.filter(c=>counts[c]).map(c=>`
     <div class="catbar" data-cat="${c}">
-      <div class="catbar-top"><span>${CATL[c]}</span><span class="n">${counts[c]}</span></div>
+      <div class="catbar-top"><span>${T(CATL[c])}</span><span class="n">${counts[c]}</span></div>
       <div class="catbar-track"><div class="catbar-fill" style="background:${CATC[c]};width:${counts[c]/max*100}%"></div></div>
     </div>`).join('');
-})();
+}
+renderCatbars();
 
 /* ---------- MAP ---------- */
 let map, markers=[], baseTiles=null;
@@ -1586,10 +1597,13 @@ function initMap(){
   map.on('click',()=>map.scrollWheelZoom.enable());
   POINTS.forEach(p=>{
     const m=L.marker([p.lat,p.lng],{icon:pinIcon(p.cat)});
-    const c=CATC[p.cat];
-    m.bindPopup(`<div class="pin-pop">${p.img?`<img src="${p.img}" loading="lazy" onerror="this.style.display='none'">`:''}<span class="pc" style="background:${c}22;color:${c}">${CATL[p.cat]}</span><h5>${p.name}</h5><p>${p.desc}</p></div>`,{maxWidth:300});
-    m.cat=p.cat; m.addTo(map); markers.push(m);
+    m.bindPopup(pointPopupHtml(p),{maxWidth:300});
+    m.cat=p.cat; m._pt=p; m.addTo(map); markers.push(m);
   });
+}
+function pointPopupHtml(p){
+  const c=CATC[p.cat];
+  return `<div class="pin-pop">${p.img?`<img src="${p.img}" loading="lazy" onerror="this.style.display='none'">`:''}<span class="pc" style="background:${c}22;color:${c}">${T(CATL[p.cat])}</span><h5>${T(p.name)}</h5><p>${T(p.desc)}</p></div>`;
 }
 function filterMap(cat){
   markers.forEach(m=>{ if(cat==='all'||m.cat===cat){m.addTo(map);} else {m.remove();} });
@@ -1656,11 +1670,13 @@ function renderEvents(cat){
   const today=new Date(); today.setHours(0,0,0,0);
   const roll=EVENTS.map(e=>{ if(!e.annual)return e; let d=new Date(e.date_iso); const lim=new Date(today.getTime()-864e5); while(d<lim){d.setFullYear(d.getFullYear()+1);} const pad=x=>String(x).padStart(2,'0'); return {...e,date_iso:d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}; });
   const up=roll.filter(e=>new Date(e.date_iso)>=new Date(today.getTime()-864e5)).filter(e=>cat==='all'||e.category===cat).sort((a,b)=>new Date(a.date_iso)-new Date(b.date_iso));
-  if(!up.length){list.innerHTML='<div class="ev-empty">В этой категории пока нет событий. Попробуйте «Все».</div>';return;}
+  if(!up.length){list.innerHTML='<div class="ev-empty">'+T('В этой категории пока нет событий. Попробуйте «Все».')+'</div>';return;}
+  const MON_EN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   list.innerHTML=up.map(e=>{
     const d=new Date(e.date_iso),c=EVCATC[e.category]||'#888';
-    const link=e.link&&e.link!=='#'?`<a class="ev-link" href="${e.link}" target="_blank" rel="noopener">подробнее →</a>`:'';
-    return `<article class="ev-card" style="border-top:3px solid ${c}"><div class="ev-head"><div class="ev-date"><span class="ev-day">${d.getDate()}</span><span class="ev-mon">${MON[d.getMonth()]}</span></div><span class="ev-cat" style="background:${c}1e;color:${c}">${EVCATL[e.category]||e.category}</span></div><h3 class="ev-h">${e.title}</h3><p class="ev-d">${e.description}</p><div class="ev-meta"><span>${e.location}</span>${link}</div></article>`;
+    const mon=(window.__lang==='en'?MON_EN:MON)[d.getMonth()];
+    const link=e.link&&e.link!=='#'?`<a class="ev-link" href="${e.link}" target="_blank" rel="noopener">${T('подробнее →')}</a>`:'';
+    return `<article class="ev-card" style="border-top:3px solid ${c}"><div class="ev-head"><div class="ev-date"><span class="ev-day">${d.getDate()}</span><span class="ev-mon">${mon}</span></div><span class="ev-cat" style="background:${c}1e;color:${c}">${T(EVCATL[e.category]||e.category)}</span></div><h3 class="ev-h">${T(e.title)}</h3><p class="ev-d">${T(e.description)}</p><div class="ev-meta"><span>${T(e.location)}</span>${link}</div></article>`;
   }).join('');
 }
 document.getElementById('ev-tabs').addEventListener('click',e=>{
@@ -1797,7 +1813,8 @@ function donut(parts){
   return `<svg width="170" height="170" viewBox="0 0 170 170">${segs}</svg>`;
 }
 function renderPlan(){
-  if(!state.int.length){document.getElementById('o-int').textContent='выберите ≥1';return;}
+  if(!state.int.length){document.getElementById('o-int').textContent=T('выберите ≥1');return;}
+  const EEN=window.__lang==='en';
   const {plan,actCost}=buildPlan();
   const nights=Math.max(0,state.days-1), rooms=Math.ceil(state.size/2);
   const seasonMult=state.season==='summer'?1.25:(state.season==='autumn'?1.1:1.0);
@@ -1809,11 +1826,14 @@ function renderPlan(){
   const perPerson=Math.round(total/state.size), perDay=Math.round(total/state.days);
   let actN=0; plan.forEach(d=>actN+=d.acts.length);
 
+  const lodgeLabel=EEN
+    ? 'Lodging · '+nights+' × '+rooms+(rooms===1?' room':' rooms')
+    : 'Проживание · '+nights+' н. × '+rooms+(rooms===1?' номер':' номера');
   const parts=[
-    {label:'Дневной бюджет (еда, транспорт)',val:daily,color:CATC.gas},
-    {label:'Проживание · '+nights+' н. × '+rooms+(rooms===1?' номер':' номера'),val:lodging,color:CATC.city},
-    {label:'Активности и экскурсии',val:activities,color:CATC.nat},
-    {label:'Дорога до города (ориентир)',val:travel,color:CATC.his}
+    {label:T('Дневной бюджет (еда, транспорт)'),val:daily,color:CATC.gas},
+    {label:lodgeLabel,val:lodging,color:CATC.city},
+    {label:T('Активности и экскурсии'),val:activities,color:CATC.nat},
+    {label:T('Дорога до города (ориентир)'),val:travel,color:CATC.his}
   ];
   const seasonNote={
     winter:"Зима — замёрзший Амур, каток и огни Хэйхэ через реку. Дальние поездки (космодром, Албазино) сложнее из-за морозов.",
@@ -1823,15 +1843,17 @@ function renderPlan(){
   }[state.season];
 
   const SEASONL={winter:'зима',spring:'весна',summer:'лето',autumn:'осень'};
-  let html=`<div class="print-head">Амур Атлас — маршрут по Благовещенску</div><div class="print-sub">${state.days} дн · ${state.size} чел · сезон: ${SEASONL[state.season]} · бюджет ${money(total)} · blagoveshchensk-atlas</div>`;
+  const unitD=EEN?'d':'дн', unitP=EEN?'ppl':'чел';
+  const printTitle=EEN?'Amur Atlas — a route through Blagoveshchensk':'Амур Атлас — маршрут по Благовещенску';
+  let html=`<div class="print-head">${printTitle}</div><div class="print-sub">${state.days} ${unitD} · ${state.size} ${unitP} · ${T('сезон:')} ${T(SEASONL[state.season])} · ${T('бюджет')} ${money(total)} · visitblg.ru</div>`;
   html+=`<div class="bud">
-    <div class="donut-wrap">${donut(parts)}<div class="donut-center"><div class="t">итого</div><div class="v">${money(total)}</div><div class="s">${state.size} чел · ${state.days} дн</div></div></div>
+    <div class="donut-wrap">${donut(parts)}<div class="donut-center"><div class="t">${T('итого')}</div><div class="v">${money(total)}</div><div class="s">${state.size} ${unitP} · ${state.days} ${unitD}</div></div></div>
     <div class="bud-legend">${parts.map(p=>`<div class="bl-row"><span class="bl-dot" style="background:${p.color}"></span><span class="bl-name">${p.label}</span><span class="bl-val">${money(p.val)}</span><span class="bl-pct">${Math.round(p.val/total*100)}%</span></div>`).join('')}</div>
-    <div class="bud-foot"><div>На человека<b>${money(perPerson)}</b></div><div>В день (на всех)<b>${money(perDay)}</b></div><div>Активностей<b>${actN}</b></div><div>Ночей<b>${nights}</b></div></div>
+    <div class="bud-foot"><div>${T('На человека')}<b>${money(perPerson)}</b></div><div>${T('В день (на всех)')}<b>${money(perDay)}</b></div><div>${T('Активностей')}<b>${actN}</b></div><div>${T('Ночей')}<b>${nights}</b></div></div>
   </div>`;
 
-  html+=`<div class="season-note">☀ ${seasonNote}</div>`;
-  html+=`<button class="btn-map" id="to-map">Показать маршрут на карте →</button>`;
+  html+=`<div class="season-note">☀ ${T(seasonNote)}</div>`;
+  html+=`<button class="btn-map" id="to-map">${T('Показать маршрут на карте →')}</button>`;
 
   html+=`<div class="tl">`;
   const dayTitles=[];
@@ -1839,22 +1861,22 @@ function renderPlan(){
     const times=i===0?["07:30","12:00","17:00"]:(i===plan.length-1?["10:00","15:00"]:["09:00","14:00","19:00"]);
     const title=i===0?'Приезд и знакомство с городом':(i===plan.length-1?'Отдых и отъезд':DAYTHEME[d.theme]||'День в Приамурье');
     dayTitles.push(title);
-    html+=`<div class="tl-day"><div class="tl-node"></div><div class="tl-dh">День ${i+1}</div><div class="tl-dsub">${title}</div>`;
+    html+=`<div class="tl-day"><div class="tl-node"></div><div class="tl-dh">${T('День')} ${i+1}</div><div class="tl-dsub">${T(title)}</div>`;
     d.acts.forEach((a,ai)=>{
       const tag=a.tags[0]||'city', c=CATC[({nat:'nat',sea:'sea',his:'his',gas:'gas',spa:'spa',city:'city'})[tag]||'city']||'#888';
-      const cost=a.cost>0?`<span class="tag cost">${a.cost.toLocaleString('ru')} ₽</span>`:`<span class="tag cost">бесплатно</span>`;
-      html+=`<div class="act"><div class="act-time">${times[ai]||''}</div><div class="act-body"><div class="act-name">${a.name}</div><div class="act-desc">${a.desc}</div><div class="act-foot"><span class="tag" style="background:${c}1e;color:${c}">${TAGL[tag]||tag}</span>${cost}</div></div></div>`;
+      const cost=a.cost>0?`<span class="tag cost">${a.cost.toLocaleString('ru')} ₽</span>`:`<span class="tag cost">${T('бесплатно')}</span>`;
+      html+=`<div class="act"><div class="act-time">${times[ai]||''}</div><div class="act-body"><div class="act-name">${T(a.name)}</div><div class="act-desc">${T(a.desc)}</div><div class="act-foot"><span class="tag" style="background:${c}1e;color:${c}">${T(TAGL[tag]||tag)}</span>${cost}</div></div></div>`;
     });
     html+=`</div>`;
   });
   html+=`</div>`;
   html+=`<div class="exp-bar">
-    <div class="exp-t">Забрать маршрут с собой</div>
+    <div class="exp-t">${T('Забрать маршрут с собой')}</div>
     <div class="exp-btns">
-      <button class="exp-b" id="exp-print">Скачать PDF</button>
-      <button class="exp-b" id="exp-share">Поделиться ссылкой</button>
-      <span class="exp-date"><label for="exp-date">Дата приезда:</label><input type="date" id="exp-date"></span>
-      <button class="exp-b" id="exp-ics">В календарь (.ics)</button>
+      <button class="exp-b" id="exp-print">${T('Скачать PDF')}</button>
+      <button class="exp-b" id="exp-share">${T('Поделиться ссылкой')}</button>
+      <span class="exp-date"><label for="exp-date">${T('Дата приезда:')}</label><input type="date" id="exp-date"></span>
+      <button class="exp-b" id="exp-ics">${T('В календарь (.ics)')}</button>
     </div>
     <div class="exp-note" id="exp-note"></div>
   </div>`;
@@ -1946,7 +1968,7 @@ function clearRoute(){
   routeLayer=null; activeDay=-1;
   document.querySelectorAll('.rb-chip').forEach(c=>c.classList.remove('on'));
   const note=document.getElementById('rb-note');
-  if(note)note.textContent='Выберите день — точки этого дня появятся на карте линией маршрута.';
+  if(note)note.textContent=T('Выберите день — точки этого дня появятся на карте линией маршрута.');
 }
 function drawRouteDay(i){
   if(!map||!window.L)return;
@@ -1961,7 +1983,8 @@ function drawRouteDay(i){
   }
   day.stops.forEach((s,idx)=>{
     const m=L.marker([s.p.lat,s.p.lng],{icon:L.divIcon({className:'',html:`<div class="rt-num">${idx+1}</div>`,iconSize:[26,26],iconAnchor:[13,13],popupAnchor:[0,-14]}),zIndexOffset:1000});
-    m.bindPopup(`<div class="pin-pop"><span class="pc" style="background:${teal}22;color:${teal}">День ${day.n} · точка ${idx+1}</span><h5>${s.p.name}</h5><p>${s.act}</p></div>`,{maxWidth:280});
+    const capLabel=window.__lang==='en'?`Day ${day.n} · point ${idx+1}`:`День ${day.n} · точка ${idx+1}`;
+    m.bindPopup(`<div class="pin-pop"><span class="pc" style="background:${teal}22;color:${teal}">${capLabel}</span><h5>${T(s.p.name)}</h5><p>${T(s.act)}</p></div>`,{maxWidth:280});
     layers.push(m);
   });
   routeLayer=L.layerGroup(layers).addTo(map);
@@ -1969,9 +1992,15 @@ function drawRouteDay(i){
   else{map.setView(latlngs[0],13);}
   document.querySelectorAll('.rb-chip').forEach(c=>c.classList.toggle('on',+c.dataset.day===i));
   const skipped=day.total-day.stops.length;
-  document.getElementById('rb-note').textContent =
-    `День ${day.n}: ${day.stops.length} ${plural(day.stops.length,'точка','точки','точек')} на карте`+
-    (skipped>0?` · ещё ${skipped} ${plural(skipped,'активность','активности','активностей')} без привязки к точке (еда, рынок, рыбалка)`:'');
+  if(window.__lang==='en'){
+    document.getElementById('rb-note').textContent =
+      `Day ${day.n}: ${day.stops.length} ${day.stops.length===1?'point':'points'} on the map`+
+      (skipped>0?` · ${skipped} more ${skipped===1?'activity':'activities'} without a map point (food, market, fishing)`:'');
+  }else{
+    document.getElementById('rb-note').textContent =
+      `День ${day.n}: ${day.stops.length} ${plural(day.stops.length,'точка','точки','точек')} на карте`+
+      (skipped>0?` · ещё ${skipped} ${plural(skipped,'активность','активности','активностей')} без привязки к точке (еда, рынок, рыбалка)`:'');
+  }
 }
 function plural(n,one,few,many){
   const n10=n%10,n100=n%100;
@@ -1983,8 +2012,9 @@ function setRouteFromPlan(plan){
   routeDays=collectRouteDays(plan);
   const bar=document.getElementById('route-bar'), days=document.getElementById('rb-days');
   if(!bar||!days)return;
+  const een=window.__lang==='en';
   days.innerHTML=routeDays.map((d,i)=>
-    `<button class="rb-chip" data-day="${i}"${d.stops.length?'':' disabled title="В этот день только активности без привязки к точке на карте — кафе, рынок, рыбалка"'}>День ${d.n}${d.stops.length?'':' · нет точек'}</button>`
+    `<button class="rb-chip" data-day="${i}"${d.stops.length?'':' disabled title="'+(een?'This day has only activities with no map point — cafés, market, fishing':'В этот день только активности без привязки к точке на карте — кафе, рынок, рыбалка')+'"'}>${een?'Day':'День'} ${d.n}${d.stops.length?'':(een?' · no points':' · нет точек')}</button>`
   ).join('');
   bar.hidden=false;
   clearRoute();
@@ -2165,65 +2195,82 @@ addEventListener('scroll',()=>{
   prog.style.transform=`scaleX(${Math.min(sc/(document.body.scrollHeight-innerHeight),1)})`;
 });
 
+/* перерисовка динамики при смене языка (вызывается из applyLang) */
+window.renderDynamicI18n=function(lang){
+  try{
+    if(map&&markers&&markers.length){markers.forEach(m=>{if(m._pt)m.setPopupContent(pointPopupHtml(m._pt));});}
+    if(typeof renderCatbars==='function')renderCatbars();
+    const on=document.querySelector('#ev-tabs .chip.on');
+    if(typeof renderEvents==='function')renderEvents(on?on.dataset.ev:'all');
+    if(typeof lastPlan!=='undefined'&&lastPlan&&typeof renderPlan==='function')renderPlan();
+    if(window.renderNowWidget)window.renderNowWidget();
+    if(window.hhCalc)window.hhCalc();
+    if(typeof activeDay!=='undefined'&&activeDay>=0&&typeof drawRouteDay==='function')drawRouteDay(activeDay);
+  }catch(e){console.warn('renderDynamicI18n',e);}
+};
+
 /* init map (guard if Leaflet CDN blocked) */
 try{ if(window.L) initMap(); else console.warn('Leaflet not loaded'); }catch(e){console.warn(e);}
 try{ if(window.L) initStoryWalk(); }catch(e){console.warn(e);}
 try{ initLang(); }catch(e){console.warn(e);}
 
 /* ---------- ЖИВЫЕ ВИДЖЕТЫ ---------- */
+const WMO_RU={0:'ясно',1:'почти ясно',2:'переменная облачность',3:'пасмурно',45:'туман',48:'изморозь',
+  51:'морось',53:'морось',55:'морось',61:'небольшой дождь',63:'дождь',65:'сильный дождь',
+  66:'ледяной дождь',67:'ледяной дождь',71:'небольшой снег',73:'снег',75:'сильный снег',77:'снежная крупа',
+  80:'ливень местами',81:'ливень',82:'сильный ливень',85:'снегопад',86:'сильный снегопад',
+  95:'гроза',96:'гроза с градом',99:'гроза с градом'};
+const WMO_EN={0:'clear',1:'mostly clear',2:'partly cloudy',3:'overcast',45:'fog',48:'rime fog',
+  51:'drizzle',53:'drizzle',55:'drizzle',61:'light rain',63:'rain',65:'heavy rain',
+  66:'freezing rain',67:'freezing rain',71:'light snow',73:'snow',75:'heavy snow',77:'snow grains',
+  80:'rain showers',81:'showers',82:'heavy showers',85:'snow showers',86:'heavy snowfall',
+  95:'thunderstorm',96:'thunderstorm with hail',99:'thunderstorm with hail'};
+let __wx=null;
+function paintWx(){
+  if(!__wx)return; const slot=document.getElementById('wx-slot'); if(!slot)return;
+  const en=window.__lang==='en';
+  const desc=(en?WMO_EN:WMO_RU)[__wx.code]||'';
+  slot.innerHTML=', <b class="wx">'+(__wx.temp>0?'+':'')+__wx.temp+'&thinsp;°C'+(desc?', '+desc:'')+'</b>';
+}
+window.renderNowWidget=function(){
+  const bar=document.getElementById('now-bar'), txt=document.getElementById('now-text');
+  if(!bar||!txt)return;
+  const en=window.__lang==='en';
+  const m=new Date().getMonth()+1;
+  const SE={
+    w:{ru:'зима',en:'winter',hru:'Амур замёрз: каток на набережной, понтонная переправа в Хэйхэ и огни китайского берега.',hen:'The Amur is frozen: a rink on the embankment, a pontoon crossing to Heihe and the lights of the Chinese bank.'},
+    sp:{ru:'весна',en:'spring',hru:'Сезон ледохода: в конце апреля Амур вскрывается — главное зрелище весны.',hen:'Ice-drift season: in late April the Amur breaks up — the main spring spectacle.'},
+    su:{ru:'лето',en:'summer',hru:'Разгар сезона: набережная, теплоходы в Хэйхэ'+(m===7||m===8?', лотосы у Ивановки в цвету':'')+'.',hen:'Peak season: the embankment, riverboats to Heihe'+(m===7||m===8?', lotuses blooming near Ivanovka':'')+'.'},
+    au:{ru:'осень',en:'autumn',hru:'В сентябре — кинофестиваль «Амурская осень», золотая тайга и бархатное тепло.',hen:'In September — the "Amur Autumn" film festival, golden taiga and mellow warmth.'}
+  };
+  const key=(m===12||m<=2)?'w':(m<=5?'sp':(m<=8?'su':'au'));
+  const s=SE[key];
+  const cityLabel=en?'Now in Blagoveshchensk':'Сейчас в Благовещенске';
+  txt.innerHTML=cityLabel+' <b>'+(en?s.en:s.ru)+'</b><span id="wx-slot"></span> · '+(en?s.hen:s.hru);
+  bar.hidden=false;
+  document.querySelectorAll('.sea-now').forEach(x=>x.remove());
+  const card=document.querySelector('.sea-c.'+key+' .sea-h');
+  if(card)card.insertAdjacentHTML('beforeend','<span class="sea-now">'+(en?'now':'сейчас')+'</span>');
+  paintWx();
+};
 (function(){
   /* отсчёт до декабря 2026 — месяца готовности канатки (по амурскому времени) */
   const cc=document.getElementById('cc-count');
   if(cc){
     const target=new Date('2026-12-01T00:00:00+09:00');
     const days=Math.ceil((target-Date.now())/86400000);
-    if(days>0){
-      document.getElementById('cc-days').textContent=days;
-      cc.hidden=false;
-    }else{
-      document.getElementById('cc-days').textContent='●';
-      cc.querySelector('span').innerHTML='декабрь 2026 наступил — следите за новостями об открытии канатной дороги';
-      cc.hidden=false;
-    }
+    if(days>0){document.getElementById('cc-days').textContent=days;cc.hidden=false;}
+    else{document.getElementById('cc-days').textContent='●';
+      cc.querySelector('span').innerHTML=window.__lang==='en'?'December 2026 has arrived — watch for news on the cable car opening':'декабрь 2026 наступил — следите за новостями об открытии канатной дороги';
+      cc.hidden=false;}
   }
-
-  /* «сейчас в городе»: сезон по дате + подсветка карточки + погода */
-  const bar=document.getElementById('now-bar'), txt=document.getElementById('now-text');
-  if(!bar||!txt)return;
-  const m=new Date().getMonth()+1;
-  const SEASONS={
-    w:{name:'зима', hint:'Амур замёрз: каток на набережной, понтонная переправа в Хэйхэ и огни китайского берега.'},
-    sp:{name:'весна', hint:'Сезон ледохода: в конце апреля Амур вскрывается — главное зрелище весны.'},
-    su:{name:'лето', hint:'Разгар сезона: набережная, теплоходы в Хэйхэ' + (m===7||m===8?', лотосы у Ивановки в цвету':'') + '.'},
-    au:{name:'осень', hint:'В сентябре — кинофестиваль «Амурская осень», золотая тайга и бархатное тепло.'}
-  };
-  const key=(m===12||m<=2)?'w':(m<=5?'sp':(m<=8?'su':'au'));
-  const s=SEASONS[key];
-  txt.innerHTML='Сейчас в Благовещенске <b>'+s.name+'</b>'+
-    '<span id="wx-slot"></span> · '+s.hint;
-  bar.hidden=false;
-  /* бейдж «сейчас» на карточке текущего сезона */
-  const card=document.querySelector('.sea-c.'+key+' .sea-h');
-  if(card&&!card.querySelector('.sea-now'))card.insertAdjacentHTML('beforeend','<span class="sea-now">сейчас</span>');
-
+  window.renderNowWidget();
   /* погода: Open-Meteo, без ключа; не пришла — плашка живёт без неё */
-  const WMO={0:'ясно',1:'почти ясно',2:'переменная облачность',3:'пасмурно',45:'туман',48:'изморозь',
-    51:'морось',53:'морось',55:'морось',61:'небольшой дождь',63:'дождь',65:'сильный дождь',
-    66:'ледяной дождь',67:'ледяной дождь',71:'небольшой снег',73:'снег',75:'сильный снег',77:'снежная крупа',
-    80:'ливень местами',81:'ливень',82:'сильный ливень',85:'снегопад',86:'сильный снегопад',
-    95:'гроза',96:'гроза с градом',99:'гроза с градом'};
   const ctrl=new AbortController();
   const t=setTimeout(()=>ctrl.abort(),6000);
   fetch('https://api.open-meteo.com/v1/forecast?latitude=50.2573&longitude=127.5346&current=temperature_2m,weather_code&timezone=Asia%2FYakutsk',{signal:ctrl.signal})
     .then(r=>r.ok?r.json():null)
-    .then(d=>{
-      clearTimeout(t);
-      if(!d||!d.current)return;
-      const temp=Math.round(d.current.temperature_2m);
-      const desc=WMO[d.current.weather_code]||'';
-      const slot=document.getElementById('wx-slot');
-      if(slot)slot.innerHTML=', <b class="wx">'+(temp>0?'+':'')+temp+'&thinsp;°C'+(desc?', '+desc:'')+'</b>';
-    })
+    .then(d=>{clearTimeout(t);if(!d||!d.current)return;__wx={temp:Math.round(d.current.temperature_2m),code:d.current.weather_code};paintWx();})
     .catch(()=>{});
 })();
 
@@ -2236,7 +2283,7 @@ const EN=(window.EN||{});
 const I18N_SEL=['.nav-link','.nav-cta','.brand','.hero .eyebrow','.hero-h','.hero-sub',
   '.hero-cta .btn','.hero-pill','.hero-visual .badge','.hero-visual .flag','.stat-cap','.stat-num .u',
   '.section-h','.section-lead','.section .eyebrow','.cell h3','.cell p','.cell .lbl',
-  '.chip','.map-side h4','.map-side .sub','.live','.ev-note',
+  '.chip','.map-side h4','.map-side .sub','.live','.ev-note','.rb-t','.rb-clear',
   '.go-card h3','.go-sub','.route-t span','.route-d','.cost-n','.cost-note',
   '.sea-m','.sea-h','.sea-t','.sea-d','.sea-tag',
   '.hh-visa b','.hh-visa p','.hh-way-h h4','.hh-way .when','.hh-way p','.hh-calc h3','.hh-calc .sub',
@@ -2255,6 +2302,7 @@ let LANG=(function(){try{return localStorage.getItem('atlas-lang')==='en'?'en':'
 const ruTitle=document.title, ruDesc=(document.querySelector('meta[name="description"]')||{}).content||'';
 function applyLang(lang){
   LANG=lang;
+  window.__lang=lang;
   document.documentElement.setAttribute('lang',lang);
   document.querySelectorAll(I18N_SEL.join(',')).forEach(el=>{
     if(el.dataset.ru===undefined)el.dataset.ru=el.innerHTML;
