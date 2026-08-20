@@ -8,6 +8,7 @@
 <meta name="author" content="ИИщенко LAB">
 <meta name="yandex-verification" content="5cf74663590b90da" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="theme-color" content="#0E9A93">
 <link rel="canonical" href="https://visitblg.ru/">
 <link rel="alternate" hreflang="ru" href="https://visitblg.ru/">
@@ -796,7 +797,10 @@ window.SITE_CONFIG = {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+<!-- Leaflet с проверкой целостности: если файл на CDN подменят, браузер его
+     не применит. Хеши посчитаны с самих файлов 20.08.2026, не взяты из
+     памяти. При смене версии Leaflet пересчитать, иначе карта не загрузится. -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
 /* тема до первой отрисовки, чтобы не мигало белым */
 (function(){try{var t=localStorage.getItem('atlas-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
@@ -2283,7 +2287,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
   </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 /* ---------- DATA ---------- */
 const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,0 +1,28 @@
+# Репозиторий публичный, и GitHub Pages отдаёт из него всё подряд.
+# Поэтому здесь не должно оказаться ни секретов, ни рабочего мусора.
+
+# секреты — ни при каких обстоятельствах
+.env
+.env.*
+*.pem
+*.key
+*_token
+*_secret
+.telegram_config/
+.b24_config/
+.graphiti_config/
+.rclone_config/
+
+# служебное
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+~$*
+.~lock.*
+
+# черновики и резервные копии
+_backup_*
+*_backup.*
+*.bak
+_черновик*
