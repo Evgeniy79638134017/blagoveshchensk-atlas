@@ -17,6 +17,7 @@
 
 
 
+
 <meta name="geo.region" content="RU-AMU">
 <meta name="geo.placename" content="Благовещенск, Амурская область">
 <meta name="geo.position" content="50.2905;127.5272">
@@ -1575,6 +1576,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
 
 <link rel="alternate" hreflang="ru" href="https://visitblg.ru/">
 <link rel="alternate" hreflang="en" href="https://visitblg.ru/en/">
+<link rel="alternate" hreflang="zh-Hans" href="https://visitblg.ru/cn/">
 <link rel="alternate" hreflang="x-default" href="https://visitblg.ru/">
 </head>
 <body data-palette="#009E73,#2E9AD1,#C56AA0,#E69F00,#D55E00,#0072B2">
@@ -2008,7 +2010,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
             <div class="pill" data-v="spa">Leisure</div>
             <div class="pill" data-v="culture">China, Cossacks</div>
             <div class="pill" data-v="fishing">Fishing</div>
-            <div class="pill" data-v="off">Off-the-beaten</div>
+            <div class="pill" data-v="off">Off the beaten track</div>
             <div class="pill" data-v="city">City, museums</div>
           </div>
         </div>
@@ -2337,10 +2339,20 @@ function getCss(v){return getComputedStyle(document.documentElement).getProperty
 /* перевод динамических строк по словарю window.EN (ключ = русский текст).
    Язык читаем из window.__lang, чтобы не зависеть от порядка объявлений (без TDZ).
    Нет перевода — возвращаем оригинал (безопасно). */
+/* Словарь выбирается по языку страницы, а не проверкой «это английский».
+   Ключи во всех словарях русские — русский язык словаря не имеет вовсе
+   и возвращает исходную строку. */
+function I18N_DICT(l){
+  l=l||window.__lang||'ru';
+  if(l==='en')return window.EN||null;
+  if(l==='zh')return window.ZH||null;
+  return null;
+}
 function T(s){
   try{
-    if((window.__lang||'ru')!=='en'||!window.EN)return s;
-    var v=window.EN[String(s).replace(/\s+/g,' ').trim()];
+    var d=I18N_DICT();
+    if(!d)return s;
+    var v=d[String(s).replace(/\s+/g,' ').trim()];
     return v!==undefined?v:s;
   }catch(e){return s;}
 }
@@ -2563,9 +2575,10 @@ function renderEvents(cat){
   const up=roll.filter(e=>new Date(e.date_iso)>=new Date(today.getTime()-864e5)).filter(e=>cat==='all'||e.category===cat).sort((a,b)=>new Date(a.date_iso)-new Date(b.date_iso));
   if(!up.length){list.innerHTML='<div class="ev-empty">'+T('В этой категории пока нет событий. Попробуйте «Все».')+'</div>';return;}
   const MON_EN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const MON_ZH=["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
   list.innerHTML=up.map(e=>{
     const d=new Date(e.date_iso),c=EVCATC[e.category]||'#888';
-    const mon=(window.__lang==='en'?MON_EN:MON)[d.getMonth()];
+    const mon=(window.__lang==='en'?MON_EN:(window.__lang==='zh'?MON_ZH:MON))[d.getMonth()];
     const link=e.link&&e.link!=='#'?`<a class="ev-link" href="${e.link}" target="_blank" rel="noopener">${T('подробнее →')}</a>`:'';
     return `<article class="ev-card" style="border-top:3px solid ${c}"><div class="ev-head"><div class="ev-date"><span class="ev-day">${d.getDate()}</span><span class="ev-mon">${mon}</span></div><span class="ev-cat" style="background:${c}1e;color:${c}">${T(EVCATL[e.category]||e.category)}</span></div><h3 class="ev-h">${T(e.title)}</h3><p class="ev-d">${T(e.description)}</p><div class="ev-meta"><span>${T(e.location)}</span>${link}</div></article>`;
   }).join('');
@@ -2632,7 +2645,7 @@ if(SHEET_CSV_URL){
 /* ---------- PLANNER ---------- */
 const state={size:2,group:"couple",season:"spring",days:5,int:["nature","sea","gastro"],budget:6};
 const TAGL={nat:'природа',sea:'река',gas:'еда',his:'история',act:'актив',fam:'семья',spa:'отдых',city:'город',off:'off-beat'};
-const DAYTHEME={sea:"Амур и набережная",nat:"Природа Приамурья",his:"История и купцы",act:"Активный день",off:"Off-the-beaten",gas:"Гастрономический день",spa:"Отдых на природе",city:"Городской день",fam:"Семейный день"};
+const DAYTHEME={sea:"Амур и набережная",nat:"Природа Приамурья",his:"История и купцы",act:"Активный день",off:"День вне маршрутов",gas:"Гастрономический день",spa:"Отдых на природе",city:"Городской день",fam:"Семейный день"};
 
 document.querySelectorAll('.tiles,.pills').forEach(g=>{
   g.addEventListener('click',ev=>{
@@ -2705,7 +2718,9 @@ function donut(parts){
 }
 function renderPlan(){
   if(!state.int.length){document.getElementById('o-int').textContent=T('выберите ≥1');return;}
-  const EEN=window.__lang==='en';
+  const L=window.__lang||'ru';
+  const EEN=L==='en';   /* краткие подписи, которых нет в словаре: их не вытащить через T() */
+  const EZH=L==='zh';
   const {plan,actCost}=buildPlan();
   const nights=Math.max(0,state.days-1), rooms=Math.ceil(state.size/2);
   const seasonMult=state.season==='summer'?1.25:(state.season==='autumn'?1.1:1.0);
@@ -2717,9 +2732,11 @@ function renderPlan(){
   const perPerson=Math.round(total/state.size), perDay=Math.round(total/state.days);
   let actN=0; plan.forEach(d=>actN+=d.acts.length);
 
-  const lodgeLabel=EEN
-    ? 'Lodging · '+nights+' × '+rooms+(rooms===1?' room':' rooms')
-    : 'Проживание · '+nights+' н. × '+rooms+(rooms===1?' номер':' номера');
+  const lodgeLabel=EZH
+    ? '住宿 · '+nights+'晚 × '+rooms+'间'
+    : (EEN
+      ? 'Lodging · '+nights+' × '+rooms+(rooms===1?' room':' rooms')
+      : 'Проживание · '+nights+' н. × '+rooms+(rooms===1?' номер':' номера'));
   const parts=[
     {label:T('Дневной бюджет (еда, транспорт)'),val:daily,color:CATC.gas},
     {label:lodgeLabel,val:lodging,color:CATC.city},
@@ -2734,8 +2751,8 @@ function renderPlan(){
   }[state.season];
 
   const SEASONL={winter:'зима',spring:'весна',summer:'лето',autumn:'осень'};
-  const unitD=EEN?'d':'дн', unitP=EEN?'ppl':'чел';
-  const printTitle=EEN?'Amur Atlas — a route through Blagoveshchensk':'Амур Атлас — маршрут по Благовещенску';
+  const unitD=EZH?'天':(EEN?'d':'дн'), unitP=EZH?'人':(EEN?'ppl':'чел');
+  const printTitle=EZH?'阿穆尔地图 — 布拉戈维申斯克之旅':(EEN?'Amur Atlas — a route through Blagoveshchensk':'Амур Атлас — маршрут по Благовещенску');
   let html=`<div class="print-head">${printTitle}</div><div class="print-sub">${state.days} ${unitD} · ${state.size} ${unitP} · ${T('сезон:')} ${T(SEASONL[state.season])} · ${T('бюджет')} ${money(total)} · visitblg.ru</div>`;
   html+=`<div class="bud">
     <div class="donut-wrap">${donut(parts)}<div class="donut-center"><div class="t">${T('итого')}</div><div class="v">${money(total)}</div><div class="s">${state.size} ${unitP} · ${state.days} ${unitD}</div></div></div>
@@ -3103,7 +3120,10 @@ window.renderDynamicI18n=function(lang){
 /* init map (guard if Leaflet CDN blocked) */
 try{ if(window.L) initMap(); else console.warn('Leaflet not loaded'); }catch(e){console.warn(e);}
 try{ if(window.L) initStoryWalk(); }catch(e){console.warn(e);}
-try{ initLang(); }catch(e){console.warn(e);}
+/* initLang() вызывается ниже, после объявления LANG и I18N_SEL:
+   отсюда он падал с «Cannot access LANG before initialization» —
+   слушатель на кнопку успевал навеситься, а начальное применение
+   языка нет, и сохранённый выбор EN при загрузке не срабатывал. */
 
 /* ---------- ЖИВЫЕ ВИДЖЕТЫ ---------- */
 const WMO_RU={0:'ясно',1:'почти ясно',2:'переменная облачность',3:'пасмурно',45:'туман',48:'изморозь',
@@ -3116,32 +3136,42 @@ const WMO_EN={0:'clear',1:'mostly clear',2:'partly cloudy',3:'overcast',45:'fog'
   66:'freezing rain',67:'freezing rain',71:'light snow',73:'snow',75:'heavy snow',77:'snow grains',
   80:'rain showers',81:'showers',82:'heavy showers',85:'snow showers',86:'heavy snowfall',
   95:'thunderstorm',96:'thunderstorm with hail',99:'thunderstorm with hail'};
+const WMO_ZH={0:'晴',1:'晴天为主',2:'局部多云',3:'阴',45:'雾',48:'冻雾',
+  51:'小雨',53:'小雨',55:'小雨',61:'小雨',63:'雨',65:'大雨',
+  66:'冻雨',67:'冻雨',71:'小雪',73:'雪',75:'大雪',77:'雪粒',
+  80:'阵雨',81:'阵雨',82:'强阵雨',85:'阵雪',86:'大雪',
+  95:'雷阵雨',96:'雷阵雨伴冰雹',99:'雷阵雨伴冰雹'};
 let __wx=null;
 function paintWx(){
   if(!__wx)return; const slot=document.getElementById('wx-slot'); if(!slot)return;
-  const en=window.__lang==='en';
-  const desc=(en?WMO_EN:WMO_RU)[__wx.code]||'';
+  const wl=window.__lang||'ru';
+  const desc=(wl==='en'?WMO_EN:(wl==='zh'?WMO_ZH:WMO_RU))[__wx.code]||'';
   slot.innerHTML=', <b class="wx">'+(__wx.temp>0?'+':'')+__wx.temp+'&thinsp;°C'+(desc?', '+desc:'')+'</b>';
 }
 window.renderNowWidget=function(){
   const bar=document.getElementById('now-bar'), txt=document.getElementById('now-text');
   if(!bar||!txt)return;
-  const en=window.__lang==='en';
+  /* Плашка собирается строками в коде, а не через словарь, — поэтому язык
+     выбирается здесь явно. Забыть третий вариант легко: тогда на /cn/
+     сезон и подсказка останутся русскими поверх китайской страницы. */
+  const L=window.__lang||'ru';
+  const en=L==='en', zh=L==='zh';
+  const pick=(r,e,z)=>zh?z:(en?e:r);
   const m=new Date().getMonth()+1;
   const SE={
-    w:{ru:'зима',en:'winter',hru:'Амур замёрз: каток на набережной, понтонная переправа в Хэйхэ и огни китайского берега.',hen:'The Amur is frozen: a rink on the embankment, a pontoon crossing to Heihe and the lights of the Chinese bank.'},
-    sp:{ru:'весна',en:'spring',hru:'Сезон ледохода: в конце апреля Амур вскрывается — главное зрелище весны.',hen:'Ice-drift season: in late April the Amur breaks up — the main spring spectacle.'},
-    su:{ru:'лето',en:'summer',hru:'Разгар сезона: набережная, теплоходы в Хэйхэ'+(m===7||m===8?', лотосы у Ивановки в цвету':'')+'.',hen:'Peak season: the embankment, riverboats to Heihe'+(m===7||m===8?', lotuses blooming near Ivanovka':'')+'.'},
-    au:{ru:'осень',en:'autumn',hru:'В сентябре — кинофестиваль «Амурская осень», золотая тайга и бархатное тепло.',hen:'In September — the "Amur Autumn" film festival, golden taiga and mellow warmth.'}
+    w:{ru:'зима',en:'winter',zh:'冬季',hru:'Амур замёрз: каток на набережной, понтонная переправа в Хэйхэ и огни китайского берега.',hen:'The Amur is frozen: a rink on the embankment, a pontoon crossing to Heihe and the lights of the Chinese bank.',hzh:'阿穆尔河已封冻：江畔有露天冰场，可走浮桥去黑河，对岸中国的灯火尽收眼底。'},
+    sp:{ru:'весна',en:'spring',zh:'春季',hru:'Сезон ледохода: в конце апреля Амур вскрывается — главное зрелище весны.',hen:'Ice-drift season: in late April the Amur breaks up — the main spring spectacle.',hzh:'开江流冰的季节：4月下旬阿穆尔河开江，这是春天最大的看头。'},
+    su:{ru:'лето',en:'summer',zh:'夏季',hru:'Разгар сезона: набережная, теплоходы в Хэйхэ'+(m===7||m===8?', лотосы у Ивановки в цвету':'')+'.',hen:'Peak season: the embankment, riverboats to Heihe'+(m===7||m===8?', lotuses blooming near Ivanovka':'')+'.',hzh:'旺季：江畔步道、开往黑河的游船'+(m===7||m===8?'，伊万诺夫卡的荷花正开':'')+'。'},
+    au:{ru:'осень',en:'autumn',zh:'秋季',hru:'В сентябре — кинофестиваль «Амурская осень», золотая тайга и бархатное тепло.',hen:'In September — the "Amur Autumn" film festival, golden taiga and mellow warmth.',hzh:'9月有“阿穆尔之秋”电影节、金色的针叶林和宜人的暖意。'}
   };
   const key=(m===12||m<=2)?'w':(m<=5?'sp':(m<=8?'su':'au'));
   const s=SE[key];
-  const cityLabel=en?'Now in Blagoveshchensk':'Сейчас в Благовещенске';
-  txt.innerHTML=cityLabel+' <b>'+(en?s.en:s.ru)+'</b><span id="wx-slot"></span> · '+(en?s.hen:s.hru);
+  const cityLabel=pick('Сейчас в Благовещенске','Now in Blagoveshchensk','布拉戈维申斯克现在');
+  txt.innerHTML=cityLabel+' <b>'+pick(s.ru,s.en,s.zh)+'</b><span id="wx-slot"></span> · '+pick(s.hru,s.hen,s.hzh);
   bar.hidden=false;
   document.querySelectorAll('.sea-now').forEach(x=>x.remove());
   const card=document.querySelector('.sea-c.'+key+' .sea-h');
-  if(card)card.insertAdjacentHTML('beforeend','<span class="sea-now">'+(en?'now':'сейчас')+'</span>');
+  if(card)card.insertAdjacentHTML('beforeend','<span class="sea-now">'+pick('сейчас','now','当前')+'</span>');
   paintWx();
 };
 (function(){
@@ -3152,7 +3182,7 @@ window.renderNowWidget=function(){
     const days=Math.ceil((target-Date.now())/86400000);
     if(days>0){document.getElementById('cc-days').textContent=days;cc.hidden=false;}
     else{document.getElementById('cc-days').textContent='●';
-      cc.querySelector('span').innerHTML=window.__lang==='en'?'December 2026 has arrived — watch for news on the cable car opening':'декабрь 2026 наступил — следите за новостями об открытии канатной дороги';
+      cc.querySelector('span').innerHTML=(window.__lang==='zh')?'2026年12月已到，请关注索道通行的消息':(window.__lang==='en'?'December 2026 has arrived — watch for news on the cable car opening':'декабрь 2026 наступил — следите за новостями об открытии канатной дороги');
       cc.hidden=false;}
   }
   window.renderNowWidget();
@@ -3170,7 +3200,7 @@ window.renderNowWidget=function(){
    этот файл и чтобы перевод можно было править отдельно. Движок обходит текстовые
    элементы по списку селекторов, запоминает русский оригинал в data-ru и подменяет
    его на английский по совпадению текста. Не совпало — остаётся русский (безопасно). */
-const EN=(window.EN||{});
+const EN=(window.EN||{});   /* оставлено для совместимости; выбор словаря — I18N_DICT */
 const I18N_SEL=['.nav-link','.nav-cta','.brand','.hero .eyebrow','.hero-h','.hero-sub',
   '.hero-cta .btn','.hero-pill','.hero-visual .badge','.hero-visual .flag','.stat-cap','.stat-num .u',
   '.section-h','.section-lead','.section .eyebrow','.cell h3','.cell p','.cell .lbl',
@@ -3203,31 +3233,38 @@ function applyLang(lang){
   LANG=lang;
   window.__lang=lang;
   document.documentElement.setAttribute('lang',lang);
+  const dict=I18N_DICT(lang);
   document.querySelectorAll(I18N_SEL.join(',')).forEach(el=>{
     if(el.dataset.ru===undefined)el.dataset.ru=el.innerHTML;
-    const en=EN[i18nNorm(el.dataset.ru)];
-    el.innerHTML=(lang==='en'&&en!==undefined)?en:el.dataset.ru;
+    const tr=dict?dict[i18nNorm(el.dataset.ru)]:undefined;
+    el.innerHTML=tr!==undefined?tr:el.dataset.ru;
   });
   const lb=document.getElementById('lang-btn');
   if(lb)lb.innerHTML=lang==='en'?'RU · <b>EN</b>':'<b>RU</b> · EN';
   const d=document.querySelector('meta[name="description"]');
-  if(d)d.content=(lang==='en'&&EN['@desc'])?EN['@desc']:ruDesc;
-  document.title=(lang==='en'&&EN['@title'])?EN['@title']:ruTitle;
+  if(d)d.content=(dict&&dict['@desc'])?dict['@desc']:ruDesc;
+  document.title=(dict&&dict['@title'])?dict['@title']:ruTitle;
   if(window.renderDynamicI18n)try{window.renderDynamicI18n(lang);}catch(e){}
 }
 function initLang(){
   const btn=document.getElementById('lang-btn');
   if(window.ATLAS_STATIC){
     /* статическая языковая версия: кнопка ведёт на другой URL */
-    if(btn)btn.addEventListener('click',()=>{location.href=window.ATLAS_STATIC==='ru'?'/en/':'/';});
-    if(btn)btn.innerHTML=window.ATLAS_STATIC==='en'?'RU · <b>EN</b>':'<b>RU</b> · EN';
-    if(window.renderDynamicI18n)try{window.renderDynamicI18n(LANG);}catch(e){}
+    const NEXT={ru:'/en/',en:'/cn/',zh:'/'};
+    const MARK={ru:'<b>RU</b> · EN · 中文',en:'RU · <b>EN</b> · 中文',zh:'RU · EN · <b>中文</b>'};
+    if(btn)btn.addEventListener('click',()=>{location.href=NEXT[window.ATLAS_STATIC]||'/';});
+    if(btn)btn.innerHTML=MARK[window.ATLAS_STATIC]||MARK.ru;
+    /* __lang выставляется ДО перерисовки: T() читает именно его, и если
+       язык ещё не задан, вся динамика (попапы карты, афиша, месяцы, план)
+       отрисуется по-русски поверх переведённой страницы. */
     window.__lang=LANG;
+    if(window.renderDynamicI18n)try{window.renderDynamicI18n(LANG);}catch(e){}
     return;
   }
   if(btn)btn.addEventListener('click',()=>{const nx=LANG==='en'?'ru':'en';try{localStorage.setItem('atlas-lang',nx);}catch(e){}applyLang(nx);});
   applyLang(LANG);
 }
+try{ initLang(); }catch(e){console.warn('initLang',e);}
 
 /* ---------- ТЕМА ---------- */
 (function(){

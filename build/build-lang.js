@@ -34,6 +34,10 @@ const LANGS = [
     code: 'en', dir: 'en', htmlLang: 'en', ogLocale: 'en_US', hreflang: 'en',
     dict: 'lang-en.js', dictVar: 'EN',
     ldName: 'Blagoveshchensk: what to see, routes, a trip to Heihe',
+    supply: [
+      'A passport valid for at least six more months',
+      'Cash yuan — Russian cards do not work in China'
+    ],
     howto: {
       name: 'How to get from Blagoveshchensk to Heihe in China',
       description: 'Heihe sits across the Amur, 750 metres from Blagoveshchensk. Russians have needed no visa since September 2025, and the trip fits into a single day. Steps and prices as of August 2026.',
@@ -42,6 +46,25 @@ const LANGS = [
         ['Pick the crossing', 'The boat across the Amur runs from May to October, departures between 10:00 and 16:00, about 3,780 ₽ out and 2,520 ₽ back. The bus over the first Russia–China road bridge runs all year, first departure 07:30, about 2,650 ₽ one way, roughly 2 hours 20 minutes including the border. In winter there is also a pontoon crossing.'],
         ['Change money in advance', 'It is easier to buy yuan at a bank in Blagoveshchensk. Visa and Mastercard do not work in China; tourist spots often take roubles but at a poor rate. Locals pay with Alipay and WeChat Pay.'],
         ['Mind the time difference', 'Heihe runs on Beijing time — one hour behind Blagoveshchensk. Plan the return with a margin: both sides run border control.']
+      ]
+    }
+  },
+  {
+    code: 'zh', dir: 'cn', htmlLang: 'zh-Hans', ogLocale: 'zh_CN', hreflang: 'zh-Hans',
+    dict: 'lang-zh.js', dictVar: 'ZH',
+    ldName: '布拉戈维申斯克：看什么、怎么玩、如何去黑河',
+    supply: [
+      '有效期还有6个月以上的护照',
+      '现金人民币——俄罗斯银行卡在中国用不了'
+    ],
+    howto: {
+      name: '如何从布拉戈维申斯克前往中国黑河',
+      description: '黑河就在阿穆尔河对岸，距布拉戈维申斯克750米。自2025年9月起俄罗斯公民免签，一天之内就能往返。以下为2026年8月的流程与价格。',
+      steps: [
+        ['查看护照', '不需要签证：自2025年9月15日起对俄罗斯公民实行免签，停留不超过30天，该安排已延长至2027年12月31日。护照有效期需还有6个月以上。'],
+        ['选择过江方式', '游船通航期为5月至10月，10:00至16:00发船，去程约3780卢布，回程约2520卢布。走首座中俄公路大桥的班车全年通行，首班07:30，单程约2650卢布，含过关约2小时20分。冬季还有浮桥通道。'],
+        ['提前换好钱', '在布拉戈维申斯克的银行换人民币更方便。Visa和万事达卡在中国用不了；旅游点常收卢布，但汇率较差。当地人主要用支付宝和微信支付。'],
+        ['注意时差', '黑河用北京时间，比布拉戈维申斯克晚一小时。回程时间要留余量：两边都要过关。']
       ]
     }
   }
@@ -138,10 +161,12 @@ function build(lang) {
   for (const a of root.querySelectorAll('link[rel="alternate"]')) a.remove();
   head.insertAdjacentHTML('beforeend', hreflangBlock());
 
-  /* 5. пути от корня: страница лежит в подпапке */
+  /* 5. пути от корня: страница лежит в подпапке.
+     Заодно подменяется файл словаря — динамику (попапы карты, план, афишу)
+     страница переводит уже в браузере, и ей нужен словарь своего языка. */
   let out = root.toString();
   out = out.replace(/(href|src)="assets\//g, '$1="/assets/');
-  out = out.replace(/(href|src)="lang-en\.js"/g, '$1="/lang-en.js"');
+  out = out.replace(/(href|src)="lang-en\.js"/g, '$1="/' + lang.dict + '"');
   out = out.replace(/href="privacy\.html"/g, 'href="/privacy.html"');
   out = out.replace(/url\('assets\//g, "url('/assets/");
   out = out.replace(/"assets\/([a-z0-9._-]+)"/gi, '"/assets/$1"');
@@ -212,10 +237,7 @@ function rebuildHowto(out, lang) {
   json.step = lang.howto.steps.map(([name, text]) => ({
     '@type': 'HowToStep', name, text, url: `${SITE}/${lang.dir}/#heihe`
   }));
-  json.supply = [
-    { '@type': 'HowToSupply', name: 'A passport valid for at least six more months' },
-    { '@type': 'HowToSupply', name: 'Cash yuan — Russian cards do not work in China' }
-  ];
+  json.supply = lang.supply.map(name => ({ '@type': 'HowToSupply', name }));
   return out.replace(m.full,
     '<script type="application/ld+json">\n' + JSON.stringify(json, null, 2) + '\n</script>');
 }

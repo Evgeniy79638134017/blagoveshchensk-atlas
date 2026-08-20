@@ -588,5 +588,7 @@ window.EN = {
   '6 000 ₽': `6,000 ₽`,
   'Итого на поездку': `Trip total`,
   'на человека<b id="hh-per">—</b>': `per person<b id="hh-per">—</b>`,
-  'Фото не загрузилось. Откройте оригинал на Wikimedia Commons по ссылке ниже.': `The photo did not load. Open the original on Wikimedia Commons via the link below.`
+  'Фото не загрузилось. Откройте оригинал на Wikimedia Commons по ссылке ниже.': `The photo did not load. Open the original on Wikimedia Commons via the link below.`,
+  'Вне маршрутов': `Off the beaten track`,
+  'День вне маршрутов': `A day off the beaten track`
 };
