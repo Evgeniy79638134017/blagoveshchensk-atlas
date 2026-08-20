@@ -2898,6 +2898,10 @@ document.getElementById('rb-clear').addEventListener('click',()=>{
 (function(){
   const root=document.getElementById('heihe'); if(!root)return;
   const el=id=>document.getElementById(id);
+  /* На языковых версиях калькулятор снят: он считает поездку из России
+     в Китай, а гостю из Хэйхэ считать нечего. Без этой проверки код
+     упал бы на первом же обращении к отсутствующему полю. */
+  if(!el('hh-size'))return;
 
   /* Тарифы — ориентиры на июль 2026, источники указаны в примечании под блоком */
   const TRANSPORT={

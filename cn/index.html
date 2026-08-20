@@ -1854,60 +1854,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
       </div>
     </div>
 
-    <div class="hh-grid">
-      <div class="hh-calc">
-        <h3>这趟要花多少</h3>
-        <div class="sub">按你的同行人数估算预算</div>
-
-        <div class="field">
-          <label class="flabel"><span>怎么过江</span></label>
-          <div class="tiles" data-group="hhTransport" data-multi="0">
-            <div class="tile on" data-v="boat"><span class="tile-t">游船</span><span class="tile-s">5月 — 10月</span></div>
-            <div class="tile" data-v="bus"><span class="tile-t">班车</span><span class="tile-s">全年通行</span></div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="flabel"><span>几个人</span><span class="fh" id="hh-o-size">2人</span></label>
-          <input type="range" id="hh-size" min="1" max="6" value="2">
-        </div>
-
-        <div class="field">
-          <label class="flabel"><span>在黑河住几晚</span><span class="fh" id="hh-o-nights">0 — 当天往返</span></label>
-          <input type="range" id="hh-nights" min="0" max="3" value="0">
-        </div>
-
-        <div class="field" id="hh-hotel-field">
-          <label class="flabel"><span>酒店档次</span></label>
-          <div class="tiles" data-group="hhHotel" data-multi="0">
-            <div class="tile" data-v="budget"><span class="tile-t">经济型</span><span class="tile-s">1285卢布起</span></div>
-            <div class="tile on" data-v="mid"><span class="tile-t">三星</span><span class="tile-s">~1 630 ₽</span></div>
-            <div class="tile" data-v="center"><span class="tile-t">市中心</span><span class="tile-s">3870卢布起</span></div>
-          </div>
-        </div>
-
-        <div class="field" style="margin-bottom:0">
-          <label class="flabel"><span>每天餐饮与购物</span><span class="fh" id="hh-o-spend">2,500 ₽</span></label>
-          <input type="range" id="hh-spend" min="1" max="15" value="5">
-        </div>
-      </div>
-
-      <div class="hh-out">
-        <div class="hh-total">
-          <div>
-            <div class="hh-num" style="font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.6px;text-transform:uppercase">行程合计</div>
-            <div class="big" id="hh-total">—</div>
-          </div>
-          <div class="per">每人<b id="hh-per">—</b></div>
-        </div>
-        <div id="hh-lines"></div>
-
-        <div class="hh-day">
-          <div class="hh-day-t" id="hh-day-title">一天怎么安排</div>
-          <div id="hh-timeline"></div>
-        </div>
-      </div>
-    </div>
+    
 
     <div class="hh-photos">
       <div class="hh-photo" title="Фото: Sharon Hahn Darlin · CC BY 2.0 · Wikimedia Commons">
@@ -2962,6 +2909,10 @@ document.getElementById('rb-clear').addEventListener('click',()=>{
 (function(){
   const root=document.getElementById('heihe'); if(!root)return;
   const el=id=>document.getElementById(id);
+  /* На языковых версиях калькулятор снят: он считает поездку из России
+     в Китай, а гостю из Хэйхэ считать нечего. Без этой проверки код
+     упал бы на первом же обращении к отсутствующему полю. */
+  if(!el('hh-size'))return;
 
   /* Тарифы — ориентиры на июль 2026, источники указаны в примечании под блоком */
   const TRANSPORT={

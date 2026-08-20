@@ -1854,60 +1854,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
       </div>
     </div>
 
-    <div class="hh-grid">
-      <div class="hh-calc">
-        <h3>The cost of a trip</h3>
-        <div class="sub">Estimate the budget for your group</div>
-
-        <div class="field">
-          <label class="flabel"><span>How you travel</span></label>
-          <div class="tiles" data-group="hhTransport" data-multi="0">
-            <div class="tile on" data-v="boat"><span class="tile-t">Riverboat</span><span class="tile-s">May – October</span></div>
-            <div class="tile" data-v="bus"><span class="tile-t">Bus</span><span class="tile-s">year-round</span></div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="flabel"><span>How many people</span><span class="fh" id="hh-o-size">2 people</span></label>
-          <input type="range" id="hh-size" min="1" max="6" value="2">
-        </div>
-
-        <div class="field">
-          <label class="flabel"><span>Nights in Heihe</span><span class="fh" id="hh-o-nights">0 — a day trip</span></label>
-          <input type="range" id="hh-nights" min="0" max="3" value="0">
-        </div>
-
-        <div class="field" id="hh-hotel-field">
-          <label class="flabel"><span>Hotel level</span></label>
-          <div class="tiles" data-group="hhHotel" data-multi="0">
-            <div class="tile" data-v="budget"><span class="tile-t">Budget</span><span class="tile-s">from 1,285 ₽</span></div>
-            <div class="tile on" data-v="mid"><span class="tile-t">3 stars</span><span class="tile-s">~1 630 ₽</span></div>
-            <div class="tile" data-v="center"><span class="tile-t">Central</span><span class="tile-s">from 3,870 ₽</span></div>
-          </div>
-        </div>
-
-        <div class="field" style="margin-bottom:0">
-          <label class="flabel"><span>Food and shopping, per day</span><span class="fh" id="hh-o-spend">2,500 ₽</span></label>
-          <input type="range" id="hh-spend" min="1" max="15" value="5">
-        </div>
-      </div>
-
-      <div class="hh-out">
-        <div class="hh-total">
-          <div>
-            <div class="hh-num" style="font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.6px;text-transform:uppercase">Trip total</div>
-            <div class="big" id="hh-total">—</div>
-          </div>
-          <div class="per">per person<b id="hh-per">—</b></div>
-        </div>
-        <div id="hh-lines"></div>
-
-        <div class="hh-day">
-          <div class="hh-day-t" id="hh-day-title">How the day goes</div>
-          <div id="hh-timeline"></div>
-        </div>
-      </div>
-    </div>
+    
 
     <div class="hh-photos">
       <div class="hh-photo" title="Фото: Sharon Hahn Darlin · CC BY 2.0 · Wikimedia Commons">
@@ -2962,6 +2909,10 @@ document.getElementById('rb-clear').addEventListener('click',()=>{
 (function(){
   const root=document.getElementById('heihe'); if(!root)return;
   const el=id=>document.getElementById(id);
+  /* На языковых версиях калькулятор снят: он считает поездку из России
+     в Китай, а гостю из Хэйхэ считать нечего. Без этой проверки код
+     упал бы на первом же обращении к отсутствующему полю. */
+  if(!el('hh-size'))return;
 
   /* Тарифы — ориентиры на июль 2026, источники указаны в примечании под блоком */
   const TRANSPORT={
