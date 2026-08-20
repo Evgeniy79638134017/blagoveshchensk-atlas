@@ -191,7 +191,7 @@ window.EN = {
 
   /* hero */
   'Авторский гид · ИИщенко LAB': `An indie guide · Iishchenko LAB`,
-  'Город на Амуре,<br>лицом к <span class="g">Китаю</span>': `A city on the Amur,<br>facing <span class="g">China</span>`,
+  'Благовещенск:<br>город на Амуре,<br>лицом к <span class="g">Китаю</span>': `Blagoveshchensk:<br>a city on the Amur,<br>facing <span class="g">China</span>`,
   'Благовещенск — 750 метров воды до китайского Хэйхэ, купеческий «Амурский Чикаго», кухня двух стран, космодром Восточный и городское кладбище динозавров. Соберём маршрут под ваши интересы, сезон и бюджет.': `Blagoveshchensk sits just 750 metres of water from China's Heihe: a merchant-era "Amur Chicago", the cuisine of two countries, the Vostochny Cosmodrome, and a dinosaur graveyard right inside town. Let's build a trip around your interests, season and budget.`,
   'Собрать маршрут <span>→</span>': `Plan a trip <span>→</span>`,
   'Открыть карту': `Open the map`,
