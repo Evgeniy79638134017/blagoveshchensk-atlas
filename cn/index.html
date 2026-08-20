@@ -1505,6 +1505,19 @@ footer{background:var(--foot-bg);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 .spinner{width:34px;height:34px;border:3px solid var(--line-2);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+
+/* --- фотографии в карточках ---
+   Снимки лежат в assets/photo и отдаются с нашего домена: сторонних запросов
+   страница не делает, и её нельзя сломать снаружи. */
+.ev-photo{margin:-22px -22px 16px;aspect-ratio:16/10;overflow:hidden;border-radius:var(--r) var(--r) 0 0;background:var(--surf-2)}
+.ev-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.era-side{position:relative;overflow:hidden}
+.era-side .era-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.42}
+.era-side .era-num,.era-side .era-per{position:relative;z-index:2}
+.story-photo{margin:-24px -26px 16px;aspect-ratio:16/9;overflow:hidden;border-radius:var(--r) var(--r) 0 0;background:var(--surf-2)}
+.story-photo img{width:100%;height:100%;object-fit:cover;display:block}
+@media(hover:hover) and (pointer:fine){.ev-card:hover .ev-photo img{transform:scale(1.04)}}
+
 /* --- 14. сотрудничество --- */
 .coop{background:var(--surf);border-top:1px solid var(--line)}
 .coop-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:start;margin-top:2.5rem}
@@ -1620,7 +1633,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
       </div>
     </div>
     <div class="hero-visual fade">
-      <img src="/assets/hero.jpg" alt="Триумфальная арка, Амур и высотки китайского Хэйхэ за рекой" loading="eager" width="614" height="768">
+      <img src="/assets/hero.jpg" alt="凯旋门、阿穆尔河，以及对岸中国黑河的高楼" loading="eager" width="614" height="768">
       <div class="flag">俄 ↔ 中<span>阿穆尔河 · 国界</span></div>
       <div class="badge"><span class="dot"></span>凯旋门、阿穆尔河，以及对岸的黑河</div>
     </div>
@@ -1773,7 +1786,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
 
     <div class="seasons">
       <div class="sea-c w">
-        <div class="sea-photo"><img src="/assets/season-zima.jpg" alt="Триумфальная арка зимой, в снегу" loading="lazy" width="760" height="567"></div>
+        <div class="sea-photo"><img src="/assets/season-zima.jpg" alt="雪中的凯旋门" loading="lazy" width="760" height="567"></div>
         <div class="sea-m">12月 — 2月</div>
         <h3 class="sea-h">冬季</h3>
         <div class="sea-t">−15 … −27 °C</div>
@@ -1781,7 +1794,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
         <span class="sea-tag">适合不怕冷的人</span>
       </div>
       <div class="sea-c sp">
-        <div class="sea-photo"><img src="/assets/season-vesna.jpg" alt="Триумфальная арка весной, цветущие деревья" loading="lazy" width="760" height="567"></div>
+        <div class="sea-photo"><img src="/assets/season-vesna.jpg" alt="春天的凯旋门，树木开花" loading="lazy" width="760" height="567"></div>
         <div class="sea-m">3月 — 5月</div>
         <h3 class="sea-h">春季</h3>
         <div class="sea-t">阿穆尔河开江流冰</div>
@@ -1789,7 +1802,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
         <span class="sea-tag">开江流冰</span>
       </div>
       <div class="sea-c su best">
-        <div class="sea-photo"><img src="/assets/season-leto.jpg" alt="Триумфальная арка летом, зелень и синее небо" loading="lazy" width="760" height="567"></div>
+        <div class="sea-photo"><img src="/assets/season-leto.jpg" alt="夏天的凯旋门，绿树与蓝天" loading="lazy" width="760" height="567"></div>
         <div class="sea-m">6月 — 8月</div>
         <h3 class="sea-h">夏季</h3>
         <div class="sea-t">+22 … +28 °C</div>
@@ -1797,7 +1810,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
         <span class="sea-tag">最佳时节</span>
       </div>
       <div class="sea-c au">
-        <div class="sea-photo"><img src="/assets/season-osen.jpg" alt="Триумфальная арка осенью, золотая листва" loading="lazy" width="760" height="567"></div>
+        <div class="sea-photo"><img src="/assets/season-osen.jpg" alt="秋天的凯旋门，金黄的树叶" loading="lazy" width="760" height="567"></div>
         <div class="sea-m">9月 — 11月</div>
         <h3 class="sea-h">秋季</h3>
         <div class="sea-t">“阿穆尔之秋”</div>
@@ -1898,11 +1911,11 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
 
     <div class="hh-photos">
       <div class="hh-photo" title="Фото: Sharon Hahn Darlin · CC BY 2.0 · Wikimedia Commons">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Heihe,_China_(8810403846).jpg?width=1000" alt="Солнечная улица Хэйхэ с гостиницей" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Heihe,_China_(8810403846).jpg?width=1000" alt="阳光下的黑河街道与一家酒店" loading="lazy" onerror="this.style.display='none'">
         <div>近看黑河</div><small>酒店和商业街离码头只有几分钟</small>
       </div>
       <div class="hh-photo" title="Фото: Sharon Hahn Darlin · CC BY 2.0 · Wikimedia Commons">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Heihe,_China_(8798776141).jpg?width=900" alt="Зелёная улица Хэйхэ с велодорожкой" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Heihe,_China_(8798776141).jpg?width=900" alt="黑河绿树成荫的街道与自行车道" loading="lazy" onerror="this.style.display='none'">
         <div>一座绿色的城市</div><small>黑河街道两侧的自行车道与公园</small>
       </div>
     </div>
@@ -1933,7 +1946,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
 
     <div class="cc-grid">
       <div class="cc-photo">
-        <img src="/assets/ropeway.jpg" alt="Терминал канатной дороги Благовещенск — Хэйхэ и кабина над Амуром, проектная визуализация" loading="lazy" width="960" height="575">
+        <img src="/assets/ropeway.jpg" alt="布拉戈维申斯克—黑河索道站房与阿穆尔河上的轿厢，设计效果图" loading="lazy" width="960" height="575">
         <div class="cap"><b>“黄金里”上的站房与阿穆尔河上的轿厢</b><span>效果图：站房由国际竞赛中标方 UNStudio 设计</span></div>
       </div>
       <div>
@@ -2043,8 +2056,8 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
       <h3 class="ba-h">同一座凯旋门，相隔一百二十年</h3>
       <p class="ba-sub">拖动滑块。左边是1904年照片中的凯旋门，右边是今天的同一座门。1891年的原建筑没有留存到20世纪，现在这座是2005年依照旧照片重建的。</p>
       <div class="ba" id="ba">
-        <img src="/assets/arch-today.jpg" alt="Триумфальная арка в Благовещенске в наши дни" loading="lazy" width="720" height="720">
-        <div class="ba-top"><img src="/assets/arch-1904.jpg" alt="Триумфальная арка на фотографии 1904 года" loading="lazy" width="720" height="720"></div>
+        <img src="/assets/arch-today.jpg" alt="今天的布拉戈维申斯克凯旋门" loading="lazy" width="720" height="720">
+        <div class="ba-top"><img src="/assets/arch-1904.jpg" alt="1904年照片中的凯旋门" loading="lazy" width="720" height="720"></div>
         <div class="ba-line"></div>
         <div class="ba-knob"><svg viewBox="0 0 24 24"><path d="M9 6l-5 6 5 6M15 6l5 6-5 6"></path></svg></div>
         <span class="ba-lab l">1904</span>
@@ -2138,6 +2151,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
         <div class="story-step" data-lat="50.25686" data-lng="127.52165" data-zoom="16">
           <div class="story-num">01 · 起点</div>
           <div class="story-card">
+            <div class="story-photo"><img src="/assets/photo/arka.jpg" alt="阿穆尔河江畔的凯旋门" loading="lazy" width="900" height="506"></div>
             <h3>凯旋门</h3>
             <p>通往阿穆尔河的这段气派的入口从这里开始。这座顶端立有双头鹰的二十米高拱门，1891年为迎接皇太子尼古拉来访而建，2005年重建。穿过它，江面与对岸的中国便展开在眼前。</p>
             <span class="story-tag" style="background:var(--c-his)1e;color:var(--c-his)">历史</span>
@@ -2147,6 +2161,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
         <div class="story-step" data-lat="50.25603" data-lng="127.52677" data-zoom="16">
           <div class="story-num">02</div>
           <div class="story-card">
+            <div class="story-photo"><img src="/assets/photo/naberezhnaya-progulka.jpg" alt="阿穆尔河江畔步道" loading="lazy" width="900" height="506"></div>
             <h3>穆拉维约夫-阿穆尔斯基雕像</h3>
             <p>这座城市的创建者、阿穆尔地区的“开拓者”立在江畔，遥望阿穆尔河与对岸的中国。正是他签署了1858年的《瑷珲条约》，让这片土地归入俄罗斯。</p>
             <span class="story-tag" style="background:var(--c-his)1e;color:var(--c-his)">历史</span>
@@ -2155,6 +2170,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
         <div class="story-step" data-lat="50.25606" data-lng="127.52458" data-zoom="16">
           <div class="story-num">03</div>
           <div class="story-card">
+            <div class="story-photo"><img src="/assets/photo/amur-heihe.jpg" alt="阿穆尔河与中国一侧的河岸" loading="lazy" width="900" height="506"></div>
             <h3>正对黑河，相距750米</h3>
             <p>阿穆尔河在这里收窄到750米，站在护栏边就能看见中国黑河：高楼、江边步道、夜晚的灯火。这是全世界唯一一对贴得这么近的两国城市——隔江相望，面对面。</p>
             <span class="story-tag" style="background:var(--c-sea)1e;color:var(--c-sea)">江河</span>
@@ -2163,6 +2179,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
         <div class="story-step" data-lat="50.25580" data-lng="127.52520" data-zoom="17">
           <div class="story-num">04</div>
           <div class="story-card">
+            <div class="story-photo"><img src="/assets/photo/naberezhnaya-vecher.jpg" alt="阿穆尔河江畔，雕像所在处" loading="lazy" width="900" height="506"></div>
             <h3>名犬“小友”</h3>
             <p>护栏边的一尊铜狗，记着2013年那场大水——阿穆尔河水位涨过8米。它在被淹房屋的门廊上守了好几天等主人；本地人说，如今它“守着整座城”。</p>
             <span class="story-tag" style="background:var(--c-his)1e;color:var(--c-his)">历史</span>
@@ -2171,6 +2188,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
         <div class="story-step" data-lat="50.25732" data-lng="127.53458" data-zoom="16">
           <div class="story-num">05 · 终点</div>
           <div class="story-card">
+            <div class="story-photo"><img src="/assets/photo/ploshchad-lenina-2.jpg" alt="布拉戈维申斯克的列宁广场" loading="lazy" width="900" height="506"></div>
             <h3>列宁广场与音乐喷泉</h3>
             <p>这段路走到城市的心脏：欧亚最大的可穿行音乐灯光喷泉，水柱直接从地面升起，面积近3000平方米。白天孩子们在水里穿来穿去，夜里是配乐的水舞灯光秀。</p>
             <span class="story-tag" style="background:var(--c-city)1e;color:var(--c-city)">城市</span>
@@ -2189,47 +2207,47 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
     <p class="section-lead">正对中国的江畔、凯旋门、跨越阿穆尔河的大桥、航天与恐龙。</p>
     <div class="gal-grid">
       <div class="gal g-a" role="button" tabindex="0" title="Фото: Sharon Hahn Darlin · CC BY 2.0 · Wikimedia Commons" data-credit="Фото: Sharon Hahn Darlin · CC BY 2.0 · Wikimedia Commons">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk,_Russia_---_Heihe,_China_(8789415981).jpg?width=1200" alt="Теплоход у набережной Амура в Благовещенске" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk,_Russia_---_Heihe,_China_(8789415981).jpg?width=1200" alt="停泊在布拉戈维申斯克阿穆尔河江畔的游船" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M4 21V6a8 8 0 0116 0v15M4 21h16M9 21v-7a3 3 0 016 0v7"></path></svg></div>
         <div class="gal-body"><span class="gal-cap">01 · 客运码头</span><div class="gal-h">开往中国的游船从这里发船</div></div>
       </div>
       <div class="gal g-b" role="button" tabindex="0" title="Фото: Oleg fok · CC BY-SA 4.0 · Wikimedia Commons" data-credit="Фото: Oleg fok · CC BY-SA 4.0 · Wikimedia Commons">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/River_Amur-Heihe.jpg?width=900" alt="Набережная Амура" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/River_Amur-Heihe.jpg?width=900" alt="阿穆尔河江畔步道" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M3 18c3 0 4-2 7-2s4 2 7 2M3 14c3 0 4-2 7-2s4 2 7 2M3 22h18"></path></svg></div>
         <div class="gal-body"><span class="gal-cap">02 · 阿穆尔河江畔</span><div class="gal-h">对岸就是黑河</div></div>
       </div>
       <div class="gal" role="button" tabindex="0" title="Фото: Jonashtand · CC BY-SA 4.0 · Wikimedia Commons" data-credit="Фото: Jonashtand · CC BY-SA 4.0 · Wikimedia Commons">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/201907_Cathedral_of_the_Annunciation_of_the_Blessed_Virgin_Mary,_Blagoveshchensk_01.jpg?width=900" alt="Кафедральный собор Благовещения в Благовещенске" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/201907_Cathedral_of_the_Annunciation_of_the_Blessed_Virgin_Mary,_Blagoveshchensk_01.jpg?width=900" alt="布拉戈维申斯克的报喜主教座堂" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 2l2 4h-4l2-4zM7 10l5-3 5 3v11H7zM10 21v-5h4v5"></path></svg></div>
         <div class="gal-body"><span class="gal-cap">03 · 报喜主教座堂</span><div class="gal-h">七座金顶</div></div>
       </div>
       <div class="gal" role="button" tabindex="0" title="Фото: Blagjora · CC BY-SA 4.0 · Wikimedia Commons" data-credit="Фото: Blagjora · CC BY-SA 4.0 · Wikimedia Commons">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Мост_в_Китай.jpg?width=900" alt="Мост через Амур" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Мост_в_Китай.jpg?width=900" alt="跨越阿穆尔河的大桥" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M2 16h20M4 16v-3M20 16v-3M8 16c0-3 8-3 8 0"></path></svg></div>
         <div class="gal-body"><span class="gal-cap">04 · 阿穆尔河大桥</span><div class="gal-h">通往中国的首座公路大桥，摄于2019年施工期间</div></div>
       </div>
       <div class="gal" role="button" tabindex="0" title="Фото: Artyom Svetlov · CC BY 4.0 · Wikimedia Commons" data-credit="Фото: Artyom Svetlov · CC BY 4.0 · Wikimedia Commons">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk_Lenin_square_2024-08_75.jpg?width=900" alt="Центр города" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk_Lenin_square_2024-08_75.jpg?width=900" alt="市中心" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7"></path></svg></div>
         <div class="gal-body"><span class="gal-cap">05 · 市中心</span><div class="gal-h">商埠时代的布拉戈维申斯克</div></div>
       </div>
       <div class="gal" role="button" tabindex="0" title="Фото: H. Zell · CC BY-SA 3.0 · Wikimedia Commons" data-credit="Фото: H. Zell · CC BY-SA 3.0 · Wikimedia Commons">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nelumbo_nucifera_004.JPG?width=800" alt="Лотосы Комарова" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nelumbo_nucifera_004.JPG?width=800" alt="科马罗夫莲" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 20c-4-1-7-4-7-8 3 0 5 1 7 4 2-3 4-4 7-4 0 4-3 7-7 8zM12 20v-4"></path></svg></div>
         <div class="gal-body"><span class="gal-cap">06 · 科马罗夫莲</span><div class="gal-h">7月盛开于伊万诺夫卡附近</div></div>
       </div>
       <div class="gal g-b" role="button" tabindex="0" title="Фото: Владислав Ларкин · CC BY-SA 4.0 · Wikimedia Commons" data-credit="Фото: Владислав Ларкин · CC BY-SA 4.0 · Wikimedia Commons">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Первый_пуск_с_космодрома_Восточный.jpg?width=1000" alt="Первый пуск с космодрома Восточный" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Первый_пуск_с_космодрома_Восточный.jpg?width=1000" alt="东方航天发射场的首次发射" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 2c3 3 4 7 4 10l-4 4-4-4c0-3 1-7 4-10zM8 16l-3 3 3-1M16 16l3 3-3-1M10 21h4"></path></svg></div>
         <div class="gal-body"><span class="gal-cap">07 · 东方航天发射场</span><div class="gal-h">联盟-2首次发射 · 距城180公里</div></div>
       </div>
       <div class="gal" role="button" tabindex="0" title="Фото: Студент АмГУ · CC BY-SA 3.0 · Wikimedia Commons" data-credit="Фото: Студент АмГУ · CC BY-SA 3.0 · Wikimedia Commons">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Памятник_Н.Н._Муравьеву-Амурскому.JPG?width=800" alt="Памятник Муравьёву-Амурскому в Благовещенске" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Памятник_Н.Н._Муравьеву-Амурскому.JPG?width=800" alt="布拉戈维申斯克的穆拉维约夫-阿穆尔斯基雕像" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 4a2 2 0 100 4 2 2 0 000-4zM9 22v-7l-2-2 3-3h4l3 3-2 2v7"></path></svg></div>
         <div class="gal-body"><span class="gal-cap">08 · 穆拉维约夫-阿穆尔斯基</span><div class="gal-h">江畔的城市创建者</div></div>
       </div>
       <div class="gal" role="button" tabindex="0" title="Фото: Artyom Svetlov · CC BY 4.0 · Wikimedia Commons" data-credit="Фото: Artyom Svetlov · CC BY 4.0 · Wikimedia Commons">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk_Lenin_square_2024-08_74.jpg?width=900" alt="Пешеходный светомузыкальный фонтан на площади Ленина вечером" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Blagoveshchensk_Lenin_square_2024-08_74.jpg?width=900" alt="夜晚列宁广场上的可穿行音乐灯光喷泉" loading="lazy" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M12 20v-8M7 20v-5M17 20v-5M3 21h18"></path></svg></div>
         <div class="gal-body"><span class="gal-cap">09 · 列宁广场</span><div class="gal-h">可穿行的喷泉，欧亚最大</div></div>
       </div>
@@ -2318,7 +2336,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
     <button class="lb-btn lb-prev" id="lb-prev" aria-label="Предыдущее фото"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"></path></svg></button>
     <div class="lb-figure">
       <img class="lb-img" id="lb-img" alt="">
-      <div class="lb-fail" id="lb-fail" hidden>照片未能加载。请通过下方链接在维基共享资源查看原图。</div>
+      <div class="lb-fail" id="lb-fail" hidden>照片未能加载，请刷新页面重试。</div>
     </div>
     <div class="lb-cap">
       <div class="lb-num" id="lb-num"></div>
@@ -2420,17 +2438,17 @@ const ACT_POINTS = {
 
 /* annual:1 — событие ежегодное: если дата прошла, показывается на следующий год */
 const FALLBACK_EVENTS = [
-  {annual:1, date_iso:"2026-07-18", category:"fest", title:"«Амурфест. Лето» на набережной", description:"Летний городской фестиваль музыки, спорта и уличной культуры на берегу Амура. Открытые сцены, маркеты, вечерние концерты.", location:"Набережная Амура", link:"#"},
-  {annual:1, date_iso:"2026-07-25", category:"nature", title:"Цветение лотосов Комарова", description:"Краснокнижный лотос зацветает на озёрах у села Ивановка. Массовые фотопоездки — лучшее время июль–август.", location:"Окрестности с. Ивановка · ~40 км", link:"https://visitamur.ru/"},
-  {annual:1, date_iso:"2026-08-08", category:"market", title:"Ярмарка «Дальневосточный урожай»", description:"Соя и тофу, таёжный мёд, дикоросы, амурская рыба. Фермеры Приамурья и гостинцы в дорогу.", location:"Площадь Ленина", link:"#"},
-  {annual:1, date_iso:"2026-08-15", category:"fest", title:"Российско-Китайская ярмарка культуры и искусства", description:"Ежегодный трансграничный фестиваль Благовещенск–Хэйхэ: концерты, ремёсла и кухня двух стран на набережной.", location:"Набережная Амура", link:"#"},
-  {date_iso:"2026-08-29", category:"gastro", title:"Гастрофестиваль амурской и китайской кухни", description:"Речная рыба, уха, дунбэйские блюда, соевые специалитеты. Дегустации и фудкорт под открытым небом.", location:"Набережная Амура", link:"#"},
-  {annual:1, date_iso:"2026-09-13", category:"fest", title:"XXIV кинофестиваль «Амурская осень»", description:"Главное культурное событие города: российские кинопремьеры и театр, звёзды на набережной. Ежегодно — десятки тысяч гостей.", location:"ОКЦ / Театр драмы", link:"https://amurosen.ru/"},
-  {date_iso:"2026-09-19", category:"show", title:"Премьера в Амурском театре драмы", description:"Новый сезон одного из старейших театров Дальнего Востока (осн. 1883). Вечерний показ.", location:"Театр драмы · ул. Ленина 146", link:"#"},
-  {annual:1, date_iso:"2026-05-01", category:"show", title:"Запуск сезона фонтанов на площади Ленина", description:"Крупнейший в Евразии пешеходный светомузыкальный фонтан открывает сезон: днём — водно-музыкальное шоу, вечером — светомузыка. Работает до осени.", location:"Площадь Ленина", link:"#"},
-  {annual:1, date_iso:"2026-04-20", category:"nature", title:"Ледоход на Амуре", description:"Амур вскрывается на глазах у всего города — главное зрелище весны. Точные даты зависят от погоды, обычно конец апреля.", location:"Набережная Амура", link:"#"},
-  {annual:1, date_iso:"2026-12-15", category:"show", title:"Ледовый городок на площади Ленина", description:"Новогодний городок с горками и подсветкой — зимняя классика Благовещенска у главной ёлки города.", location:"Площадь Ленина", link:"#"},
-  {date_iso:"2026-10-03", category:"exhib", title:"Выставка «Приамурье: от динозавров до космоса»", description:"Палеонтология и космодром Восточный в одном зале краеведческого музея. Кости ящеров и модели ракет.", location:"Краеведческий музей · ул. Ленина 165", link:"#"}
+  {annual:1, date_iso:"2026-07-18", category:"fest", title:"«Амурфест. Лето» на набережной",img:"naberezhnaya-amur",ialt:"Набережная Амура в Благовещенске", description:"Летний городской фестиваль музыки, спорта и уличной культуры на берегу Амура. Открытые сцены, маркеты, вечерние концерты.", location:"Набережная Амура", link:"#"},
+  {annual:1, date_iso:"2026-07-25", category:"nature", title:"Цветение лотосов Комарова",img:"lotos",ialt:"Цветущий лотос", description:"Краснокнижный лотос зацветает на озёрах у села Ивановка. Массовые фотопоездки — лучшее время июль–август.", location:"Окрестности с. Ивановка · ~40 км", link:"#"},
+  {annual:1, date_iso:"2026-08-08", category:"market", title:"Ярмарка «Дальневосточный урожай»",img:"ploshchad-lenina",ialt:"Площадь Ленина в Благовещенске", description:"Соя и тофу, таёжный мёд, дикоросы, амурская рыба. Фермеры Приамурья и гостинцы в дорогу.", location:"Площадь Ленина", link:"#"},
+  {annual:1, date_iso:"2026-08-15", category:"fest", title:"Российско-Китайская ярмарка культуры и искусства",img:"amur-heihe",ialt:"Амур и китайский берег", description:"Ежегодный трансграничный фестиваль Благовещенск–Хэйхэ: концерты, ремёсла и кухня двух стран на набережной.", location:"Набережная Амура", link:"#"},
+  {date_iso:"2026-08-29", category:"gastro", title:"Гастрофестиваль амурской и китайской кухни",img:"guobaorou",ialt:"Свинина в кисло-сладком соусе — классика дунбэйской кухни", description:"Речная рыба, уха, дунбэйские блюда, соевые специалитеты. Дегустации и фудкорт под открытым небом.", location:"Набережная Амура", link:"#"},
+  {annual:1, date_iso:"2026-09-13", category:"fest", title:"XXIV кинофестиваль «Амурская осень»",img:"teatr-dramy",ialt:"Амурский областной театр драмы", description:"Главное культурное событие города: российские кинопремьеры и театр, звёзды на набережной. Ежегодно — десятки тысяч гостей.", location:"ОКЦ / Театр драмы", link:"#"},
+  {date_iso:"2026-09-19", category:"show", title:"Премьера в Амурском театре драмы",img:"teatr-dramy",ialt:"Амурский областной театр драмы", description:"Новый сезон одного из старейших театров Дальнего Востока (осн. 1883). Вечерний показ.", location:"Театр драмы · ул. Ленина 146", link:"#"},
+  {annual:1, date_iso:"2026-05-01", category:"show", title:"Запуск сезона фонтанов на площади Ленина",img:"ploshchad-lenina-2",ialt:"Площадь Ленина в Благовещенске", description:"Крупнейший в Евразии пешеходный светомузыкальный фонтан открывает сезон: днём — водно-музыкальное шоу, вечером — светомузыка. Работает до осени.", location:"Площадь Ленина", link:"#"},
+  {annual:1, date_iso:"2026-04-20", category:"nature", title:"Ледоход на Амуре",img:"most-zimoy",ialt:"Мост Благовещенск — Хэйхэ зимой", description:"Амур вскрывается на глазах у всего города — главное зрелище весны. Точные даты зависят от погоды, обычно конец апреля.", location:"Набережная Амура", link:"#"},
+  {annual:1, date_iso:"2026-12-15", category:"show", title:"Ледовый городок на площади Ленина",img:"arka-zimoy",ialt:"Триумфальная арка зимой", description:"Новогодний городок с горками и подсветкой — зимняя классика Благовещенска у главной ёлки города.", location:"Площадь Ленина", link:"#"},
+  {date_iso:"2026-10-03", category:"exhib", title:"Выставка «Приамурье: от динозавров до космоса»",img:"amurosaurus",ialt:"Реконструкция амурозавра — ящера, найденного под Благовещенском", description:"Палеонтология и космодром Восточный в одном зале краеведческого музея. Кости ящеров и модели ракет.", location:"Краеведческий музей · ул. Ленина 165", link:"#"}
 ];
 
 /* лента событий: по умолчанию встроенная афиша; SHEET_CSV_URL подменяет её таблицей */
@@ -2439,9 +2457,9 @@ let EVENTS=FALLBACK_EVENTS;
 
 const ERAS = [
   {num:"I",per:"1651 – 1689",title:"Албазин — первый форпост на Амуре",text:"В 1651 году отряд Ерофея Хабарова занял городок даурского князя Албазы — так возник Албазинский острог, первое русское поселение на Амуре. В 1685–1686 годах горстка казаков дважды держала оборону против многократно превосходящих цинских войск.",fact:"Из нескольких сотен защитников второй осады Албазина в живых осталось около двадцати казаков — но крепость не сдалась."},
-  {num:"II",per:"1856 – 1858",title:"Рождение города и возвращение Амура",text:"На слиянии Зеи и Амура основан Усть-Зейский пост. Муравьёв-Амурский подписал в 1858 году Айгунский договор, вернувший Приамурье России. В том же году пост стал городом Благовещенском — в честь «благой вести» о возвращении земель.",fact:"Город назвали Благовещенском, потому что возвращение Амура России сочли настоящей „благой вестью“."},
-  {num:"III",per:"конец XIX – нач. XX в.",title:"«Амурский Чикаго» — золото и купцы",text:"Золотая лихорадка на приисках Зеи и беспошлинная торговля с Китаем сделали Благовещенск богатейшим городом востока. Купеческие капиталы подняли особняки, банки, электростанцию и водопровод раньше многих губернских столиц.",fact:"На рубеже веков Благовещенск по числу купеческих капиталов соперничал со столичными городами."},
-  {num:"IV",per:"XX – XXI в.",title:"Приграничный город — от погранзоны до космоса",text:"В советские годы Благовещенск был закрытой погранзоной. Сегодня это главные «ворота» в Китай: автомост через Амур (2022) и первая в мире трансграничная канатка в Хэйхэ. А в 180 км началась новая эпоха — космодром Восточный.",fact:"Благовещенск и Хэйхэ разделяет всего около 750 метров воды — единственная в мире пара городов-соседей двух стран, стоящих так близко."}
+  {num:"II",img:"blg-staroe-foto",ialt:"Благовещенск на старом снимке",per:"1856 – 1858",title:"Рождение города и возвращение Амура",text:"На слиянии Зеи и Амура основан Усть-Зейский пост. Муравьёв-Амурский подписал в 1858 году Айгунский договор, вернувший Приамурье России. В том же году пост стал городом Благовещенском — в честь «благой вести» о возвращении земель.",fact:"Город назвали Благовещенском, потому что возвращение Амура России сочли настоящей „благой вестью“."},
+  {num:"III",img:"bolshaya-ulica",ialt:"Большая улица и торговая площадь, XIX век",per:"конец XIX – нач. XX в.",title:"«Амурский Чикаго» — золото и купцы",text:"Золотая лихорадка на приисках Зеи и беспошлинная торговля с Китаем сделали Благовещенск богатейшим городом востока. Купеческие капиталы подняли особняки, банки, электростанцию и водопровод раньше многих губернских столиц.",fact:"На рубеже веков Благовещенск по числу купеческих капиталов соперничал со столичными городами."},
+  {num:"IV",img:"blg-s-kitayskogo",ialt:"Благовещенск с китайского берега",per:"XX – XXI в.",title:"Приграничный город — от погранзоны до космоса",text:"В советские годы Благовещенск был закрытой погранзоной. Сегодня это главные «ворота» в Китай: автомост через Амур (2022) и первая в мире трансграничная канатка в Хэйхэ. А в 180 км началась новая эпоха — космодром Восточный.",fact:"Благовещенск и Хэйхэ разделяет всего около 750 метров воды — единственная в мире пара городов-соседей двух стран, стоящих так близко."}
 ];
 
 const DISHES = [
@@ -2457,7 +2475,7 @@ const DISHES = [
 
 /* ---------- RENDER STATIC ---------- */
 document.getElementById('eras').innerHTML = ERAS.map(e=>`
-  <div class="era"><div class="era-side"><div class="era-num">${e.num}</div><div class="era-per">${e.per}</div></div>
+  <div class="era"><div class="era-side">${e.img?`<div class="era-bg" style="background-image:url('/assets/photo/${e.img}.jpg')" role="img" aria-label="${T(e.ialt||'')}"></div>`:''}<div class="era-num">${e.num}</div><div class="era-per">${e.per}</div></div>
   <div class="era-body"><h3>${e.title}</h3><p>${e.text}</p><div class="era-fact">«${e.fact}»</div></div></div>`).join('');
 /* иконки блюд — в порядке DISHES */
 const DISH_ICONS=[
@@ -2579,8 +2597,11 @@ function renderEvents(cat){
   list.innerHTML=up.map(e=>{
     const d=new Date(e.date_iso),c=EVCATC[e.category]||'#888';
     const mon=(window.__lang==='en'?MON_EN:(window.__lang==='zh'?MON_ZH:MON))[d.getMonth()];
-    const link=e.link&&e.link!=='#'?`<a class="ev-link" href="${e.link}" target="_blank" rel="noopener">${T('подробнее →')}</a>`:'';
-    return `<article class="ev-card" style="border-top:3px solid ${c}"><div class="ev-head"><div class="ev-date"><span class="ev-day">${d.getDate()}</span><span class="ev-mon">${mon}</span></div><span class="ev-cat" style="background:${c}1e;color:${c}">${T(EVCATL[e.category]||e.category)}</span></div><h3 class="ev-h">${T(e.title)}</h3><p class="ev-d">${T(e.description)}</p><div class="ev-meta"><span>${T(e.location)}</span>${link}</div></article>`;
+    /* Внешних переходов на сайте нет: посетителя не уводим на сторонние
+       ресурсы. Поле link в данных оставлено как справочное, в разметку не идёт. */
+    const link='';
+    const photo=e.img?`<div class="ev-photo"><img src="/assets/photo/${e.img}.jpg" alt="${T(e.ialt||'')}" loading="lazy" width="900" height="562"></div>`:'';
+    return `<article class="ev-card" style="border-top:3px solid ${c}">${photo}<div class="ev-head"><div class="ev-date"><span class="ev-day">${d.getDate()}</span><span class="ev-mon">${mon}</span></div><span class="ev-cat" style="background:${c}1e;color:${c}">${T(EVCATL[e.category]||e.category)}</span></div><h3 class="ev-h">${T(e.title)}</h3><p class="ev-d">${T(e.description)}</p><div class="ev-meta"><span>${T(e.location)}</span>${link}</div></article>`;
   }).join('');
 }
 document.getElementById('ev-tabs').addEventListener('click',e=>{

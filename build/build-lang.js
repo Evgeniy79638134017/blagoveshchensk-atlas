@@ -129,6 +129,15 @@ function build(lang) {
     }
   }
 
+  /* 1б. подписи картинок. Атрибут alt движок в браузере не трогает — он ходит
+     по текстовым узлам. А для поиска по картинкам и для читалок это основной
+     текст, так что на языковой версии он обязан быть переведён. */
+  let altHit = 0;
+  for (const img of root.querySelectorAll('img[alt]')) {
+    const val = dict[norm(img.getAttribute('alt'))];
+    if (val !== undefined) { img.setAttribute('alt', val); altHit++; }
+  }
+
   /* 2. голова страницы */
   const html = root.querySelector('html');
   html.setAttribute('lang', lang.htmlLang);
@@ -185,7 +194,7 @@ function build(lang) {
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), out, 'utf8');
 
-  return { hit, miss, missed, bytes: out.length };
+  return { hit, miss, missed, altHit, bytes: out.length };
 }
 
 function hreflangBlock() {
@@ -292,7 +301,7 @@ const alts = patchRussian();
 console.log('index.html: hreflang-ссылок ' + alts);
 for (const lang of LANGS) {
   const r = build(lang);
-  console.log(`/${lang.dir}/index.html: ${r.bytes} байт, переведено ${r.hit} элементов, без ключа ${r.miss}`);
+  console.log(`/${lang.dir}/index.html: ${r.bytes} байт, переведено ${r.hit} элементов и ${r.altHit} подписей к картинкам, без ключа ${r.miss}`);
   if (r.missed.length) {
     console.log('  первые непереведённые:');
     for (const m of r.missed) console.log('    · ' + m);
