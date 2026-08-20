@@ -44,31 +44,399 @@
   "@graph": [
     {
       "@type": "WebSite",
+      "@id": "https://visitblg.ru/#website",
       "name": "Амур Атлас",
       "alternateName": "Гид по Благовещенску",
       "url": "https://visitblg.ru/",
-      "inLanguage": ["ru", "en"],
+      "inLanguage": [
+        "ru",
+        "en"
+      ],
       "description": "Авторский гид по Благовещенску: интерактивная карта, конструктор маршрута с расчётом бюджета, поездка в китайский Хэйхэ, канатная дорога, история и кухня Приамурья.",
-      "publisher": {"@type": "Organization", "name": "ИИщенко LAB", "url": "https://t.me/Evgen_wormhole"},
-      "author": {"@type": "Organization", "name": "ИИщенко LAB"}
+      "publisher": {
+        "@id": "https://visitblg.ru/#org"
+      },
+      "author": {
+        "@id": "https://visitblg.ru/#org"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://visitblg.ru/#org",
+      "name": "ИИщенко LAB",
+      "url": "https://t.me/Evgen_wormhole",
+      "sameAs": [
+        "https://t.me/Evgen_wormhole"
+      ],
+      "areaServed": {
+        "@type": "City",
+        "name": "Благовещенск"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://visitblg.ru/#webpage",
+      "url": "https://visitblg.ru/",
+      "name": "Благовещенск: что посмотреть, маршруты, поездка в Хэйхэ",
+      "isPartOf": {
+        "@id": "https://visitblg.ru/#website"
+      },
+      "about": {
+        "@id": "https://visitblg.ru/#destination"
+      },
+      "inLanguage": "ru",
+      "datePublished": "2026-07-20",
+      "dateModified": "2026-08-20",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://visitblg.ru/assets/og-preview.jpg",
+        "width": 1200,
+        "height": 630
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          ".hero-h",
+          ".hero-sub",
+          ".section-lead"
+        ]
+      },
+      "author": {
+        "@id": "https://visitblg.ru/#org"
+      },
+      "publisher": {
+        "@id": "https://visitblg.ru/#org"
+      }
     },
     {
       "@type": "TouristDestination",
+      "@id": "https://visitblg.ru/#destination",
       "name": "Благовещенск",
       "description": "Город на Амуре напротив китайского Хэйхэ — единственная в мире пара городов двух стран в 750 метрах друг от друга. Купеческая история «Амурского Чикаго», кладбище динозавров в черте города, космодром Восточный в 180 км и безвизовые поездки в Китай.",
       "url": "https://visitblg.ru/",
-      "geo": {"@type": "GeoCoordinates", "latitude": 50.2905, "longitude": 127.5272},
-      "containedInPlace": {"@type": "AdministrativeArea", "name": "Амурская область", "containedInPlace": {"@type": "Country", "name": "Россия"}},
-      "sameAs": ["https://ru.wikipedia.org/wiki/Благовещенск", "https://www.wikidata.org/wiki/Q975"],
-      "touristType": ["Семейный отдых", "Гастрономический туризм", "Приграничный туризм", "Историко-культурный туризм"],
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 50.2905,
+        "longitude": 127.5272
+      },
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Амурская область",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "Россия"
+        }
+      },
+      "sameAs": [
+        "https://ru.wikipedia.org/wiki/Благовещенск",
+        "https://www.wikidata.org/wiki/Q975"
+      ],
+      "touristType": [
+        "Семейный отдых",
+        "Гастрономический туризм",
+        "Приграничный туризм",
+        "Историко-культурный туризм"
+      ],
       "includesAttraction": [
-        {"@type": "TouristAttraction", "name": "Набережная Амура", "geo": {"@type": "GeoCoordinates", "latitude": 50.25606, "longitude": 127.52458}},
-        {"@type": "TouristAttraction", "name": "Триумфальная арка", "geo": {"@type": "GeoCoordinates", "latitude": 50.25686, "longitude": 127.52165}},
-        {"@type": "TouristAttraction", "name": "Кафедральный собор Благовещения", "geo": {"@type": "GeoCoordinates", "latitude": 50.26162, "longitude": 127.51392}},
-        {"@type": "TouristAttraction", "name": "Благовещенское «кладбище динозавров»", "geo": {"@type": "GeoCoordinates", "latitude": 50.28, "longitude": 127.485}},
-        {"@type": "TouristAttraction", "name": "Канатная дорога Благовещенск — Хэйхэ", "geo": {"@type": "GeoCoordinates", "latitude": 50.26, "longitude": 127.525}},
-        {"@type": "TouristAttraction", "name": "Озеро лотосов у Ивановки", "geo": {"@type": "GeoCoordinates", "latitude": 50.36284, "longitude": 128.00269}},
-        {"@type": "TouristAttraction", "name": "Космодром Восточный", "geo": {"@type": "GeoCoordinates", "latitude": 51.88455, "longitude": 128.33478}}
+        {
+          "@type": "TouristAttraction",
+          "name": "Набережная Амура",
+          "description": "Километры прогулочного берега лицом к китайскому Хэйхэ.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.25606,
+            "longitude": 127.52458
+          },
+          "additionalType": "Набережная и Амур",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Триумфальная арка",
+          "description": "20-метровая арка с двуглавыми орлами на набережной.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.25686,
+            "longitude": 127.52165
+          },
+          "additionalType": "История",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Кафедральный собор Благовещения",
+          "description": "Главный храм города, семь золочёных куполов, освящён в 2003 году.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.26162,
+            "longitude": 127.51392
+          },
+          "additionalType": "История",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Краеведческий музей им. Новикова-Даурского",
+          "description": "Один из старейших на Дальнем Востоке (осн.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.25913,
+            "longitude": 127.52467
+          },
+          "additionalType": "Городское",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Канатная дорога Благовещенск–Хэйхэ",
+          "description": "Первая в мире трансграничная канатка через госграницу.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.26,
+            "longitude": 127.525
+          },
+          "additionalType": "Городское",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Трансграничный мост через Амур",
+          "description": "Первый автомост Россия–Китай (Кани-Курган, ~13 км от центра), открыт для грузов в 2022 году.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.2011,
+            "longitude": 127.60046
+          },
+          "additionalType": "История",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Площадь Ленина и «Трибуна Холл»",
+          "description": "Сердце города после реконструкции: крупнейший в Евразии пешеходный светомузыкальный фонтан (~3 000 м², сезон с 1 мая, вечером — водно-световое шоу), динопарк с 10-метровым амурозавром, интерактивный музей динозавров и космопарк «Амурский» с VR-полётами, 75-метровый флагшток.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.25732,
+            "longitude": 127.53458
+          },
+          "additionalType": "Городское",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Общественно-культурный центр (ОКЦ)",
+          "description": "Крупнейшая концертно-выставочная площадка города.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.25558,
+            "longitude": 127.54495
+          },
+          "additionalType": "Городское",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Первомайский парк",
+          "description": "Старейший парк города: тенистые аллеи, аттракционы, детские площадки.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.24766,
+            "longitude": 127.56965
+          },
+          "additionalType": "Городское",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Памятник Муравьёву-Амурскому",
+          "description": "Бронзовая фигура основателя города и «собирателя» Приамурья на набережной.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.25603,
+            "longitude": 127.52677
+          },
+          "additionalType": "История",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Амурский областной театр драмы",
+          "description": "Один из старейших театров Дальнего Востока (осн.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.25939,
+            "longitude": 127.51409
+          },
+          "additionalType": "Городское",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Пожарная каланча",
+          "description": "Кирпичная башня 1909–1914 годов в духе замковой архитектуры.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.26089,
+            "longitude": 127.55525
+          },
+          "additionalType": "История",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Парк Дружбы",
+          "description": "Зелёная зона в китайском стиле с искусственным водопадом и скейт-парком — знак приграничного соседства.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.29438,
+            "longitude": 127.52753
+          },
+          "additionalType": "Городское",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Благовещенское «кладбище динозавров»",
+          "description": "Уникальное городское захоронение позднемеловых ящеров (амурозавры и другие гадрозавры) прямо в черте города, район ул.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.28,
+            "longitude": 127.485
+          },
+          "additionalType": "Природа",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Музей палеонтологии АмурНЦ ДВО РАН",
+          "description": "Диорамы и подлинные кости динозавров и мамонтов Приамурья.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.26068,
+            "longitude": 127.51782
+          },
+          "additionalType": "Городское",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Турбаза и санатории Мухинка",
+          "description": "Популярная зона отдыха на берегу Зеи, ~35 км севернее города.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.54197,
+            "longitude": 127.6534
+          },
+          "additionalType": "Отдых",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Космодром Восточный / Циолковский",
+          "description": "Новая космическая эпоха Приамурья, ~180 км от Благовещенска (3–4 ч).",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 51.88455,
+            "longitude": 128.33478
+          },
+          "additionalType": "Городское",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Албазинский острог",
+          "description": "Первое русское поселение на Амуре (1651) и место героической обороны 1685–1686 годов.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 53.3804,
+            "longitude": 124.07863
+          },
+          "additionalType": "История",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Озеро лотосов у Ивановки",
+          "description": "Заросли краснокнижного лотоса Комарова, цветут в июле–августе.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.36284,
+            "longitude": 128.00269
+          },
+          "additionalType": "Природа",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Памятник псу Дружку",
+          "description": "Бронзовый пёс на набережной — трогательный символ наводнения 2013 года: во время большой воды он несколько дней ждал хозяев на крыльце затопленного дома.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.2558,
+            "longitude": 127.5252
+          },
+          "additionalType": "История",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Музей истории Амурского казачества",
+          "description": "Экспозиция о роли казачества в освоении Приамурья и охране границы — в селе Черняево (Магдагачинский р-н, ~250 км от города).",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 52.78602,
+            "longitude": 125.99425
+          },
+          "additionalType": "История",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Музей-калачная в Универмаге Платоновых",
+          "description": "Музей русского калача в историческом универмаге братьев Платоновых (1900–1901): выпечка по старинной технологии, экскурсии с дегустацией — по записи.",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.26347,
+            "longitude": 127.53403
+          },
+          "additionalType": "Гастрономия",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        },
+        {
+          "@type": "TouristAttraction",
+          "name": "Кундурское местонахождение динозавров",
+          "description": "Второе знаменитое «кладбище динозавров» области (Архаринский р-н, ~350 км).",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 49.07,
+            "longitude": 130.77
+          },
+          "additionalType": "Природа",
+          "isAccessibleForFree": true,
+          "url": "https://visitblg.ru/#map-s"
+        }
       ]
     }
   ]
@@ -88,6 +456,278 @@
     {"@type":"Question","name":"Сколько стоит день в Хэйхэ?","acceptedAnswer":{"@type":"Answer","text":"Ориентир на одного: переправа 5 300–6 300 ₽ туда-обратно, обед в китайском кафе 400–800 ₽, покупки — по аппетиту, торговаться обязательно. Итого день — примерно 8–10 тысяч ₽; ночёвка добавит от 1 300 ₽ за номер."}},
     {"@type":"Question","name":"Когда откроется канатная дорога в Китай?","acceptedAnswer":{"@type":"Answer","text":"По данным на июль 2026 года — в декабре 2026: тросы через Амур протянуты, готовность около 90%, пусконаладка в конце года. Сроки уже переносили, перед поездкой стоит перепроверить."}},
     {"@type":"Question","name":"Чем платить в Хэйхэ?","acceptedAnswer":{"@type":"Answer","text":"Российские карты Visa и Mastercard в Китае не работают. Берите наличные юани — обменять можно в банках Благовещенска. В туристических местах часто принимают рубли, но курс хуже. У китайцев основной способ — Alipay и WeChat Pay."}}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Event",
+      "name": "«Амурфест. Лето» на набережной",
+      "startDate": "2027-07-18",
+      "description": "Летний городской фестиваль музыки, спорта и уличной культуры на берегу Амура. Открытые сцены, маркеты, вечерние концерты.",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Набережная Амура",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Благовещенск",
+          "addressRegion": "Амурская область",
+          "addressCountry": "RU"
+        }
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "Event",
+      "name": "Цветение лотосов Комарова",
+      "startDate": "2027-07-25",
+      "description": "Краснокнижный лотос зацветает на озёрах у села Ивановка. Массовые фотопоездки — лучшее время июль–август.",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Окрестности с. Ивановка · ~40 км",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Благовещенск",
+          "addressRegion": "Амурская область",
+          "addressCountry": "RU"
+        }
+      },
+      "isAccessibleForFree": true,
+      "url": "https://visitamur.ru/"
+    },
+    {
+      "@type": "Event",
+      "name": "Ярмарка «Дальневосточный урожай»",
+      "startDate": "2027-08-08",
+      "description": "Соя и тофу, таёжный мёд, дикоросы, амурская рыба. Фермеры Приамурья и гостинцы в дорогу.",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Площадь Ленина",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Благовещенск",
+          "addressRegion": "Амурская область",
+          "addressCountry": "RU"
+        }
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "Event",
+      "name": "Российско-Китайская ярмарка культуры и искусства",
+      "startDate": "2027-08-15",
+      "description": "Ежегодный трансграничный фестиваль Благовещенск–Хэйхэ: концерты, ремёсла и кухня двух стран на набережной.",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Набережная Амура",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Благовещенск",
+          "addressRegion": "Амурская область",
+          "addressCountry": "RU"
+        }
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "Event",
+      "name": "Гастрофестиваль амурской и китайской кухни",
+      "startDate": "2026-08-29",
+      "description": "Речная рыба, уха, дунбэйские блюда, соевые специалитеты. Дегустации и фудкорт под открытым небом.",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Набережная Амура",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Благовещенск",
+          "addressRegion": "Амурская область",
+          "addressCountry": "RU"
+        }
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "Event",
+      "name": "XXIV кинофестиваль «Амурская осень»",
+      "startDate": "2026-09-13",
+      "description": "Главное культурное событие города: российские кинопремьеры и театр, звёзды на набережной. Ежегодно — десятки тысяч гостей.",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "ОКЦ / Театр драмы",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Благовещенск",
+          "addressRegion": "Амурская область",
+          "addressCountry": "RU"
+        }
+      },
+      "isAccessibleForFree": true,
+      "url": "https://amurosen.ru/"
+    },
+    {
+      "@type": "Event",
+      "name": "Премьера в Амурском театре драмы",
+      "startDate": "2026-09-19",
+      "description": "Новый сезон одного из старейших театров Дальнего Востока (осн. 1883). Вечерний показ.",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Театр драмы · ул. Ленина 146",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Благовещенск",
+          "addressRegion": "Амурская область",
+          "addressCountry": "RU"
+        }
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "Event",
+      "name": "Запуск сезона фонтанов на площади Ленина",
+      "startDate": "2027-05-01",
+      "description": "Крупнейший в Евразии пешеходный светомузыкальный фонтан открывает сезон: днём — водно-музыкальное шоу, вечером — светомузыка. Работает до осени.",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Площадь Ленина",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Благовещенск",
+          "addressRegion": "Амурская область",
+          "addressCountry": "RU"
+        }
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "Event",
+      "name": "Ледоход на Амуре",
+      "startDate": "2027-04-20",
+      "description": "Амур вскрывается на глазах у всего города — главное зрелище весны. Точные даты зависят от погоды, обычно конец апреля.",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Набережная Амура",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Благовещенск",
+          "addressRegion": "Амурская область",
+          "addressCountry": "RU"
+        }
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "Event",
+      "name": "Ледовый городок на площади Ленина",
+      "startDate": "2026-12-15",
+      "description": "Новогодний городок с горками и подсветкой — зимняя классика Благовещенска у главной ёлки города.",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Площадь Ленина",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Благовещенск",
+          "addressRegion": "Амурская область",
+          "addressCountry": "RU"
+        }
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "Event",
+      "name": "Выставка «Приамурье: от динозавров до космоса»",
+      "startDate": "2026-10-03",
+      "description": "Палеонтология и космодром Восточный в одном зале краеведческого музея. Кости ящеров и модели ракет.",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Краеведческий музей · ул. Ленина 165",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Благовещенск",
+          "addressRegion": "Амурская область",
+          "addressCountry": "RU"
+        }
+      },
+      "isAccessibleForFree": true
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как съездить из Благовещенска в китайский Хэйхэ",
+  "description": "Приграничный Хэйхэ стоит через Амур в 750 метрах от Благовещенска. С сентября 2025 года россиянам не нужна виза, поездка укладывается в один день. Порядок действий и цены — на август 2026 года.",
+  "inLanguage": "ru",
+  "totalTime": "PT10H",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "RUB",
+    "minValue": 8000,
+    "maxValue": 10000
+  },
+  "supply": [
+    {
+      "@type": "HowToSupply",
+      "name": "Загранпаспорт, действующий ещё минимум 6 месяцев"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Наличные юани — российские карты в Китае не работают"
+    }
+  ],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Проверить загранпаспорт",
+      "text": "Виза не нужна: безвизовый режим для россиян действует с 15 сентября 2025 года на срок до 30 дней и продлён до 31 декабря 2027 года. Паспорт должен быть действителен ещё не меньше полугода.",
+      "url": "https://visitblg.ru/#heihe"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Выбрать переправу",
+      "text": "Теплоход через Амур — навигация с мая по октябрь, рейсы с 10:00 до 16:00, около 3 780 ₽ туда и 2 520 ₽ обратно. Автобус по первому автомосту Россия–Китай ходит круглый год, первый рейс в 07:30, около 2 650 ₽ в одну сторону, в пути порядка 2 часов 20 минут с прохождением границы. Зимой работает понтонная переправа.",
+      "url": "https://visitblg.ru/#heihe"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Поменять деньги заранее",
+      "text": "Обменять рубли на юани удобнее в банках Благовещенска. Visa и Mastercard в Китае не принимают; в туристических местах берут рубли, но по невыгодному курсу. У местных основной способ оплаты — Alipay и WeChat Pay.",
+      "url": "https://visitblg.ru/#heihe"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Учесть разницу во времени",
+      "text": "Хэйхэ живёт по пекинскому времени — на час позади Благовещенска. Обратный рейс планируйте с запасом: границу проходят обе стороны.",
+      "url": "https://visitblg.ru/#heihe"
+    }
   ]
 }
 </script>
@@ -144,6 +784,9 @@ window.SITE_CONFIG = {
 })();
 </script>
 
+<link rel="preload" as="image" href="assets/hero.jpg" fetchpriority="high">
+<link rel="dns-prefetch" href="https://unpkg.com">
+<link rel="dns-prefetch" href="https://commons.wikimedia.org">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -716,6 +1359,7 @@ footer{background:var(--foot-bg);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 .foot-bot{display:flex;justify-content:space-between;align-items:center;margin-top:4rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.14);flex-wrap:wrap;gap:16px}
 .foot-bot .brand{color:#fff}
 .foot-meta{font-size:12px;color:rgba(255,255,255,0.5)}
+.foot-upd{font-size:12px;color:rgba(255,255,255,0.45);margin-top:5px}
 .foot-brand-box{display:flex;flex-direction:column;gap:7px}
 .foot-init{font-size:11.5px;color:rgba(255,255,255,0.45);line-height:1.5;max-width:340px}
 
@@ -1557,6 +2201,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
       <div class="foot-brand-box">
         <a class="brand" href="https://t.me/Evgen_wormhole" target="_blank" rel="noopener" title="Telegram-канал ИИщенко LAB"><img class="logo" src="assets/logo-mark.png" alt="ИИщенко LAB" width="32" height="32">ИИщенко LAB</a>
         <div class="foot-init">Сайт создан жителем Благовещенска по собственной инициативе</div>
+        <div class="foot-upd">Факты сверены и обновлены 20 августа 2026</div>
       </div>
       <div class="foot-meta">v2.0 · Амур Атлас · Благовещенск</div>
     </div>
@@ -2443,7 +3088,7 @@ const I18N_SEL=['.nav-link','.nav-cta','.brand','.hero .eyebrow','.hero-h','.her
   '.gal-cap','.gal-h','.now-t','#now-text',
   '.coop-why b','.coop-why span','.coop-form h3','.coop-form .fnote',
   '.field label','.coop-form option','.coop-agree span','.coop-form .btn',
-  '.foot-h','.foot-cta .btn','.foot-init','.foot-meta','#loader .lw'];
+  '.foot-h','.foot-cta .btn','.foot-init','.foot-upd','.foot-meta','#loader .lw'];
 const i18nNorm=s=>s.replace(/\s+/g,' ').trim();
 let LANG=(function(){try{return localStorage.getItem('atlas-lang')==='en'?'en':'ru';}catch(e){return 'ru';}})();
 const ruTitle=document.title, ruDesc=(document.querySelector('meta[name="description"]')||{}).content||'';

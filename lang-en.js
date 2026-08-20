@@ -570,5 +570,6 @@ window.EN = {
   'Другое': `Something else`,
   'Согласен на обработку данных на условиях <a href="privacy.html" target="_blank" rel="noopener">Политики</a>. Заявка идёт через сервисы за пределами России — подробности там же.': `I agree to my data being processed under the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>. The message travels through services outside Russia — details are there too.`,
   'Отправить <span>→</span>': `Send <span>→</span>`,
-  'Сотрудничество': `Working together`
+  'Сотрудничество': `Working together`,
+  'Факты сверены и обновлены 20 августа 2026': `Facts checked and updated on 20 August 2026`
 };

@@ -1,4 +1,58 @@
+# Амур Атлас — гид по Благовещенску
+# Сайт открыт целиком: и для поисковых роботов, и для тех, кто собирает
+# ответы нейросетей. Второе для нас такой же канал, как выдача Яндекса,
+# поэтому агенты ИИ перечислены явно — чтобы разрешение не зависело
+# от того, как каждый из них трактует общее правило.
+
 User-agent: *
 Allow: /
 
+# поисковые системы
+User-agent: YandexBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# поиск и ответы на базе нейросетей
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: YandexAdditional
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+# краткая выжимка фактов для нейросетей: /llms.txt
 Sitemap: https://visitblg.ru/sitemap.xml
