@@ -543,5 +543,32 @@ window.EN = {
   'Пешеходный фонтан — крупнейший в Евразии': `A walk-through fountain — the largest in Eurasia`,
 
   /* футер — бренд */
-  '<img class="logo" src="assets/logo-mark.png" alt="ИИщенко LAB" width="32" height="32">ИИщенко LAB': `<img class="logo" src="assets/logo-mark.png" alt="Iishchenko LAB" width="32" height="32">Iishchenko LAB`
+  '<img class="logo" src="assets/logo-mark.png" alt="ИИщенко LAB" width="32" height="32">ИИщенко LAB': `<img class="logo" src="assets/logo-mark.png" alt="Iishchenko LAB" width="32" height="32">Iishchenko LAB`,
+
+  /* --- 14. сотрудничество --- */
+  '14 — сотрудничество': `14 — working together`,
+  'Сайт делает <em>один человек</em><br>из Благовещенска': `This site is made by <em>one person</em><br>living in Blagoveshchensk`,
+  'Гостевой дом, экскурсия, кафе, событие — напишите. Точку на карту и строку в афишу добавляю бесплатно, если приезжему это правда интересно. Рекламное размещение — отдельный разговор.': `A guesthouse, a tour, a cafe, an event — write to me. Adding a point to the map or a line to the events feed is free, as long as it is genuinely worth a visitor’s time. Paid placement is a separate conversation.`,
+  'Объект на карту': `A place on the map`,
+  'Гостевой дом, музей, смотровая точка, мастерская, баня на Амуре': `A guesthouse, a museum, a viewpoint, a workshop, a bathhouse on the Amur`,
+  'Событие в афишу': `An event for the feed`,
+  'Фестиваль, ярмарка, концерт, заезд, открытие сезона': `A festival, a fair, a concert, a race, a season opening`,
+  'Экскурсии и гиды': `Tours and guides`,
+  'Маршрут, который стоит показать человеку впервые в городе': `A route worth showing someone in the city for the first time`,
+  'Приём групп': `Group travel`,
+  'Туроператоры и организаторы поездок из других регионов и из Китая': `Tour operators and trip organisers from other regions and from China`,
+  'Реклама и размещение': `Advertising and placement`,
+  'Баннер, интеграция в раздел, отдельный спецпроект': `A banner, an integration inside a section, a dedicated project`,
+  'Ошибка на сайте': `A mistake on the site`,
+  'Цифра, дата или координата не сходятся — скажите, поправлю': `A figure, a date or a coordinate does not add up — tell me and I will fix it`,
+  'Написать автору': `Write to the author`,
+  'Заявка уходит мне в Telegram. Отвечаю обычно в тот же день.': `The message goes straight to my Telegram. I usually reply the same day.`,
+  'Как вас зовут': `Your name`,
+  'Telegram, телефон или почта': `Telegram, phone or email`,
+  'Повод': `Topic`,
+  'Что важно сказать сразу': `What matters to say right away`,
+  'Другое': `Something else`,
+  'Согласен на обработку данных на условиях <a href="privacy.html" target="_blank" rel="noopener">Политики</a>. Заявка идёт через сервисы за пределами России — подробности там же.': `I agree to my data being processed under the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>. The message travels through services outside Russia — details are there too.`,
+  'Отправить <span>→</span>': `Send <span>→</span>`,
+  'Сотрудничество': `Working together`
 };

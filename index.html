@@ -92,6 +92,58 @@
 }
 </script>
 
+<!-- конфигурация сайта: приём заявок и счётчик статистики -->
+<script>
+window.SITE_CONFIG = {
+  /* Cloudflare Worker: принимает заявку и кладёт её в Telegram.
+     Токен бота лежит в секретах Cloudflare, в коде страницы его нет. */
+  formEndpoint: "https://ilab-form.79638134017z.workers.dev",
+  /* номер счётчика Яндекс.Метрики. Пусто — статистика не собирается,
+     сайт при этом работает как обычно. */
+  metrikaId: null
+};
+</script>
+
+<!-- Яндекс.Метрика: подключается только когда номер счётчика задан -->
+<script>
+(function(){
+  var id = window.SITE_CONFIG && window.SITE_CONFIG.metrikaId;
+  if(!id) return;
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();
+   for(var j=0;j<e.length;j++){if(e[j].src===r){return;}}
+   k=t.createElement("script");a=t.getElementsByTagName("script")[0];
+   k.async=1;k.src=r;a.parentNode.insertBefore(k,a);
+  })(window,document.scripts,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+
+  ym(id,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+
+  /* ГЕО-статистика: откуда пришёл человек — из обычного поиска или из ответа
+     нейросети. Ответы ИИ становятся отдельным каналом трафика, и его надо
+     видеть отдельно, иначе он растворяется в «переходах по ссылкам». */
+  try{
+    var ref = document.referrer || '';
+    var AI = [
+      [/chat\.?(openai|gpt)\.com|chatgpt\.com/i, 'ChatGPT'],
+      [/perplexity\.ai/i,                          'Perplexity'],
+      [/claude\.ai/i,                              'Claude'],
+      [/gemini\.google|bard\.google/i,            'Gemini'],
+      [/copilot\.microsoft|bing\.com\/chat/i,    'Copilot'],
+      [/you\.com/i,                                'You.com'],
+      [/ya\.ru\/(alice|neuro)|alice\.yandex/i,   'Алиса / Нейро'],
+      [/deepseek\.com/i,                           'DeepSeek'],
+      [/grok\.com|x\.ai/i,                        'Grok']
+    ];
+    for(var n=0;n<AI.length;n++){
+      if(AI[n][0].test(ref)){
+        ym(id,'params',{istochnik_ii: AI[n][1]});
+        ym(id,'reachGoal','vizit_iz_ii');
+        break;
+      }
+    }
+  }catch(e){}
+})();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -743,6 +795,38 @@ footer{background:var(--foot-bg);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
 .loader .lw{font-family:var(--disp);font-weight:600;font-size:24px}
 .spinner{width:34px;height:34px;border:3px solid var(--line-2);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* --- 14. сотрудничество --- */
+.coop{background:var(--surf);border-top:1px solid var(--line)}
+.coop-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:start;margin-top:2.5rem}
+.coop-why{list-style:none;display:flex;flex-direction:column;gap:2px}
+.coop-why li{padding:15px 0 15px 20px;border-left:2px solid var(--line-2);transition:border-color .2s}
+.coop-why b{display:block;font-family:var(--disp);font-weight:600;font-size:16px;margin-bottom:3px}
+.coop-why span{font-size:14px;color:var(--muted);line-height:1.5}
+.coop-form{background:var(--bg);border:1px solid var(--line-2);border-radius:var(--r-lg);padding:30px}
+.coop-form h3{font-size:22px;margin-bottom:8px}
+.coop-form .fnote{font-size:14px;color:var(--muted);margin-bottom:22px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;font-family:var(--sans);font-size:15px;color:var(--ink);background:var(--surf);border:1px solid var(--line-2);border-radius:14px;padding:12px 14px;transition:border-color .2s}
+.field textarea{min-height:96px;resize:vertical;line-height:1.5}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal)}
+.field select{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%236E7178' stroke-width='1.6'%3E%3Cpath d='M1 1.5 6 6.5l5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;background-size:12px;padding-right:38px}
+html[data-theme="dark"] .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%238A8F99' stroke-width='1.6'%3E%3Cpath d='M1 1.5 6 6.5l5-5'/%3E%3C/svg%3E")}
+.coop-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.coop-agree{display:flex;gap:11px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.5;cursor:pointer;margin:4px 0 20px}
+.coop-agree input{width:17px;height:17px;flex-shrink:0;margin-top:1px;accent-color:var(--teal);cursor:pointer}
+.coop-agree a{color:var(--teal-deep);text-decoration:underline;text-underline-offset:2px}
+.coop-form .btn{width:100%;justify-content:center}
+.coop-form .btn[disabled]{opacity:.45;cursor:not-allowed}
+.coop-form .btn[disabled]:hover{transform:none;box-shadow:none}
+.coop-status{margin-top:14px;font-size:14px;line-height:1.5;min-height:21px}
+.coop-status.ok{color:var(--teal-deep);font-weight:600}
+.coop-status.err{color:#C0562B}
+html[data-theme="dark"] .coop-status.err{color:#F09A6B}
+@media(hover:hover){.coop-why li:hover{border-left-color:var(--teal)}}
+@media(max-width:900px){.coop-grid{grid-template-columns:1fr;gap:36px}}
+@media(max-width:520px){.coop-form{padding:22px}}
 </style>
 <script src="lang-en.js"></script>
 </head>
@@ -1406,10 +1490,69 @@ footer{background:var(--foot-bg);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
   </div>
 </section>
 
+
+<!-- COOP -->
+<section class="section coop" id="coop">
+  <div class="wrap">
+    <span class="eyebrow">14 &mdash; сотрудничество</span>
+    <h2 class="section-h">Сайт делает <em>один человек</em><br>из Благовещенска</h2>
+    <p class="section-lead">Гостевой дом, экскурсия, кафе, событие &mdash; напишите. Точку на карту и строку в афишу добавляю бесплатно, если приезжему это правда интересно. Рекламное размещение &mdash; отдельный разговор.</p>
+    <div class="coop-grid">
+      <ul class="coop-why">
+        <li><b>Объект на карту</b><span>Гостевой дом, музей, смотровая точка, мастерская, баня на Амуре</span></li>
+        <li><b>Событие в афишу</b><span>Фестиваль, ярмарка, концерт, заезд, открытие сезона</span></li>
+        <li><b>Экскурсии и гиды</b><span>Маршрут, который стоит показать человеку впервые в городе</span></li>
+        <li><b>Приём групп</b><span>Туроператоры и организаторы поездок из других регионов и из Китая</span></li>
+        <li><b>Реклама и размещение</b><span>Баннер, интеграция в раздел, отдельный спецпроект</span></li>
+        <li><b>Ошибка на сайте</b><span>Цифра, дата или координата не сходятся &mdash; скажите, поправлю</span></li>
+      </ul>
+
+      <form class="coop-form" id="coop-form" novalidate>
+        <h3>Написать автору</h3>
+        <p class="fnote">Заявка уходит мне в Telegram. Отвечаю обычно в тот же день.</p>
+        <div class="field">
+          <label for="c-name">Как вас зовут</label>
+          <input id="c-name" name="name" type="text" autocomplete="name" maxlength="120" required>
+        </div>
+        <div class="field">
+          <label for="c-contact">Telegram, телефон или почта</label>
+          <input id="c-contact" name="contact" type="text" autocomplete="off" maxlength="160" required>
+        </div>
+        <div class="field">
+          <label for="c-type">Повод</label>
+          <select id="c-type" name="type">
+            <option>Объект на карту</option>
+            <option>Событие в афишу</option>
+            <option>Экскурсии и гиды</option>
+            <option>Приём групп</option>
+            <option>Реклама и размещение</option>
+            <option>Ошибка на сайте</option>
+            <option>Другое</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="c-msg">Что важно сказать сразу</label>
+          <textarea id="c-msg" name="msg" maxlength="2000" placeholder="Что за объект или событие, где находится, когда"></textarea>
+        </div>
+        <div class="coop-hp" aria-hidden="true">
+          <label for="c-company">Компания</label>
+          <input id="c-company" name="company" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <label class="coop-agree" for="c-agree">
+          <input id="c-agree" name="agree" type="checkbox">
+          <span>Согласен на обработку данных на условиях <a href="privacy.html" target="_blank" rel="noopener">Политики</a>. Заявка идёт через сервисы за пределами России &mdash; подробности там же.</span>
+        </label>
+        <button class="btn btn-primary" type="submit" disabled>Отправить <span>&rarr;</span></button>
+        <p class="coop-status" id="coop-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <h2 class="foot-h">Готовы <em>увидеть</em> Благовещенск?</h2>
-    <div class="foot-cta"><button class="btn btn-primary" onclick="document.getElementById('planner').scrollIntoView()">К конструктору маршрута →</button></div>
+    <div class="foot-cta"><button class="btn btn-primary" onclick="document.getElementById('planner').scrollIntoView()">К конструктору маршрута →</button><button class="btn btn-ghost btn-coop" onclick="document.getElementById('coop').scrollIntoView({behavior:'smooth'})">Сотрудничество</button></div>
     <div class="foot-bot">
       <div class="foot-brand-box">
         <a class="brand" href="https://t.me/Evgen_wormhole" target="_blank" rel="noopener" title="Telegram-канал ИИщенко LAB"><img class="logo" src="assets/logo-mark.png" alt="ИИщенко LAB" width="32" height="32">ИИщенко LAB</a>
@@ -2298,6 +2441,8 @@ const I18N_SEL=['.nav-link','.nav-cta','.brand','.hero .eyebrow','.hero-h','.her
   '.dish-h','.dish-d','.factc-h','.factc-d','.faq summary','.faq-a',
   '.story-num','.story-card h3','.story-card p','.story-tag','.story-hint',
   '.gal-cap','.gal-h','.now-t','#now-text',
+  '.coop-why b','.coop-why span','.coop-form h3','.coop-form .fnote',
+  '.field label','.coop-form option','.coop-agree span','.coop-form .btn',
   '.foot-h','.foot-cta .btn','.foot-init','.foot-meta','#loader .lw'];
 const i18nNorm=s=>s.replace(/\s+/g,' ').trim();
 let LANG=(function(){try{return localStorage.getItem('atlas-lang')==='en'?'en':'ru';}catch(e){return 'ru';}})();
@@ -2366,6 +2511,67 @@ function initLang(){
 function hideLoader(){const l=document.getElementById('loader');if(l)l.classList.add('gone');}
 addEventListener('load',()=>setTimeout(hideLoader,300));
 setTimeout(hideLoader,2200);
+
+/* --- форма сотрудничества -> Telegram через Cloudflare Worker --- */
+(function(){
+  const f = document.getElementById('coop-form');
+  if(!f) return;
+  const st    = document.getElementById('coop-status');
+  const btn   = f.querySelector('button[type=submit]');
+  const agree = f.querySelector('#c-agree');
+  const EP    = (window.SITE_CONFIG && window.SITE_CONFIG.formEndpoint) || '';
+
+  const MSG = {
+    ru:{fields:'Заполните имя и способ связи.', sending:'Отправляю\u2026',
+        ok:'Заявка ушла. Отвечу в течение дня.',
+        err:'Не отправилось. Напишите напрямую в Telegram \u2014 ссылка в подвале.',
+        noep:'Приём заявок ещё настраивается. Напишите в Telegram \u2014 ссылка в подвале.'},
+    en:{fields:'Please fill in your name and a way to reach you.', sending:'Sending\u2026',
+        ok:'Sent. I usually reply the same day.',
+        err:'It did not go through. Message me on Telegram \u2014 link in the footer.',
+        noep:'The form is still being set up. Message me on Telegram \u2014 link in the footer.'}
+  };
+  const m = k => (MSG[(typeof LANG !== 'undefined' ? LANG : 'ru')] || MSG.ru)[k];
+  const say = (text, cls) => { st.textContent = text; st.className = 'coop-status' + (cls ? ' ' + cls : ''); };
+
+  agree.addEventListener('change', () => { btn.disabled = !agree.checked; });
+
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const d = {
+      name:    f.name.value.trim(),
+      contact: f.contact.value.trim(),
+      type:    f.type.value,
+      msg:     f.msg.value.trim(),
+      company: f.company.value,
+      agree:   agree.checked,
+      page:    'visitblg.ru' + location.hash
+    };
+    if(!d.name || !d.contact){ say(m('fields'), 'err'); return; }
+    if(!EP){ say(m('noep'), 'err'); return; }
+
+    btn.disabled = true; say(m('sending'));
+    try{
+      const r = await fetch(EP, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(d)
+      });
+      const j = await r.json().catch(() => ({}));
+      if(r.ok && j.ok){
+        f.reset(); agree.checked = false;
+        say(m('ok'), 'ok');
+        if(window.ym && window.SITE_CONFIG && window.SITE_CONFIG.metrikaId){
+          try{ ym(window.SITE_CONFIG.metrikaId, 'reachGoal', 'coop_form'); }catch(_){}
+        }
+      } else {
+        say(m('err'), 'err'); btn.disabled = false;
+      }
+    }catch(_){
+      say(m('err'), 'err'); btn.disabled = false;
+    }
+  });
+})();
 </script>
 </body>
 </html>
