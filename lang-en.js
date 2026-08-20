@@ -571,5 +571,22 @@ window.EN = {
   'Согласен на обработку данных на условиях <a href="privacy.html" target="_blank" rel="noopener">Политики</a>. Заявка идёт через сервисы за пределами России — подробности там же.': `I agree to my data being processed under the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>. The message travels through services outside Russia — details are there too.`,
   'Отправить <span>→</span>': `Send <span>→</span>`,
   'Сотрудничество': `Working together`,
-  'Факты сверены и обновлены 20 августа 2026': `Facts checked and updated on 20 August 2026`
+  'Факты сверены и обновлены 20 августа 2026': `Facts checked and updated on 20 August 2026`,
+
+  /* подписи рядом с заголовками и начальные значения конструктора */
+  '~6 суток': `~6 days`,
+  'минуты': `minutes`,
+  '7,5–8 ч': `7.5–8 h`,
+  '2 чел.': `2 people`,
+  '5 дн.': `5 days`,
+  '3 выбрано': `3 selected`,
+  '0 — одним днём': `0 — a day trip`,
+  'скоро': `soon`,
+  '~6 300 ₽': `~6,300 ₽`,
+  '~5 300 ₽': `~5,300 ₽`,
+  '2 500 ₽': `2,500 ₽`,
+  '6 000 ₽': `6,000 ₽`,
+  'Итого на поездку': `Trip total`,
+  'на человека<b id="hh-per">—</b>': `per person<b id="hh-per">—</b>`,
+  'Фото не загрузилось. Откройте оригинал на Wikimedia Commons по ссылке ниже.': `The photo did not load. Open the original on Wikimedia Commons via the link below.`
 };

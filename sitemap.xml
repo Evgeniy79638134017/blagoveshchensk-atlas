@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url>
-    <loc>https://visitblg.ru/</loc>
-    <lastmod>2026-08-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://visitblg.ru/assets/og-preview.jpg</image:loc>
-      <image:title>Благовещенск — город на Амуре, лицом к Китаю</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://visitblg.ru/assets/ropeway.jpg</image:loc>
-      <image:title>Канатная дорога Благовещенск — Хэйхэ, проектная визуализация терминала</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://visitblg.ru/assets/hero.jpg</image:loc>
-      <image:title>Триумфальная арка на набережной Амура, за рекой — китайский Хэйхэ</image:title>
-    </image:image>
-  </url>
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+      <loc>https://visitblg.ru/</loc>
+      <lastmod>2026-08-20</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>1.0</priority>
+      <xhtml:link rel="alternate" hreflang="ru" href="https://visitblg.ru/"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://visitblg.ru/en/"/>
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://visitblg.ru/"/>
+      <image:image>
+        <image:loc>https://visitblg.ru/assets/og-preview.jpg</image:loc>
+        <image:title>Благовещенск — город на Амуре, лицом к Китаю</image:title>
+      </image:image>
+      <image:image>
+        <image:loc>https://visitblg.ru/assets/hero.jpg</image:loc>
+        <image:title>Триумфальная арка на набережной Амура, за рекой — китайский Хэйхэ</image:title>
+      </image:image>
+      <image:image>
+        <image:loc>https://visitblg.ru/assets/ropeway.jpg</image:loc>
+        <image:title>Канатная дорога Благовещенск — Хэйхэ, проектная визуализация терминала</image:title>
+      </image:image>
+    </url>
+    <url>
+      <loc>https://visitblg.ru/en/</loc>
+      <lastmod>2026-08-20</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="ru" href="https://visitblg.ru/"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://visitblg.ru/en/"/>
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://visitblg.ru/"/>
+    </url>
 </urlset>
