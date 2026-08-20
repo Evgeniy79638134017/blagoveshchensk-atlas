@@ -621,5 +621,21 @@ window.EN = {
   'Лотосы Комарова': `Komarov lotuses`,
   'Первый пуск с космодрома Восточный': `The first launch from the Vostochny Cosmodrome`,
   'Памятник Муравьёву-Амурскому в Благовещенске': `The Muravyov-Amursky monument in Blagoveshchensk`,
-  'Пешеходный светомузыкальный фонтан на площади Ленина вечером': `The walk-through light-and-music fountain on Lenin Square in the evening`
+  'Пешеходный светомузыкальный фонтан на площади Ленина вечером': `The walk-through light-and-music fountain on Lenin Square in the evening`,
+  'Теплоход туда-обратно': `Riverboat, round trip`,
+  'Автобус туда-обратно': `Bus, round trip`,
+  'Гостиница, бюджет': `Hotel, budget`,
+  'Гостиница 3 звезды': `Hotel, 3 stars`,
+  'Гостиница в центре': `Hotel in the centre`,
+  'Еда и покупки': `Food and shopping`,
+  'Как проходит первый день': `How the first day goes`,
+  'день': `daytime`,
+  'Первый теплоход из Благовещенска — по амурскому времени': `The first boat out of Blagoveshchensk — Amur time`,
+  'Вы в Хэйхэ, а на часах 09:30: час в подарок из-за разницы поясов': `You are in Heihe and it is 09:30: an hour gained on the time difference`,
+  'Набережная с видом на Россию, рынки, обед, спа или массаж': `The promenade facing Russia, markets, lunch, a spa or a massage`,
+  'Последний теплоход обратно. Обратная граница идёт дольше — из-за досмотра покупок': `The last boat back. The border is slower on the way out — they inspect your shopping`,
+  'Автобус от автовокзала «Амурассо», улица Чайковского 1/1': `The bus from the "Amurasso" coach station, 1/1 Chaykovskogo St`,
+  'Прибытие в Хэйхэ вместе с прохождением границы — по местному 08:50': `Arrival in Heihe including border control — 08:50 local time`,
+  'Торговые центры и рынки, дунбэйская кухня, парк водно-болотных угодий': `Shopping malls and markets, Dongbei food, the wetlands park`,
+  'Последний рейс из Благовещенска — если едете вечером, это уже с ночёвкой': `The last departure from Blagoveshchensk — go later and you are staying the night`
 };

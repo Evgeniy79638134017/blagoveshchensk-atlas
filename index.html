@@ -2920,7 +2920,23 @@ document.getElementById('rb-clear').addEventListener('click',()=>{
          ['14:10','Последний рейс из Благовещенска — если едете вечером, это уже с ночёвкой']]
   };
 
-  const money=n=>Math.round(n).toLocaleString('ru')+' ₽';
+  /* Подписи калькулятора собираются в JS, поэтому язык надо учитывать здесь:
+     через T() уходят целые фразы, а склоняемые единицы («ночь / ночи / ночей»)
+     словарём не берутся — для них отдельный помощник. */
+  const HL=()=>window.__lang||'ru';
+  const money=n=>Math.round(n).toLocaleString(HL()==='ru'?'ru':'en')+' ₽';
+  const UNITS={
+    ppl:  {ru:['чел.','чел.','чел.'], en:['person','people'], zh:'人'},
+    night:{ru:['ночь','ночи','ночей'], en:['night','nights'], zh:'晚'},
+    room: {ru:['номер','номера','номеров'], en:['room','rooms'], zh:'间'},
+    day:  {ru:['день','дня','дней'], en:['day','days'], zh:'天'}
+  };
+  const unit=(kind,n)=>{
+    const u=UNITS[kind], l=HL();
+    if(l==='zh')return u.zh;
+    if(l==='en')return n===1?u.en[0]:u.en[1];
+    return plural(n,u.ru[0],u.ru[1],u.ru[2]);
+  };
   const pick=g=>{const t=root.querySelector('[data-group="'+g+'"] .tile.on');return t?t.dataset.v:null;};
   const plural=(n,a,b,c)=>{const n1=n%10,n2=n%100;return (n1===1&&n2!==11)?a:((n1>=2&&n1<=4&&(n2<12||n2>14))?b:c);};
 
@@ -2930,17 +2946,17 @@ document.getElementById('rb-clear').addEventListener('click',()=>{
     const ho=HOTEL[pick('hhHotel')]||HOTEL.mid;
     const rooms=Math.ceil(size/2), days=nights+1;
 
-    el('hh-o-size').textContent=size+' чел.';
-    el('hh-o-nights').textContent=nights===0?'0 — одним днём':nights+' '+plural(nights,'ночь','ночи','ночей');
+    el('hh-o-size').textContent=size+' '+unit('ppl',size);
+    el('hh-o-nights').textContent=nights===0?T('0 — одним днём'):nights+' '+unit('night',nights);
     el('hh-o-spend').textContent=spend.toLocaleString('ru')+' ₽';
     el('hh-hotel-field').style.display=nights>0?'':'none';
 
     const travel=tr.cost*size, lodging=ho.cost*rooms*nights, daily=spend*size*days;
     const total=travel+lodging+daily;
 
-    const parts=[{n:tr.label+' · '+size+' чел.',v:travel,c:CATC.sea}];
-    if(nights>0)parts.push({n:ho.label+' · '+nights+' × '+rooms+' '+plural(rooms,'номер','номера','номеров'),v:lodging,c:CATC.city});
-    parts.push({n:'Еда и покупки · '+days+' '+plural(days,'день','дня','дней'),v:daily,c:CATC.gas});
+    const parts=[{n:T(tr.label)+' · '+size+' '+unit('ppl',size),v:travel,c:CATC.sea}];
+    if(nights>0)parts.push({n:T(ho.label)+' · '+nights+' × '+rooms+' '+unit('room',rooms),v:lodging,c:CATC.city});
+    parts.push({n:T('Еда и покупки')+' · '+days+' '+unit('day',days),v:daily,c:CATC.gas});
 
     el('hh-total').textContent=money(total);
     el('hh-per').textContent=money(total/size);
@@ -2948,13 +2964,17 @@ document.getElementById('rb-clear').addEventListener('click',()=>{
       '<div class="hh-line"><span class="dot" style="background:'+p.c+'"></span><span class="nm">'+p.n+'</span><span class="vl">'+money(p.v)+'</span></div>').join('');
 
     const key=TRANSPORT[pick('hhTransport')]===TRANSPORT.bus?'bus':'boat';
-    el('hh-day-title').textContent=nights>0?'Как проходит первый день':'Как проходит день';
+    el('hh-day-title').textContent=T(nights>0?'Как проходит первый день':'Как проходит день');
     el('hh-timeline').innerHTML=TIMELINE[key].map(s=>
-      '<div class="hh-step"><span>'+s[0]+'</span><div>'+s[1]+'</div></div>').join('');
+      '<div class="hh-step"><span>'+T(s[0])+'</span><div>'+T(s[1])+'</div></div>').join('');
   }
 
   ['hh-size','hh-nights','hh-spend'].forEach(id=>el(id).addEventListener('input',calc));
   root.querySelectorAll('.tiles').forEach(g=>g.addEventListener('click',()=>setTimeout(calc,0)));
+  /* renderDynamicI18n зовёт window.hhCalc при смене языка, но присваивания
+     не было ни разу — вызов уходил в никуда, и блок оставался на языке
+     первой отрисовки. */
+  window.hhCalc=calc;
   calc();
 })();
 
