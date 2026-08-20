@@ -740,7 +740,7 @@ window.SITE_CONFIG = {
   formEndpoint: "https://ilab-form.79638134017z.workers.dev",
   /* номер счётчика Яндекс.Метрики. Пусто — статистика не собирается,
      сайт при этом работает как обычно. */
-  metrikaId: null
+  metrikaId: 111773809
 };
 </script>
 
@@ -753,9 +753,10 @@ window.SITE_CONFIG = {
    for(var j=0;j<e.length;j++){if(e[j].src===r){return;}}
    k=t.createElement("script");a=t.getElementsByTagName("script")[0];
    k.async=1;k.src=r;a.parentNode.insertBefore(k,a);
-  })(window,document.scripts,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+  })(window,document.scripts,document,"https://mc.yandex.ru/metrika/tag.js?id="+id,"ym");
 
-  ym(id,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+  ym(id,"init",{ssr:true,clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,
+                referrer:document.referrer,url:location.href});
 
   /* ГЕО-статистика: откуда пришёл человек — из обычного поиска или из ответа
      нейросети. Ответы ИИ становятся отдельным каналом трафика, и его надо
