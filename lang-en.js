@@ -637,5 +637,6 @@ window.EN = {
   'Автобус от автовокзала «Амурассо», улица Чайковского 1/1': `The bus from the "Amurasso" coach station, 1/1 Chaykovskogo St`,
   'Прибытие в Хэйхэ вместе с прохождением границы — по местному 08:50': `Arrival in Heihe including border control — 08:50 local time`,
   'Торговые центры и рынки, дунбэйская кухня, парк водно-болотных угодий': `Shopping malls and markets, Dongbei food, the wetlands park`,
-  'Последний рейс из Благовещенска — если едете вечером, это уже с ночёвкой': `The last departure from Blagoveshchensk — go later and you are staying the night`
+  'Последний рейс из Благовещенска — если едете вечером, это уже с ночёвкой': `The last departure from Blagoveshchensk — go later and you are staying the night`,
+  'Осада Албазина на голландской гравюре XVII века': `The siege of Albazin in a 17th-century Dutch engraving`
 };
