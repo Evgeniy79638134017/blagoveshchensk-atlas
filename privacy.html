@@ -6,12 +6,13 @@
 <title>Политика обработки данных — Амур Атлас, гид по Благовещенску</title>
 <meta name="description" content="Какие данные собирает сайт visitblg.ru, зачем, куда уходит заявка с формы сотрудничества и как потребовать удаления.">
 <meta name="robots" content="noindex, follow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="canonical" href="https://visitblg.ru/privacy.html">
 <link rel="icon" type="image/png" sizes="120x120" href="assets/favicon-120.png">
 <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
 <script>
 (function(){try{var t=localStorage.getItem('atlas-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
 </script>
@@ -20,7 +21,7 @@
 :root{
   --bg:#FAF8F3;--surf:#FFFFFF;--ink:#15171C;--ink-2:#41454E;--muted:#6E7178;
   --line:rgba(21,23,28,0.10);--teal:#0E9A93;--teal-deep:#0A6F6A;
-  --sans:'Inter',system-ui,sans-serif;--disp:'Space Grotesk','Inter',sans-serif;
+  --sans:'Golos Text',system-ui,sans-serif;--disp:'Bitter','Golos Text',Georgia,serif;
 }
 html[data-theme="dark"]{
   --bg:#111318;--surf:#1A1D23;--ink:#ECEDEF;--ink-2:#B9BDC6;--muted:#8A8F99;
@@ -30,11 +31,11 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1
 .wrap{max-width:760px;margin:0 auto;padding:0 24px}
 header{padding:34px 0;border-bottom:1px solid var(--line)}
 .back{font-family:var(--disp);font-weight:600;font-size:15px;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:9px}
-.back:hover{color:var(--teal-deep)}
+@media(hover:hover) and (pointer:fine){.back:hover{color:var(--teal-deep)}}
 main{padding:56px 0 80px}
-h1{font-family:var(--disp);font-weight:600;font-size:clamp(28px,5vw,42px);letter-spacing:-0.02em;line-height:1.1;margin-bottom:14px}
+h1{font-family:var(--disp);font-weight:600;font-size:clamp(28px,5vw,42px);letter-spacing:-0.005em;line-height:1.1;margin-bottom:14px}
 .upd{font-size:14px;color:var(--muted);margin-bottom:44px}
-h2{font-family:var(--disp);font-weight:600;font-size:20px;margin:38px 0 12px;letter-spacing:-0.01em}
+h2{font-family:var(--disp);font-weight:600;font-size:20px;margin:38px 0 12px;letter-spacing:-0.005em}
 p{color:var(--ink-2);margin-bottom:14px}
 ul{margin:0 0 14px 20px;color:var(--ink-2)}
 li{margin-bottom:8px}
