@@ -640,5 +640,8 @@ window.EN = {
   'Последний рейс из Благовещенска — если едете вечером, это уже с ночёвкой': `The last departure from Blagoveshchensk — go later and you are staying the night`,
   'Осада Албазина на голландской гравюре XVII века': `The siege of Albazin in a 17th-century Dutch engraving`,
   '750 метров воды — и другая страна': `750 metres of water — and another country`,
-  'Этот кадр снят с китайского берега: так город видят из Хэйхэ каждый день. Соберите маршрут под свои даты — или напишите, если вам есть что сюда добавить.': `This photo was taken from the Chinese bank: this is how the city looks from Heihe every day. Build a route around your dates — or write to me if you have something to add here.`
+  'Этот кадр снят с китайского берега: так город видят из Хэйхэ каждый день. Соберите маршрут под свои даты — или напишите, если вам есть что сюда добавить.': `This photo was taken from the Chinese bank: this is how the city looks from Heihe every day. Build a route around your dates — or write to me if you have something to add here.`,
+  'Церемония кинофестиваля «Амурская осень»': `The "Amur Autumn" film festival ceremony`,
+  'Экспозиция с динозаврами': `A dinosaur exhibition hall`,
+  'Ледовый городок со снежными скульптурами на площади': `An ice town with snow sculptures on the square`
 };
