@@ -1519,6 +1519,16 @@ footer > .wrap{position:relative;z-index:2}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 
+/* --- вид карты ---
+   Тайлы OpenStreetMap идут в своих цветах — зелень, охра, розовые дороги.
+   Странице с минималистичной серой палитрой это чужеродно, поэтому цвет
+   приглушается фильтром прямо в браузере: получается почти тот же светло-серый
+   вид, что был у CARTO. Тёмная тема — инверсия с возвратом оттенка, обычный
+   приём для карт: вода остаётся синеватой, а не становится оранжевой. */
+.leaflet-tile-pane{filter:grayscale(.82) brightness(1.06) contrast(.92)}
+html[data-theme="dark"] .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) grayscale(.75) brightness(.92) contrast(.9)}
+/* подписи и контролы Leaflet фильтр не трогает — он висит только на слое тайлов */
+
 /* --- фотографии в карточках ---
    Снимки лежат в assets/photo и отдаются с нашего домена: сторонних запросов
    страница не делает, и её нельзя сломать снаружи. */
@@ -2476,8 +2486,14 @@ function pinIcon(cat){
 }
 function initMap(){
   map=L.map('map',{scrollWheelZoom:false,zoomControl:true,attributionControl:false}).setView([50.60,127.95],8);
-  baseTiles=L.tileLayer('https://{s}.basemaps.cartocdn.com/'+(document.documentElement.getAttribute('data-theme')==='dark'?'dark_all':'light_all')+'/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd'}).addTo(map);
-  L.control.attribution({position:'bottomright',prefix:''}).addAttribution('© OSM, CARTO').addTo(map);
+  /* Тайлы OpenStreetMap. CARTO 31.08.2026 закрыл доступ без ключа: его
+     сервер стал отдавать картинки с надписью «API KEY REQUIRED» поверх
+     карты. Esri к тому моменту тоже перешёл на ключи (403). OSM отдаёт
+     тайлы свободно, а привычный светло-серый вид даёт CSS-фильтр на
+     .leaflet-tile-pane — он же делает и тёмную тему, так что отдельный
+     тёмный поставщик не нужен. Ключей на сайте по-прежнему нет. */
+  baseTiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
+  L.control.attribution({position:'bottomright',prefix:''}).addAttribution('© участники OpenStreetMap').addTo(map);
   map.on('click',()=>map.scrollWheelZoom.enable());
   POINTS.forEach(p=>{
     const m=L.marker([p.lat,p.lng],{icon:pinIcon(p.cat)});
@@ -2500,8 +2516,8 @@ function initStoryWalk(){
   if(!host||!steps.length||!window.L)return;
   const smap=L.map('story-map',{scrollWheelZoom:false,dragging:false,zoomControl:false,
     doubleClickZoom:false,attributionControl:false,keyboard:false,tap:false});
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/'+(document.documentElement.getAttribute('data-theme')==='dark'?'dark_all':'light_all')+'/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd'}).addTo(smap);
-  L.control.attribution({position:'bottomright',prefix:''}).addAttribution('© OSM, CARTO').addTo(smap);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(smap);
+  L.control.attribution({position:'bottomright',prefix:''}).addAttribution('© участники OpenStreetMap').addTo(smap);
   const teal=getCss('--teal');
   const stops=steps.map((el,i)=>{
     const lat=+el.dataset.lat, lng=+el.dataset.lng, zoom=+el.dataset.zoom||16;
@@ -3286,8 +3302,9 @@ try{ initLang(); }catch(e){console.warn('initLang',e);}
     ico.innerHTML=dark?SUN:MOON;
     const m=document.querySelector('meta[name="theme-color"]');
     if(m)m.setAttribute('content',dark?'#111318':'#0E9A93');
-    if(baseTiles)baseTiles.setUrl('https://{s}.basemaps.cartocdn.com/'+(dark?'dark_all':'light_all')+'/{z}/{x}/{y}{r}.png');
-    if(window.__storyMap){window.__storyMap.eachLayer(l=>{if(l.setUrl)l.setUrl('https://{s}.basemaps.cartocdn.com/'+(dark?'dark_all':'light_all')+'/{z}/{x}/{y}{r}.png');});}
+    /* Тему карты теперь делает CSS-фильтр по атрибуту data-theme,
+       адрес тайлов при переключении менять не нужно. */
+
     if(save){try{localStorage.setItem('atlas-theme',dark?'dark':'light');}catch(e){}}
   }
   btn.addEventListener('click',()=>apply(document.documentElement.getAttribute('data-theme')!=='dark',true));
