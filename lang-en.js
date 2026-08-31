@@ -146,8 +146,6 @@ window.EN = {
   'Замёрзшая река, каток, огни китайского берега. Зимняя открытка Благовещенска.': `A frozen river, a rink, the lights of the Chinese bank. Blagoveshchensk's winter postcard.`,
 
   /* --- СОБЫТИЯ (FALLBACK_EVENTS) --- */
-  '«Амурфест. Лето» на набережной': `"Amurfest. Summer" on the embankment`,
-  'Летний городской фестиваль музыки, спорта и уличной культуры на берегу Амура. Открытые сцены, маркеты, вечерние концерты.': `A summer city festival of music, sport and street culture on the Amur bank. Open stages, markets, evening concerts.`,
   'Цветение лотосов Комарова': `Bloom of the Komarov lotuses`,
   'Краснокнижный лотос зацветает на озёрах у села Ивановка. Массовые фотопоездки — лучшее время июль–август.': `The protected lotus blooms on the lakes near Ivanovka. Popular photo trips — best time July–August.`,
   'Ярмарка «Дальневосточный урожай»': `"Far Eastern Harvest" fair`,
@@ -571,7 +569,7 @@ window.EN = {
   'Согласен на обработку данных на условиях <a href="privacy.html" target="_blank" rel="noopener">Политики</a>. Заявка идёт через сервисы за пределами России — подробности там же.': `I agree to my data being processed under the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>. The message travels through services outside Russia — details are there too.`,
   'Отправить <span>→</span>': `Send <span>→</span>`,
   'Сотрудничество': `Working together`,
-  'Факты сверены и обновлены 20 августа 2026': `Facts checked and updated on 20 August 2026`,
+  'Факты сверены и обновлены 31 августа 2026': `Facts checked and updated on 31 August 2026`,
 
   /* подписи рядом с заголовками и начальные значения конструктора */
   '~6 суток': `~6 days`,
@@ -643,5 +641,7 @@ window.EN = {
   'Этот кадр снят с китайского берега: так город видят из Хэйхэ каждый день. Соберите маршрут под свои даты — или напишите, если вам есть что сюда добавить.': `This photo was taken from the Chinese bank: this is how the city looks from Heihe every day. Build a route around your dates — or write to me if you have something to add here.`,
   'Церемония кинофестиваля «Амурская осень»': `The "Amur Autumn" film festival ceremony`,
   'Экспозиция с динозаврами': `A dinosaur exhibition hall`,
-  'Ледовый городок со снежными скульптурами на площади': `An ice town with snow sculptures on the square`
+  'Ледовый городок со снежными скульптурами на площади': `An ice town with snow sculptures on the square`,
+  'Ростовые медведь и панда с девушками в кокошниках на Российско-Китайской ярмарке': `Bear and panda mascots with girls in kokoshniks at the Russia–China fair`,
+  'Бронзовый пёс Дружок на парапете набережной, за Амуром — огни Хэйхэ': `The bronze dog Druzhok on the embankment parapet, the lights of Heihe across the Amur`
 };

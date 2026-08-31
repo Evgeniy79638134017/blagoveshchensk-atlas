@@ -4,7 +4,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
       <loc>https://visitblg.ru/</loc>
-      <lastmod>2026-08-20</lastmod>
+      <lastmod>2026-08-31</lastmod>
       <changefreq>weekly</changefreq>
       <priority>1.0</priority>
       <xhtml:link rel="alternate" hreflang="ru" href="https://visitblg.ru/"/>
@@ -26,7 +26,7 @@
     </url>
     <url>
       <loc>https://visitblg.ru/en/</loc>
-      <lastmod>2026-08-20</lastmod>
+      <lastmod>2026-08-31</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
       <xhtml:link rel="alternate" hreflang="ru" href="https://visitblg.ru/"/>
@@ -36,7 +36,7 @@
     </url>
     <url>
       <loc>https://visitblg.ru/cn/</loc>
-      <lastmod>2026-08-20</lastmod>
+      <lastmod>2026-08-31</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
       <xhtml:link rel="alternate" hreflang="ru" href="https://visitblg.ru/"/>
