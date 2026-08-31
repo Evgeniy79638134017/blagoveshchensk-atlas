@@ -76,7 +76,7 @@ window.EN = {
   'Парк Дружбы': `Friendship Park`,
   'Зелёная зона в китайском стиле с искусственным водопадом и скейт-парком — знак приграничного соседства.': `A Chinese-style green area with an artificial waterfall and a skate park — a mark of the border neighbourhood.`,
   'Благовещенское «кладбище динозавров»': `The Blagoveshchensk "dinosaur graveyard"`,
-  'Уникальное городское захоронение позднемеловых ящеров (амурозавры и другие гадрозавры) прямо в черте города, район ул. Нагорной. Одно из богатейших в России; раскопки ведёт Амурский научный центр.': `A unique urban bonebed of Late Cretaceous reptiles (amurosaurs and other hadrosaurs) right within the city, near Nagornaya Street. One of the richest in Russia; excavated by the Amur Scientific Centre.`,
+  'Городское захоронение позднемеловых ящеров (амурозавры и другие гадрозавры) прямо в черте города, район ул. Нагорной. Одно из богатейших в России; раскопки ведёт Амурский научный центр.': `A unique urban bonebed of Late Cretaceous reptiles (amurosaurs and other hadrosaurs) right within the city, near Nagornaya Street. One of the richest in Russia; excavated by the Amur Scientific Centre.`,
   'Музей палеонтологии АмурНЦ ДВО РАН': `Palaeontology Museum, Amur Scientific Centre`,
   'Диорамы и подлинные кости динозавров и мамонтов Приамурья. Научная база городского «кладбища динозавров».': `Dioramas and genuine bones of the Amur region's dinosaurs and mammoths. The research base of the city's "dinosaur graveyard".`,
   'Турбаза и санатории Мухинка': `Mukhinka resorts and lodges`,
@@ -638,5 +638,7 @@ window.EN = {
   'Прибытие в Хэйхэ вместе с прохождением границы — по местному 08:50': `Arrival in Heihe including border control — 08:50 local time`,
   'Торговые центры и рынки, дунбэйская кухня, парк водно-болотных угодий': `Shopping malls and markets, Dongbei food, the wetlands park`,
   'Последний рейс из Благовещенска — если едете вечером, это уже с ночёвкой': `The last departure from Blagoveshchensk — go later and you are staying the night`,
-  'Осада Албазина на голландской гравюре XVII века': `The siege of Albazin in a 17th-century Dutch engraving`
+  'Осада Албазина на голландской гравюре XVII века': `The siege of Albazin in a 17th-century Dutch engraving`,
+  '750 метров воды — и другая страна': `750 metres of water — and another country`,
+  'Этот кадр снят с китайского берега: так город видят из Хэйхэ каждый день. Соберите маршрут под свои даты — или напишите, если вам есть что сюда добавить.': `This photo was taken from the Chinese bank: this is how the city looks from Heihe every day. Build a route around your dates — or write to me if you have something to add here.`
 };

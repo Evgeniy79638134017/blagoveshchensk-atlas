@@ -316,7 +316,7 @@
         {
           "@type": "TouristAttraction",
           "name": "Благовещенское «кладбище динозавров»",
-          "description": "Уникальное городское захоронение позднемеловых ящеров (амурозавры и другие гадрозавры) прямо в черте города, район ул.",
+          "description": "Городское захоронение позднемеловых ящеров (амурозавры и другие гадрозавры) прямо в черте города, район ул.",
           "geo": {
             "@type": "GeoCoordinates",
             "latitude": 50.28,
@@ -1360,10 +1360,22 @@ body.lb-open{overflow:hidden}
 .factc-d b{color:#8fe6dd;font-weight:600}
 
 /* FOOTER */
-footer{background:var(--foot-bg);color:#fff;padding:5rem 0 3rem;margin-top:2rem}
+/* Подвал — финальный экран. Визуальный фильтр (пункт 7.5) требует от него
+   концепции и повтора мотива из hero, а не строчки со ссылками. Мотив тот же,
+   с которого страница начинается: река и два берега. Фотография — вид на
+   Благовещенск с китайской стороны, то есть буквально взгляд с того берега,
+   к которому вёл весь текст. Снимок приглушён: он фон, а не картинка. */
+footer{position:relative;overflow:hidden;background:var(--foot-bg);color:#fff;padding:6rem 0 3rem;margin-top:2rem}
+/* Затемнение лежит в том же background, а не в ::after поверх слоя с opacity:
+   opacity гасит и псевдоэлемент тоже, и подложка работала бы вполовину силы.
+   Книзу почти непрозрачно — там мелкая строка выходных данных. */
+.foot-scene{position:absolute;inset:0;background-image:linear-gradient(180deg,rgba(13,15,19,0.84) 0%,rgba(13,15,19,0.89) 55%,rgba(13,15,19,0.97) 100%),url('assets/photo/blg-s-kitayskogo.jpg');background-size:cover,cover;background-position:center,center 28%}
+footer > .wrap{position:relative;z-index:2}
+.foot-lead{text-align:center;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#3FC1B9;margin-bottom:1.1rem}
+.foot-sub{text-align:center;font-size:17px;line-height:1.6;color:rgba(255,255,255,0.72);max-width:560px;margin:1.4rem auto 0}
 .foot-h{font-size:clamp(30px,5vw,54px);text-align:center;color:#fff}
 .foot-h em{font-style:normal;color:#3FC1B9}
-.foot-cta{display:flex;justify-content:center;margin-top:2rem}
+.foot-cta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:2.2rem}
 .foot-cta .btn-primary{background:#fff;color:#15171C}
 .foot-bot{display:flex;justify-content:space-between;align-items:center;margin-top:4rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.14);flex-wrap:wrap;gap:16px}
 .foot-bot .brand{color:#fff}
@@ -2254,8 +2266,11 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
 </section>
 
 <footer>
+  <div class="foot-scene" role="img" aria-label="Благовещенск с китайского берега Амура"></div>
   <div class="wrap">
+    <div class="foot-lead">750 метров воды &mdash; и другая страна</div>
     <h2 class="foot-h">Готовы <em>увидеть</em> Благовещенск?</h2>
+    <p class="foot-sub">Этот кадр снят с китайского берега: так город видят из Хэйхэ каждый день. Соберите маршрут под свои даты &mdash; или напишите, если вам есть что сюда добавить.</p>
     <div class="foot-cta"><button class="btn btn-primary" onclick="document.getElementById('planner').scrollIntoView()">К конструктору маршрута →</button><button class="btn btn-ghost btn-coop" onclick="document.getElementById('coop').scrollIntoView({behavior:'smooth'})">Сотрудничество</button></div>
     <div class="foot-bot">
       <div class="foot-brand-box">
@@ -2328,7 +2343,7 @@ const POINTS = [
   {id:11,name:"Амурский областной театр драмы",lat:50.25939,lng:127.51409,cat:"city",desc:"Один из старейших театров Дальнего Востока (осн. 1883). Главная сцена театральной программы «Амурской осени»."},
   {id:12,name:"Пожарная каланча",lat:50.26089,lng:127.55525,cat:"his",desc:"Кирпичная башня 1909–1914 годов в духе замковой архитектуры. Доминанта исторической Амурской улицы, символ купеческого Благовещенска."},
   {id:13,name:"Парк Дружбы",lat:50.29438,lng:127.52753,cat:"city",desc:"Зелёная зона в китайском стиле с искусственным водопадом и скейт-парком — знак приграничного соседства."},
-  {id:14,name:"Благовещенское «кладбище динозавров»",lat:50.28,lng:127.485,cat:"nat",desc:"Уникальное городское захоронение позднемеловых ящеров (амурозавры и другие гадрозавры) прямо в черте города, район ул. Нагорной. Одно из богатейших в России; раскопки ведёт Амурский научный центр."},
+  {id:14,name:"Благовещенское «кладбище динозавров»",lat:50.28,lng:127.485,cat:"nat",desc:"Городское захоронение позднемеловых ящеров (амурозавры и другие гадрозавры) прямо в черте города, район ул. Нагорной. Одно из богатейших в России; раскопки ведёт Амурский научный центр."},
   {id:15,name:"Музей палеонтологии АмурНЦ ДВО РАН",lat:50.26068,lng:127.51782,cat:"city",desc:"Диорамы и подлинные кости динозавров и мамонтов Приамурья. Научная база городского «кладбища динозавров»."},
   {id:16,name:"Турбаза и санатории Мухинка",lat:50.54197,lng:127.6534,cat:"spa",desc:"Популярная зона отдыха на берегу Зеи, ~35 км севернее города. Сосновый бор, санатории, базы. Летний отдых горожан."},
   {id:17,name:"Космодром Восточный / Циолковский",lat:51.88455,lng:128.33478,cat:"city",desc:"Новая космическая эпоха Приамурья, ~180 км от Благовещенска (3–4 ч). Экскурсии по предварительной заявке, смотровые площадки при пусках."},
@@ -3203,7 +3218,7 @@ const I18N_SEL=['.nav-link','.nav-cta','.brand','.hero .eyebrow','.hero-h','.her
   '.gal-cap','.gal-h','.now-t','#now-text',
   '.coop-why b','.coop-why span','.coop-form h3','.coop-form .fnote',
   '.field label','.coop-form option','.coop-agree span','.coop-form .btn',
-  '.foot-h','.foot-cta .btn','.foot-init','.foot-upd','.foot-meta','#loader .lw'];
+  '.foot-lead','.foot-h','.foot-sub','.foot-cta .btn','.foot-init','.foot-upd','.foot-meta','#loader .lw'];
 const i18nNorm=s=>s.replace(/\s+/g,' ').trim();
 let LANG=(function(){
   /* на статических /en/ и /cn/ язык задан самой страницей: отметка в localStorage
