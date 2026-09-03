@@ -74,6 +74,28 @@ function expandPhotos(html) {
     });
 }
 
+/* ─── пары «тогда / сейчас» ───────────────────────────────────────────────
+   В тексте: [[pair:старое|новое|alt старого|alt нового|подпись]].
+   Отдельная разметка, а не две подряд врезки: смысл пары в том, что кадры
+   стоят рядом и глаз сравнивает их сам. */
+function expandPairs(html) {
+  return html.replace(/\[\[pair:([a-z0-9-]+)\|([a-z0-9-]+)\|([^|\]]+)\|([^|\]]+)\|([^\]]*)\]\]/g,
+    (_, a, b, altA, altB, cap) => {
+      const one = (slug, alt, lab) => {
+        const f = photoPath(slug);
+        if (!fs.existsSync(f)) throw new Error('нет фото assets/photo/' + slug + '.jpg');
+        const { w, h } = jpegSize(f);
+        return `    <div>\n      <img src="/assets/photo/${slug}.jpg" alt="${esc(alt)}"`
+          + ` width="${w}" height="${h}" loading="lazy" decoding="async">\n`
+          + `      <span class="pair-lab">${lab}</span>\n    </div>`;
+      };
+      return `<figure class="pair">\n  <div class="pair-imgs">\n`
+        + one(a, altA, 'тогда') + '\n' + one(b, altB, 'сейчас')
+        + `\n  </div>\n`
+        + (cap.trim() ? `  <figcaption>${cap.trim()}</figcaption>\n` : '') + `</figure>`;
+    });
+}
+
 /* ─── общие куски страницы ───────────────────────────────────────────────── */
 const CSP = "default-src 'self'; script-src 'self' 'unsafe-inline' https://mc.yandex.ru "
   + "https://yastatic.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
@@ -271,7 +293,7 @@ ${TOPBAR}
     ${a.coverCap ? `<p class="cap">${a.coverCap}</p>` : ''}
 
     <div class="body">
-${expandPhotos(a.body).trim()}
+${expandPairs(expandPhotos(a.body)).trim()}
     </div>
 ${faq}
   </article>
@@ -412,7 +434,7 @@ for (const a of all) {
   fs.mkdirSync(dir, { recursive: true });
   const html = renderArticle(a, all);
   fs.writeFileSync(path.join(dir, 'index.html'), html, 'utf8');
-  console.log(`/stati/${a.slug}/ — ${html.length} байт, фото в тексте: ${(a.body.match(/\[\[photo:/g) || []).length}`);
+  console.log(`/stati/${a.slug}/ — ${html.length} байт, фото: ${(a.body.match(/\[\[photo:/g) || []).length} + пар ${(a.body.match(/\[\[pair:/g) || []).length}`);
 }
 fs.writeFileSync(path.join(OUT, 'index.html'), renderIndex(all), 'utf8');
 console.log(`/stati/ — список из ${all.length} статей`);
