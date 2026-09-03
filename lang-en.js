@@ -670,5 +670,8 @@ window.EN = {
   'Главное культурное событие города: кинопремьеры, спектакли, творческие вечера и звёзды на набережной. В 2026-м показы идут с 12 по 19 сентября — среди них «ФЕЛЛИНИ. 8½» театра имени Вахтангова 14 и 15 сентября.': `The city’s main cultural event: film premieres, plays, evenings with the cast and stars out on the embankment. In 2026 the screenings run from 12 to 19 September — among them "FELLINI. 8½" by the Vakhtangov Theatre on 14 and 15 September.`,
   '01 · Причал в Хэйхэ': `01 · Heihe pier`,
   'Сюда приходят теплоходы из Благовещенска': `This is where the boats from Blagoveshchensk arrive`,
-  'Пассажирский теплоход у причала в китайском Хэйхэ': `A passenger boat at the pier in Heihe, China`
+  'Пассажирский теплоход у причала в китайском Хэйхэ': `A passenger boat at the pier in Heihe, China`,
+  '02 · Вид с набережной': `02 · The view from the embankment`,
+  'Ночью Хэйхэ зажигает иероглифы': `At night Heihe lights up its characters`,
+  'Ночной Хэйхэ с набережной Благовещенска: высотки в красной подсветке отражаются в Амуре': `Heihe at night seen from the Blagoveshchensk embankment: towers in red light reflected in the Amur`
 };
