@@ -44,4 +44,40 @@
       <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://visitblg.ru/cn/"/>
       <xhtml:link rel="alternate" hreflang="x-default" href="https://visitblg.ru/"/>
     </url>
+    <url>
+      <loc>https://visitblg.ru/stati/</loc>
+      <lastmod>2026-09-03</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+    </url>
+    <url>
+      <loc>https://visitblg.ru/stati/blagoveshchensk-za-odin-den/</loc>
+      <lastmod>2026-09-03</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+      <image:image>
+        <image:loc>https://visitblg.ru/assets/photo/gal-rechnoy-vokzal.jpg</image:loc>
+        <image:title>Прогулочный теплоход у речного вокзала на набережной Амура в Благовещенске</image:title>
+      </image:image>
+    </url>
+    <url>
+      <loc>https://visitblg.ru/stati/kogda-ehat-v-blagoveshchensk/</loc>
+      <lastmod>2026-09-03</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+      <image:image>
+        <image:loc>https://visitblg.ru/assets/photo/lotos.jpg</image:loc>
+        <image:title>Цветущий краснокнижный лотос Комарова на озере под Благовещенском</image:title>
+      </image:image>
+    </url>
+    <url>
+      <loc>https://visitblg.ru/stati/poezdka-v-heihe/</loc>
+      <lastmod>2026-09-03</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+      <image:image>
+        <image:loc>https://visitblg.ru/assets/photo/blg-heihe-noch.jpg</image:loc>
+        <image:title>Ночной Хэйхэ с набережной Благовещенска: подсвеченные высотки китайского берега за Амуром</image:title>
+      </image:image>
+    </url>
 </urlset>

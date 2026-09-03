@@ -1557,6 +1557,35 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
 .coop-form .btn[disabled]:hover{transform:none;box-shadow:none}
 }
 
+/* СТАТЬИ. Карточки нарочно разного размера: ряд одинаковых плиток —
+   первое, по чему страницу опознают как собранную по шаблону. */
+.arts-grid{display:grid;gap:18px;grid-template-columns:1.25fr 1fr;margin-top:26px}
+.art{display:block;text-decoration:none;color:inherit;background:var(--surf);
+  border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;
+  transition:transform .25s ease,box-shadow .25s ease}
+.art:first-child{grid-row:span 2}
+.art:first-child img{aspect-ratio:4/3}
+.art img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block}
+.art-b{padding:18px 20px 22px}
+.art-e{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--teal-deep);font-weight:600;display:block;margin-bottom:8px}
+.art-t{font-family:var(--disp);font-weight:600;font-size:19px;line-height:1.22;
+  margin-bottom:8px;color:var(--ink)}
+.art:first-child .art-t{font-size:24px}
+.art-d{font-size:14.5px;color:var(--muted);line-height:1.5}
+.arts-all{display:inline-block;margin-top:22px;font-weight:500;color:var(--teal-deep);
+  text-decoration:none}
+@media(max-width:820px){
+  .arts-grid{grid-template-columns:1fr}
+  .art:first-child{grid-row:auto}
+  .art:first-child img{aspect-ratio:16/9}
+  .art:first-child .art-t{font-size:21px}
+}
+@media(hover:hover) and (pointer:fine){
+  .art:hover{transform:translateY(-3px);box-shadow:var(--sh)}
+  .arts-all:hover{text-decoration:underline}
+}
+
 </style>
 <script src="lang-en.js"></script>
 </head>
@@ -1577,6 +1606,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
     <a class="nav-link" href="#planner">Маршрут</a>
     <a class="nav-link" href="#history">История</a>
     <a class="nav-link" href="#facts">Любопытное</a>
+    <a class="nav-link ru-only" href="#reading">Статьи</a>
     <button class="lang-btn" id="lang-btn" aria-label="Switch language / Сменить язык"><b>RU</b> · EN</button>
     <button class="theme-btn" id="theme-btn" aria-label="Переключить светлую и тёмную тему"><svg id="theme-ico" viewBox="0 0 24 24"><path d="M20 12.5A8 8 0 1111.5 4a6.5 6.5 0 008.5 8.5z"/></svg></button>
     <button class="nav-cta" onclick="document.getElementById('planner').scrollIntoView()">Собрать маршрут</button>
@@ -2279,6 +2309,46 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
         <p class="coop-status" id="coop-status" role="status" aria-live="polite"></p>
       </form>
     </div>
+  </div>
+</section>
+
+<!-- СТАТЬИ. Карточки между метками STATI собирает build/build-articles.js,
+     руками их не править. Весь раздел помечен ru-only: статьи пока только
+     по-русски, и на /en/ и /cn/ сборщик языковых версий его снимает. -->
+<section class="section s-tight ru-only" id="reading">
+  <div class="wrap">
+    <span class="eyebrow">12 — разборы</span>
+    <h2 class="section-h">Читать <em>перед поездкой</em></h2>
+    <p class="section-lead">То, что не помещается в карточку на карте: маршруты целиком, расчёты и расписания. Цены и даты сверены с источниками — они названы прямо в тексте.</p>
+    <div class="arts-grid">
+<!-- STATI:START -->
+      <a class="art" href="/stati/blagoveshchensk-za-odin-den/">
+        <img src="assets/photo/gal-rechnoy-vokzal.jpg" alt="Прогулочный теплоход у речного вокзала на набережной Амура в Благовещенске" width="900" height="598" loading="lazy" decoding="async">
+        <div class="art-b">
+          <span class="art-e">Маршрут</span>
+          <div class="art-t">Что посмотреть в&nbsp;Благовещенске за&nbsp;один день</div>
+          <div class="art-d">Пеший маршрут по центру с утра до вечера: набережная, арка, фонтан, купеческие кварталы и динозавры прямо в черте города.</div>
+        </div>
+      </a>
+      <a class="art" href="/stati/kogda-ehat-v-blagoveshchensk/">
+        <img src="assets/photo/lotos.jpg" alt="Цветущий краснокнижный лотос Комарова на озере под Благовещенском" width="900" height="642" loading="lazy" decoding="async">
+        <div class="art-b">
+          <span class="art-e">Сезоны</span>
+          <div class="art-t">Когда лучше ехать в&nbsp;Благовещенск</div>
+          <div class="art-d">Ледоход, лотосы, кинофестиваль или мороз с понтонной переправой в Китай — четыре сезона и что каждый из них даёт.</div>
+        </div>
+      </a>
+      <a class="art" href="/stati/poezdka-v-heihe/">
+        <img src="assets/photo/blg-heihe-noch.jpg" alt="Ночной Хэйхэ с набережной Благовещенска: подсвеченные высотки китайского берега за Амуром" width="1470" height="470" loading="lazy" decoding="async">
+        <div class="art-b">
+          <span class="art-e">Практика</span>
+          <div class="art-t">Как съездить в Хэйхэ из&nbsp;Благовещенска</div>
+          <div class="art-d">Виза не нужна, а вот загранпаспорт нужен. Переправы, цены, расписание и слабое место всего плана — обратная дорога.</div>
+        </div>
+      </a>
+<!-- STATI:END -->
+    </div>
+    <a class="arts-all" href="/stati/">Все статьи &rarr;</a>
   </div>
 </section>
 

@@ -147,6 +147,13 @@ function build(lang) {
   const grid = root.querySelector('.hh-grid');
   if (grid) { grid.remove(); calcDropped = true; }
 
+  /* 1г. блоки с классом .ru-only — только для русской версии. Сейчас это
+     статьи: они написаны по-русски, переводить их пока нечем, а карточка
+     с русским текстом на китайской странице читается как недоделка.
+     Помечать классом, а не вписывать сюда селектор каждого нового блока. */
+  let ruOnly = 0;
+  for (const el of root.querySelectorAll('.ru-only')) { el.remove(); ruOnly++; }
+
   /* 2. голова страницы */
   const html = root.querySelector('html');
   html.setAttribute('lang', lang.htmlLang);
@@ -203,7 +210,7 @@ function build(lang) {
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), out, 'utf8');
 
-  return { hit, miss, missed, altHit, calcDropped, bytes: out.length };
+  return { hit, miss, missed, altHit, calcDropped, ruOnly, bytes: out.length };
 }
 
 function hreflangBlock() {
@@ -272,36 +279,10 @@ function patchRussian() {
   return s.match(/rel="alternate"/g).length;
 }
 
-/* ─── карта сайта: языковые версии перечислены как альтернативы ───────────
-   Поисковику нужны и отдельные <url> на каждую версию, и xhtml:link внутри
-   каждой — иначе версии читаются как отдельные несвязанные страницы, а не как
-   один документ на разных языках. */
-function buildSitemap(lastmod) {
-  const pages = [{ loc: SITE + '/', lang: 'ru' }]
-    .concat(LANGS.map(l => ({ loc: `${SITE}/${l.dir}/`, lang: l.hreflang })));
-
-  const images = [
-    [SITE + '/assets/og-preview.jpg', 'Благовещенск — город на Амуре, лицом к Китаю'],
-    [SITE + '/assets/hero.jpg', 'Триумфальная арка на набережной Амура, за рекой — китайский Хэйхэ'],
-    [SITE + '/assets/ropeway.jpg', 'Канатная дорога Благовещенск — Хэйхэ, проектная визуализация терминала']
-  ];
-
-  const alt = pages.map(p => `      <xhtml:link rel="alternate" hreflang="${p.lang}" href="${p.loc}"/>`)
-    .concat([`      <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/"/>`])
-    .join('\n');
-
-  const urls = pages.map((p, i) => {
-    const img = i === 0
-      ? images.map(([loc, title]) =>
-          `      <image:image>\n        <image:loc>${loc}</image:loc>\n        <image:title>${title}</image:title>\n      </image:image>`).join('\n') + '\n'
-      : '';
-    return `    <url>\n      <loc>${p.loc}</loc>\n      <lastmod>${lastmod}</lastmod>\n      <changefreq>weekly</changefreq>\n      <priority>${i === 0 ? '1.0' : '0.8'}</priority>\n${alt}\n${img}    </url>`;
-  }).join('\n');
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"\n        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`;
-  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml, 'utf8');
-  return pages.length;
-}
+/* ─── карта сайта ────────────────────────────────────────────────────────
+   Сборка вынесена в build/build-sitemap.js: карту пишут двое — этот скрипт
+   и сборщик статей, и при двух копиях кода она бы разъезжалась. */
+const { buildSitemap } = require('./build-sitemap.js');
 
 /* ─── запуск ─────────────────────────────────────────────────────────────── */
 const LASTMOD = process.argv[2] || '2026-08-20';
@@ -310,10 +291,10 @@ const alts = patchRussian();
 console.log('index.html: hreflang-ссылок ' + alts);
 for (const lang of LANGS) {
   const r = build(lang);
-  console.log(`/${lang.dir}/index.html: ${r.bytes} байт, переведено ${r.hit} элементов и ${r.altHit} подписей к картинкам, без ключа ${r.miss}${r.calcDropped ? ", калькулятор Хэйхэ снят" : ""}`);
+  console.log(`/${lang.dir}/index.html: ${r.bytes} байт, переведено ${r.hit} элементов и ${r.altHit} подписей к картинкам, без ключа ${r.miss}${r.calcDropped ? ", калькулятор Хэйхэ снят" : ""}${r.ruOnly ? ", русских блоков снято " + r.ruOnly : ""}`);
   if (r.missed.length) {
     console.log('  первые непереведённые:');
     for (const m of r.missed) console.log('    · ' + m);
   }
 }
-console.log('sitemap.xml: страниц ' + buildSitemap(LASTMOD) + ', lastmod ' + LASTMOD);
+console.log('sitemap.xml: адресов ' + buildSitemap(LASTMOD) + ', lastmod ' + LASTMOD);

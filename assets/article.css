@@ -1,0 +1,217 @@
+/* Страницы статей «Амур Атласа».
+   Токены и шрифты те же, что на главной, — страница должна читаться как
+   продолжение сайта, а не как отдельный блог на шаблоне.
+   Прогнано по «Визуальный_антинейрослоп.txt»: два уровня глубины, ховеры
+   только для мыши, ритм секций неравномерный, появлений при прокрутке нет. */
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#FAF8F3; --surf:#FFFFFF; --surf-2:#F2EFE8;
+  --ink:#15171C; --ink-2:#41454E; --muted:#6E7178;
+  --line:rgba(21,23,28,0.09); --line-2:rgba(21,23,28,0.16);
+  --teal:#0E9A93; --teal-deep:#0A6F6A; --teal-soft:rgba(14,154,147,0.10);
+  --amber:#E0872B; --amber-soft:rgba(224,135,43,0.12);
+  --nav-bg:rgba(250,248,243,0.78);
+  --on-ink:#FFFFFF; --foot-bg:#15171C;
+  --sh:0 6px 24px rgba(21,23,28,0.07),0 2px 6px rgba(21,23,28,0.04);
+  --sh-lg:0 24px 60px rgba(21,23,28,0.13),0 8px 20px rgba(21,23,28,0.06);
+  --r:22px; --r-lg:30px;
+  --sans:'Golos Text',system-ui,sans-serif;
+  --disp:'Bitter','Golos Text',Georgia,serif;
+}
+html[data-theme="dark"]{
+  --bg:#111318; --surf:#1A1D23; --surf-2:#232730;
+  --ink:#ECEDEF; --ink-2:#B9BDC6; --muted:#8A8F99;
+  --line:rgba(236,237,239,0.09); --line-2:rgba(236,237,239,0.18);
+  --teal-deep:#3FC1B9; --teal-soft:rgba(14,154,147,0.17); --amber-soft:rgba(224,135,43,0.16);
+  --nav-bg:rgba(17,19,24,0.82); --on-ink:#15171C; --foot-bg:#0D0F13;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);
+  line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* height:auto обязателен. В тегах проставлены width/height (это резервирует
+   место и снимает дёрганье при загрузке), но атрибут height задаёт картинке
+   конкретную высоту в пикселях, и тогда aspect-ratio из CSS не применяется:
+   вертикальное фото не обрезается, а растягивает карточку. */
+img{max-width:100%;display:block;height:auto}
+a{color:var(--teal-deep);text-decoration-thickness:1px;text-underline-offset:3px}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+/* Колонка статьи уже, чем у гида: 1120 px под текст — это полоса на
+   пол-экрана и пустота справа. Шапка и подвал остаются широкими. */
+main > .wrap{max-width:880px}
+/* мера строки: 66-70 знаков. Абзац во весь экран не читают */
+.col{max-width:690px}
+
+/* -- полоса прочитанного ----------------------------------------------
+   Единственная движущаяся деталь на странице. Показывает, сколько
+   осталось: у длинного текста это снимает тревогу «сколько ещё». */
+.progress{position:fixed;top:0;left:0;height:2px;width:100%;z-index:60;
+  background:transparent;pointer-events:none}
+.progress i{display:block;height:100%;width:0;background:var(--teal);
+  transition:width .1s linear}
+
+/* -- верхняя панель ---------------------------------------------------- */
+.top{position:sticky;top:0;z-index:50;background:var(--nav-bg);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;justify-content:space-between;
+  gap:16px;height:60px}
+.back{font-family:var(--disp);font-weight:600;font-size:15px;color:var(--ink);
+  text-decoration:none;display:inline-flex;align-items:center;gap:9px}
+.back .ar{display:inline-block;transition:transform .25s ease}
+.theme-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line-2);
+  background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .2s ease}
+.theme-btn svg{width:17px;height:17px;fill:currentColor}
+
+/* -- хлебные крошки ---------------------------------------------------- */
+.crumbs{font-size:13px;color:var(--muted);padding:26px 0 0}
+.crumbs a{color:var(--muted);text-decoration:none}
+.crumbs span{margin:0 7px;opacity:.55}
+
+/* -- шапка статьи ------------------------------------------------------ */
+.a-head{padding:20px 0 0}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--teal-deep);font-weight:600;display:block;margin-bottom:14px}
+h1{font-family:var(--disp);font-weight:600;line-height:1.06;letter-spacing:-0.005em;
+  font-size:clamp(31px,5.4vw,54px);margin-bottom:18px;max-width:14ch}
+h1.wide{max-width:17ch}
+.lead{font-size:clamp(17px,2.1vw,20px);line-height:1.55;color:var(--ink-2);
+  max-width:640px;margin-bottom:22px}
+.a-meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:var(--muted);
+  padding-bottom:30px;border-bottom:1px solid var(--line)}
+.a-meta b{font-weight:500;color:var(--ink-2)}
+
+/* -- обложка ----------------------------------------------------------- */
+.cover{margin:30px 0 8px;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh)}
+.cover img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.cap{font-size:13px;color:var(--muted);margin:12px 0 0;max-width:640px}
+
+/* -- тело статьи ------------------------------------------------------- */
+.body{padding:38px 0 10px}
+.body p{color:var(--ink-2);margin-bottom:17px;max-width:690px}
+.body p.big{font-size:18.5px;color:var(--ink)}
+/* буквица: единственное типографское украшение, и только в первом абзаце */
+.body > p.first::first-letter{font-family:var(--disp);font-weight:600;font-size:3.1em;
+  line-height:.86;float:left;margin:6px 11px 0 0;color:var(--teal-deep)}
+.body h2{font-family:var(--disp);font-weight:600;letter-spacing:-0.005em;
+  font-size:clamp(23px,3.2vw,31px);line-height:1.15;margin:48px 0 15px;max-width:20ch}
+.body h2::before{content:"";display:block;width:30px;height:2px;background:var(--teal);
+  margin-bottom:17px}
+.body h3{font-family:var(--disp);font-weight:600;font-size:19px;margin:30px 0 9px}
+.body ul,.body ol{margin:0 0 18px 21px;color:var(--ink-2);max-width:670px}
+.body li{margin-bottom:9px}
+.body li::marker{color:var(--teal)}
+.body strong{color:var(--ink);font-weight:600}
+
+/* врезка с фотографией внутри текста */
+.fig{margin:30px 0}
+.fig img{width:100%;border-radius:var(--r);object-fit:cover}
+.fig figcaption{font-size:13px;color:var(--muted);margin-top:10px;max-width:640px}
+
+/* цитата-акцент. Одна на статью, не больше */
+.pull{margin:34px 0;padding:4px 0 4px 22px;border-left:3px solid var(--teal);
+  font-family:var(--disp);font-size:clamp(19px,2.6vw,24px);line-height:1.34;
+  color:var(--ink);max-width:640px}
+
+/* блок с практикой: то, что нужно сделать или запомнить */
+.callout{background:var(--surf);border:1px solid var(--line-2);border-radius:var(--r);
+  padding:22px 24px;margin:30px 0;max-width:690px}
+.callout h3{margin:0 0 9px;font-size:17px}
+.callout p:last-child,.callout ul:last-child{margin-bottom:0}
+.callout.warn{border-color:rgba(224,135,43,.45);background:var(--amber-soft)}
+
+/* таблица цен и расписаний */
+.tbl-wrap{overflow-x:auto;margin:26px 0;max-width:690px}
+table{border-collapse:collapse;width:100%;min-width:440px;font-size:15px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
+th{font-family:var(--disp);font-weight:600;color:var(--ink);font-size:14px;
+  border-bottom:1px solid var(--line-2)}
+td{color:var(--ink-2)}
+td b{color:var(--ink);font-weight:600}
+
+/* -- вопросы и ответы -------------------------------------------------- */
+.faq{margin:52px 0 0;max-width:690px}
+.faq h2{margin-top:0}
+.qa{border-top:1px solid var(--line);padding:18px 0}
+.qa:last-child{border-bottom:1px solid var(--line)}
+.qa h3{font-family:var(--disp);font-size:17.5px;font-weight:600;margin:0 0 7px}
+.qa p{color:var(--ink-2);margin:0}
+
+/* -- читать дальше ----------------------------------------------------- */
+.next{margin:66px 0 0;padding-top:34px;border-top:1px solid var(--line)}
+.next-h{font-family:var(--disp);font-size:15px;font-weight:600;color:var(--muted);
+  margin-bottom:20px;letter-spacing:.02em}
+.next-grid{display:grid;gap:18px;grid-template-columns:1fr 1fr}
+.card{display:block;text-decoration:none;color:inherit;border:1px solid var(--line-2);
+  border-radius:var(--r);overflow:hidden;background:var(--surf);
+  transition:transform .25s ease,box-shadow .25s ease}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.card-b{padding:17px 19px 21px}
+.card-t{font-family:var(--disp);font-weight:600;font-size:18px;line-height:1.24;
+  margin-bottom:7px;color:var(--ink)}
+.card-d{font-size:14px;color:var(--muted);line-height:1.5}
+
+/* -- возврат в гид ----------------------------------------------------- */
+.cta{margin:62px 0 0;background:var(--surf);border:1px solid var(--line-2);
+  border-radius:var(--r-lg);padding:clamp(26px,4vw,40px)}
+.cta h2{font-family:var(--disp);font-weight:600;font-size:clamp(21px,3vw,27px);
+  line-height:1.16;margin-bottom:11px;max-width:18ch}
+.cta p{color:var(--ink-2);max-width:520px;margin-bottom:20px}
+.btns{display:flex;flex-wrap:wrap;gap:11px}
+.btn{font-family:var(--sans);font-size:15px;font-weight:500;border-radius:999px;
+  padding:13px 24px;border:1px solid transparent;cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;transition:transform .2s ease}
+.btn-primary{background:var(--ink);color:var(--on-ink)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-2)}
+
+/* -- подвал ------------------------------------------------------------ */
+footer{margin-top:76px;background:var(--foot-bg);color:#C7CAD1;padding:40px 0 46px}
+.foot-in{display:flex;flex-wrap:wrap;gap:18px;align-items:center;
+  justify-content:space-between}
+.foot-brand{display:inline-flex;align-items:center;gap:10px;color:#F2F3F5;
+  font-family:var(--disp);font-weight:600;font-size:15px;text-decoration:none}
+.foot-brand img{width:28px;height:28px}
+.foot-note{font-size:13px;color:#8E939D;max-width:430px}
+footer a{color:#C7CAD1}
+
+/* -- список статей ----------------------------------------------------- */
+.list{padding:34px 0 0}
+/* первая карточка крупная, остальные в два столбца: ряд одинаковых
+   плиток — самая узнаваемая метка сгенерированной страницы */
+.lead-card{display:grid;grid-template-columns:1.05fr .95fr;gap:0;
+  border:1px solid var(--line-2);border-radius:var(--r-lg);overflow:hidden;
+  background:var(--surf);text-decoration:none;color:inherit;margin-bottom:22px;
+  transition:transform .25s ease,box-shadow .25s ease}
+.lead-card img{width:100%;height:100%;min-height:230px;object-fit:cover}
+.lead-card .b{padding:clamp(22px,3vw,34px);display:flex;flex-direction:column;
+  justify-content:center}
+.lead-card .t{font-family:var(--disp);font-weight:600;
+  font-size:clamp(21px,2.7vw,28px);line-height:1.18;margin-bottom:10px}
+.lead-card .d{color:var(--ink-2);font-size:15px;margin-bottom:14px}
+.tag{font-size:12px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--teal-deep);font-weight:600}
+.rest{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+@media(max-width:820px){
+  .next-grid,.rest{grid-template-columns:1fr}
+  .lead-card{grid-template-columns:1fr}
+  .lead-card img{min-height:200px;aspect-ratio:16/9}
+}
+
+/* Ховеры — только там, где есть курсор. На тач-экране :hover залипает
+   после тапа: карточка остаётся «поднятой» до следующего касания. */
+@media(hover:hover) and (pointer:fine){
+  .back:hover .ar{transform:translateX(-3px)}
+  .back:hover{color:var(--teal-deep)}
+  .theme-btn:hover{border-color:var(--teal)}
+  .card:hover,.lead-card:hover{transform:translateY(-3px);box-shadow:var(--sh)}
+  .btn-primary:hover,.btn-ghost:hover{transform:translateY(-2px)}
+  .crumbs a:hover{color:var(--teal-deep)}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;scroll-behavior:auto!important}
+}
