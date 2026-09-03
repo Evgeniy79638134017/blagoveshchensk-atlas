@@ -57,7 +57,9 @@ const rolled = EVENTS.map(e => {
     while (d < lim) d.setFullYear(d.getFullYear() + 1);
   }
   const iso = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
-  return { ...e, iso, past: d < today };
+  const last = new Date(d);
+  if (e.days) last.setDate(last.getDate() + e.days);
+  return { ...e, iso, past: last < today };
 }).filter(e => !e.past);
 
 const nodes = rolled.map(e => {
@@ -80,6 +82,15 @@ const nodes = rolled.map(e => {
     },
     isAccessibleForFree: true
   };
+  /* endDate у многодневных. Без него Google считает событие однодневным и
+     снимает его из выдачи на следующий день после старта. Длительность
+     хранится в днях (`days`), а не абсолютной датой: ежегодные события
+     катятся на следующий год, и абсолютный конец пришлось бы править руками. */
+  if (e.days) {
+    const end = new Date(e.iso + 'T00:00:00');
+    end.setDate(end.getDate() + e.days);
+    n.endDate = end.getFullYear() + '-' + pad(end.getMonth() + 1) + '-' + pad(end.getDate());
+  }
   if (e.img) n.image = SITE + '/assets/photo/' + e.img + '.jpg';
   if (e.link && e.link !== '#') n.url = e.link;
   return n;
