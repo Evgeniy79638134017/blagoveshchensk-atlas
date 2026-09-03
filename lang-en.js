@@ -667,5 +667,8 @@ window.EN = {
   '«Культурный город на набережной»': `"A cultural city on the embankment"`,
   'Городской фестивальный формат, в 2026-м пошёл тринадцатый сезон: по выходным на набережных Амура и Зеи выставки живописи, ярмарки ремёсел, мастер-классы, шахматные турниры и выступления местных коллективов. Вход свободный, идёт с 1 мая до осени.': `A city festival format now in its thirteenth season: on weekends the embankments of the Amur and the Zeya host painting exhibitions, craft fairs, masterclasses, chess tournaments and performances by local groups. Free entry, from 1 May until autumn.`,
   'Набережные Амура и Зеи': `The Amur and Zeya embankments`,
-  'Главное культурное событие города: кинопремьеры, спектакли, творческие вечера и звёзды на набережной. В 2026-м показы идут с 12 по 19 сентября — среди них «ФЕЛЛИНИ. 8½» театра имени Вахтангова 14 и 15 сентября.': `The city’s main cultural event: film premieres, plays, evenings with the cast and stars out on the embankment. In 2026 the screenings run from 12 to 19 September — among them "FELLINI. 8½" by the Vakhtangov Theatre on 14 and 15 September.`
+  'Главное культурное событие города: кинопремьеры, спектакли, творческие вечера и звёзды на набережной. В 2026-м показы идут с 12 по 19 сентября — среди них «ФЕЛЛИНИ. 8½» театра имени Вахтангова 14 и 15 сентября.': `The city’s main cultural event: film premieres, plays, evenings with the cast and stars out on the embankment. In 2026 the screenings run from 12 to 19 September — among them "FELLINI. 8½" by the Vakhtangov Theatre on 14 and 15 September.`,
+  '01 · Причал в Хэйхэ': `01 · Heihe pier`,
+  'Сюда приходят теплоходы из Благовещенска': `This is where the boats from Blagoveshchensk arrive`,
+  'Пассажирский теплоход у причала в китайском Хэйхэ': `A passenger boat at the pier in Heihe, China`
 };
