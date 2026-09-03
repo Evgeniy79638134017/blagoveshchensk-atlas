@@ -673,5 +673,8 @@ window.EN = {
   'Пассажирский теплоход у причала в китайском Хэйхэ': `A passenger boat at the pier in Heihe, China`,
   '02 · Вид с набережной': `02 · The view from the embankment`,
   'Ночью Хэйхэ зажигает иероглифы': `At night Heihe lights up its characters`,
-  'Ночной Хэйхэ с набережной Благовещенска: высотки в красной подсветке отражаются в Амуре': `Heihe at night seen from the Blagoveshchensk embankment: towers in red light reflected in the Amur`
+  'Ночной Хэйхэ с набережной Благовещенска: высотки в красной подсветке отражаются в Амуре': `Heihe at night seen from the Blagoveshchensk embankment: towers in red light reflected in the Amur`,
+  '05 · Торговый дом Чурина': `05 · The Churin trading house`,
+  'Лучший магазин Восточной Сибири': `The finest store in Eastern Siberia`,
+  'Торговый дом «И. Я. Чурин и Ко» в Благовещенске: жёлто-белый фасад с куполом и скульптурами': `The «I. Ya. Churin and Co» trading house in Blagoveshchensk: a yellow-and-white facade with a dome and sculptures`
 };

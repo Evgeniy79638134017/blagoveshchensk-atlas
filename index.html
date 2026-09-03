@@ -1559,12 +1559,15 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
 
 /* СТАТЬИ. Карточки нарочно разного размера: ряд одинаковых плиток —
    первое, по чему страницу опознают как собранную по шаблону. */
-.arts-grid{display:grid;gap:18px;grid-template-columns:1.25fr 1fr;margin-top:26px}
+.arts-grid{display:grid;gap:18px;grid-template-columns:repeat(3,1fr);margin-top:26px}
 .art{display:block;text-decoration:none;color:inherit;background:var(--surf);
   border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;
   transition:transform .25s ease,box-shadow .25s ease}
-.art:first-child{grid-row:span 2}
-.art:first-child img{aspect-ratio:4/3}
+.art-lead{grid-column:1/-1;display:grid;grid-template-columns:1.05fr .95fr;gap:0}
+.art-lead img{height:100%;min-height:230px;aspect-ratio:auto}
+.art-lead .art-b{display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(22px,3vw,34px)}
+.art-lead .art-t{font-size:clamp(21px,2.6vw,27px)}
 .art img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block}
 .art-b{padding:18px 20px 22px}
 .art-e{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
@@ -1575,11 +1578,12 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
 .art-d{font-size:14.5px;color:var(--muted);line-height:1.5}
 .arts-all{display:inline-block;margin-top:22px;font-weight:500;color:var(--teal-deep);
   text-decoration:none}
+@media(max-width:900px){.arts-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:820px){
   .arts-grid{grid-template-columns:1fr}
-  .art:first-child{grid-row:auto}
-  .art:first-child img{aspect-ratio:16/9}
-  .art:first-child .art-t{font-size:21px}
+  .art-lead{grid-template-columns:1fr}
+  .art-lead img{min-height:200px;aspect-ratio:16/9;height:auto}
+  .art-lead .art-t{font-size:21px}
 }
 @media(hover:hover) and (pointer:fine){
   .art:hover{transform:translateY(-3px);box-shadow:var(--sh)}
@@ -2224,10 +2228,10 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M2 16h20M4 16v-3M20 16v-3M8 16c0-3 8-3 8 0"/></svg></div>
         <div class="gal-body"><span class="gal-cap">04 · Мост через Амур</span><div class="gal-h">Первый автомост в Китай, стройка 2019-го</div></div>
       </div>
-      <div class="gal" role="button" tabindex="0" title="Фото: Artyom Svetlov · CC BY 4.0 · Wikimedia Commons" data-credit="Фото: Artyom Svetlov · CC BY 4.0 · Wikimedia Commons">
-        <img src="assets/photo/gal-centr.jpg" alt="Центр города" width="900" height="596" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      <div class="gal" role="button" tabindex="0" title="Фото: Евгений Ищенко" data-credit="Фото: Евгений Ищенко">
+        <img src="assets/photo/kupechesky-dom-kupol.jpg" alt="Торговый дом «И. Я. Чурин и Ко» в Благовещенске: жёлто-белый фасад с куполом и скульптурами" width="900" height="601" loading="lazy" decoding="async" onerror="this.style.display='none'">
         <div class="gal-fb"><svg viewBox="0 0 24 24" fill="none" stroke-width="0.8"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7"/></svg></div>
-        <div class="gal-body"><span class="gal-cap">05 · Центр города</span><div class="gal-h">Купеческий Благовещенск</div></div>
+        <div class="gal-body"><span class="gal-cap">05 · Торговый дом Чурина</span><div class="gal-h">Лучший магазин Восточной Сибири</div></div>
       </div>
       <div class="gal" role="button" tabindex="0" title="Фото: H. Zell · CC BY-SA 3.0 · Wikimedia Commons" data-credit="Фото: H. Zell · CC BY-SA 3.0 · Wikimedia Commons">
         <img src="assets/photo/gal-lotos.jpg" alt="Лотосы Комарова" width="675" height="900" loading="lazy" decoding="async" onerror="this.style.display='none'">
@@ -2322,7 +2326,7 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
     <p class="section-lead">То, что не помещается в карточку на карте: маршруты целиком, расчёты и расписания. Цены и даты сверены с источниками — они названы прямо в тексте.</p>
     <div class="arts-grid">
 <!-- STATI:START -->
-      <a class="art" href="/stati/blagoveshchensk-za-odin-den/">
+      <a class="art art-lead" href="/stati/blagoveshchensk-za-odin-den/">
         <img src="assets/photo/pamyatnik-muravyovu.jpg" alt="Памятник Муравьёву-Амурскому в Благовещенске летом, вокруг цветники и старинные кирпичные здания" width="960" height="640" loading="lazy" decoding="async">
         <div class="art-b">
           <span class="art-e">Маршрут</span>
@@ -2344,6 +2348,14 @@ html[data-theme="dark"] .coop-status.err{color:#F09A6B}
           <span class="art-e">Практика</span>
           <div class="art-t">Как съездить в Хэйхэ из&nbsp;Благовещенска</div>
           <div class="art-d">Виза не нужна, а вот загранпаспорт нужен. Переправы, цены, расписание и слабое место всего плана — обратная дорога.</div>
+        </div>
+      </a>
+      <a class="art" href="/stati/starinnye-zdaniya-blagoveshchenska/">
+        <img src="assets/photo/kupechesky-dom-kupol.jpg" alt="Торговый дом «И. Я. Чурин и Ко» в Благовещенске летом: жёлто-белый фасад с куполом и скульптурами на кровле" width="900" height="601" loading="lazy" decoding="async">
+        <div class="art-b">
+          <span class="art-e">История</span>
+          <div class="art-t">Старинные здания Благовещенска: тогда и&nbsp;сейчас</div>
+          <div class="art-d">Одиннадцать зданий центра — архивный кадр и тот же ракурс сегодня. С адресами, историями владельцев и тем, что внутри теперь.</div>
         </div>
       </a>
 <!-- STATI:END -->

@@ -450,9 +450,11 @@ const a1 = home.indexOf(START), a2 = home.indexOf(END);
 if (a1 < 0 || a2 < 0) {
   console.log('⚠️  в index.html нет меток STATI — раздел на главной не обновлён');
 } else {
-  const cards = all.slice(0, 3).map(a => {
+  const cards = all.map((a, i) => {
     const { w, h } = jpegSize(photoPath(a.cover));
-    return `      <a class="art" href="/stati/${a.slug}/">
+    /* первая карточка — во всю ширину и горизонтальная: ряд одинаковых
+       плиток фильтр считает меткой шаблонной страницы */
+    return `      <a class="art${i === 0 ? ' art-lead' : ''}" href="/stati/${a.slug}/">
         <img src="assets/photo/${a.cover}.jpg" alt="${esc(a.coverAlt)}" width="${w}" height="${h}" loading="lazy" decoding="async">
         <div class="art-b">
           <span class="art-e">${a.eyebrow || 'Статья'}</span>
@@ -463,7 +465,7 @@ if (a1 < 0 || a2 < 0) {
   }).join('\n');
   home = home.slice(0, a1 + START.length) + '\n' + cards + '\n' + home.slice(a2);
   fs.writeFileSync(HOME, home, 'utf8');
-  console.log(`index.html: раздел «Разборы» обновлён, карточек ${Math.min(3, all.length)}`);
+  console.log(`index.html: раздел «Разборы» обновлён, карточек ${all.length}`);
   console.log('не забыть: node build/build-lang.js — иначе языковые версии отстанут');
 }
 console.log('sitemap.xml: адресов ' + buildSitemap(new Date().toISOString().slice(0, 10)));
