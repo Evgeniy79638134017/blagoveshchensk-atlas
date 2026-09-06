@@ -4,7 +4,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
       <loc>https://visitblg.ru/</loc>
-      <lastmod>2026-09-03</lastmod>
+      <lastmod>2026-09-06</lastmod>
       <changefreq>weekly</changefreq>
       <priority>1.0</priority>
       <xhtml:link rel="alternate" hreflang="ru" href="https://visitblg.ru/"/>
@@ -26,7 +26,7 @@
     </url>
     <url>
       <loc>https://visitblg.ru/en/</loc>
-      <lastmod>2026-09-03</lastmod>
+      <lastmod>2026-09-06</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
       <xhtml:link rel="alternate" hreflang="ru" href="https://visitblg.ru/"/>
@@ -36,7 +36,7 @@
     </url>
     <url>
       <loc>https://visitblg.ru/cn/</loc>
-      <lastmod>2026-09-03</lastmod>
+      <lastmod>2026-09-06</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
       <xhtml:link rel="alternate" hreflang="ru" href="https://visitblg.ru/"/>
@@ -46,9 +46,19 @@
     </url>
     <url>
       <loc>https://visitblg.ru/stati/</loc>
-      <lastmod>2026-09-03</lastmod>
+      <lastmod>2026-09-06</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.7</priority>
+    </url>
+    <url>
+      <loc>https://visitblg.ru/stati/dinozavry-v-blagoveshchenske/</loc>
+      <lastmod>2026-09-06</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+      <image:image>
+        <image:loc>https://visitblg.ru/assets/photo/muzey-dinozavrov.jpg</image:loc>
+        <image:title>Модель гадрозавра в натуральную величину в интерактивном музее динозавров на площади Ленина в Благовещенске</image:title>
+      </image:image>
     </url>
     <url>
       <loc>https://visitblg.ru/stati/blagoveshchensk-za-odin-den/</loc>
@@ -58,16 +68,6 @@
       <image:image>
         <image:loc>https://visitblg.ru/assets/photo/pamyatnik-muravyovu.jpg</image:loc>
         <image:title>Памятник Муравьёву-Амурскому в Благовещенске летом, вокруг цветники и старинные кирпичные здания</image:title>
-      </image:image>
-    </url>
-    <url>
-      <loc>https://visitblg.ru/stati/dinozavry-v-blagoveshchenske/</loc>
-      <lastmod>2026-09-03</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.7</priority>
-      <image:image>
-        <image:loc>https://visitblg.ru/assets/photo/muzey-dinozavrov.jpg</image:loc>
-        <image:title>Модель гадрозавра в натуральную величину в интерактивном музее динозавров на площади Ленина в Благовещенске</image:title>
       </image:image>
     </url>
     <url>
