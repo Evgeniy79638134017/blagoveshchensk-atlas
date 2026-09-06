@@ -68,9 +68,26 @@ function post(body) {
 (async () => {
   const key = findKey();
   const args = process.argv.slice(2);
-  const urls = args.length
+  const raw = args.length
     ? args.map(u => (u.startsWith('http') ? u : SITE + (u.startsWith('/') ? u : '/' + u)))
     : urlsFromSitemap();
+
+  /* ⚠️ Git Bash под Windows превращает аргумент «/stati/x/» в путь вида
+     «C:/Program Files/Git/stati/x/» — и адреса уходят исковерканными.
+     Поймано 03.09.2026: сервер ответил 200, но принял мусор. Поэтому здесь
+     фильтр: наружу идут только адреса нашего домена. Передавать аргументы
+     лучше полностью, с https://, тогда подмены не происходит вовсе. */
+  const urls = raw.filter(u => u.startsWith(SITE + '/') || u === SITE);
+  const dropped = raw.filter(u => !urls.includes(u));
+  if (dropped.length) {
+    console.log('отброшено как чужое или искажённое:');
+    dropped.forEach(u => console.log('   ' + u));
+  }
+  if (!urls.length) {
+    console.log('\nни одного годного адреса — ничего не отправлено');
+    console.log('передавай аргументы полностью: node build/indexnow.js https://visitblg.ru/stati/x/');
+    process.exit(1);
+  }
 
   console.log('ключ: ' + key);
   console.log('адресов: ' + urls.length);
